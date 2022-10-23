@@ -1,9 +1,9 @@
 # Sequence Diagrams
 ## embedded
-* Pi4 (Microcomputer) = Raspberry Pi 4
-* Shows interface between Pi4 & mongoDB
-* Connect STATE of Pi4 to mongoDB (CRUD - UPDATE)
-* Brightness/color STATE of Pi4 to mongoDB (CRUD - UPDATE)
+* MCU (Microcontroller) = Arduino Uno wifi rev.2
+* Shows interface between MCU & mongoDB
+* Connect STATE of MCU to mongoDB (CRUD - UPDATE)
+* Brightness/color STATE of MCU to mongoDB (CRUD - UPDATE)
 ## web_app
 * MERN
 * User requests change to brightness/color through web browser

@@ -1,14 +1,14 @@
 ```mermaid
 sequenceDiagram
-    Note left of Pi4: Pi4 connected <br>to mongoDB (Wifi)
-    participant Pi4
+    Note left of MCU: MCU connected <br>to mongoDB (Wifi)
+    participant MCU
     participant mongoDB
     loop connected state
-        Pi4 -->>mongoDB: connected STATE 
+        MCU -->>mongoDB: connected STATE 
     end
-    mongoDB->>Pi4: brightness/color REQUEST
+    mongoDB->>MCU: brightness/color REQUEST
     loop brightness/color state
-        Pi4 -->>Pi4: brightness/color STATE
-        Pi4 -->>mongoDB: brightness/color STATE
+        MCU -->>MCU: brightness/color STATE
+        MCU -->>mongoDB: brightness/color STATE
     end
 ```
