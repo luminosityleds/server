@@ -11,7 +11,7 @@ sequenceDiagram
     reactJS->>expressJS: brightness/color REQUEST
     expressJS->>mongoDB: CREATE brightness/color
     nodeJS->>mongoDB: CREATE brightness/color
-    Note left of mongoDB: Brightness/Color <br> MCU State
+    Note left of mongoDB: Brightness/Color <br> Pi4 State
     loop brightness/color state
         mongoDB-->>nodeJS: READ brightness/color
         mongoDB-->>expressJS: READ brightness/color
