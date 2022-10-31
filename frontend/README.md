@@ -2,6 +2,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Troubleshooting
+
+If you get a 'react-scripts' is not recognized an internal or external command, operable program or batch file, then run:
+1. `cd frontend`
+2. `npm install react-scripts --save`
+3. `npm start`
+
+This should then start the React app successfully
+
 ## Available Scripts
 
 In the project directory, you can run:
