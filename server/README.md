@@ -23,3 +23,5 @@ Now, your computer works as a server!
 If anyone tries to access your computer on port 8080, they will get a "Hello World!" message in return!
 
 Start your internet browser, and type in the address: http://localhost:8080
+
+You can exit out of the script running by pressing `Ctrl + C`
