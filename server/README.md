@@ -15,7 +15,8 @@ C:\Users\Your Name>_
 Initiate the Node.js File
 The file you have just created must be initiated by Node.js before any action can take place.
 
-Start your command line interface, write `node helloWorld.js` and hit enter:
+1. Make sure you are at the root of this directory
+2. Start your command line interface, write `node helloWorld.js` and hit enter:
 
 Now, your computer works as a server!
 
