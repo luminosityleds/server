@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Troubleshooting
 
 If you get a 'react-scripts' is not recognized an internal or external command, operable program or batch file, then run:
-1. `cd frontend`
+1. `cd client`
 2. `npm install react-scripts --save`
 3. `npm start`
 
