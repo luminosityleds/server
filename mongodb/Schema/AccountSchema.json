@@ -3,7 +3,8 @@
     "required": [
        "_id",
        "username",
-       "password"
+       "password",
+       "devices"
     ],
     "properties": {
       "_id": { "bsonType": "objectId" },
