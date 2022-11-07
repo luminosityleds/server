@@ -12,9 +12,9 @@ Within **accounts** there are the following fields:
     <dd>A password for the account credentials. Needed for login authentication purposes.</dd>
 <br>
 <dt><b>devices : Array</b></dt>
-    <dd>An array of devices registered to an account. Stores unique device object IDs to reference from the mongo collection of devices.</dd>
+    <dd>An array of devices registered to an account. Stores unique device object IDs to reference from the mongo collection of devices.  A user </dd>
 <br>
-* id, username, and password are required fields while the array devices may be empty.
+* id, username, password, and devices are required fields.  The <i>devices</i> array may be empty.
 
 <br>
 <hr>
