@@ -6,7 +6,7 @@ on:
    branches: "master"
   pull_request:
    branches: "master"
- # Workflow can be ran manually from the Actions tab
+ # Workflow can be triggered manually from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pylint
-    # No specified score threshold to pass test, test will likely fail as default is 10
+    # Default score to pass is 10, 0 on fatal error
     - name: Run Pylint
       run: |
        pylint $(git ls-files '*.py')
