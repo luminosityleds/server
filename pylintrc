@@ -1,4 +1,4 @@
-[MAIN]
+[MASTER]
 
 # Specify a score threshold under which the program will exit with error.
 fail-under=10.0
