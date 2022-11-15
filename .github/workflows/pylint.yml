@@ -3,14 +3,14 @@ name: Lint Python Code with Pylint
 # Runs on push and pull requests to the master branch only
 on:
   push:
-   branches: "master"
+   branches: "**"
   pull_request:
    branches: "master"
  # Workflow can be triggered manually from the Actions tab
   workflow_dispatch:
 
 jobs:
-  build:
+  lint-python-code:
     runs-on: ubuntu-latest
     strategy:
       matrix:
