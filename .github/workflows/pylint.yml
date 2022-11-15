@@ -1,6 +1,6 @@
 name: Lint Python Code with Pylint
 
-# Runs on push and pull requests to the master branch only
+# Runs on push to any branch or PRs to the master branch
 on:
   push:
    branches: "**"
