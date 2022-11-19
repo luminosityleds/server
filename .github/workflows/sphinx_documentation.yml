@@ -36,8 +36,5 @@ jobs:
           pip3 install -r ${{ github.workspace }}/controller/requirements.txt
 
       # Runs sphinx documentation
-      - name: Run a multi-line script
-        run: |
-          pwd
-          cd ${{ github.workspace }},
-          sphinx-build -b html controller/docs/source/ controller/docs/build/html 
+      - name: Run sphinx documentation
+        run: sphinx-build -b html controller/docs/source/ controller/docs/build/html 
