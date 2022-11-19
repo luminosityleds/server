@@ -41,5 +41,5 @@ jobs:
       - name: Archive sphinx documentation
         uses: actions/upload-artifact@v3
         with:
-          name: index.html
+          name: html
           path: controller/docs/build/html/
