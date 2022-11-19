@@ -21,7 +21,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.  Fetches most recent commit for all branches and tags
+      # Checks-out your repository under ${{ github.workspace }}, so your job can access it.  Fetches most recent commit for all branches and tags
       - uses: actions/checkout@v3
         with: 
           fetch-depth: 0
@@ -33,10 +33,10 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip3 install -r ${{ GITHUB_WORKSPACE }}/controller/requirements.txt
+          pip3 install -r ${{ github.workspace }}/controller/requirements.txt
 
       # Runs sphinx documentation
       - name: Run a multi-line script
         run: |
-          cd ${{ GITHUB_WORKSPACE }}/controller,
+          cd ${{ github.workspace }}/controller,
           sphinx-build -b html docs/source/ docs/build/html 
