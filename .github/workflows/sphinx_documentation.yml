@@ -38,5 +38,5 @@ jobs:
       # Runs sphinx documentation
       - name: Run a multi-line script
         run: |
-          cd ${{ github.workspace }}/controller,
+          cd controller,
           sphinx-build -b html docs/source/ docs/build/html 
