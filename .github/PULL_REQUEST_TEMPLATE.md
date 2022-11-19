@@ -20,9 +20,10 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] Test A
 - [ ] Test B
 
-# Checklist:
+# Checklist (when relevant):
 
 - [ ] My code follows the style guidelines of this project
+- [ ] I have included a reviewer on the pull request
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation
