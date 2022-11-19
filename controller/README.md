@@ -19,3 +19,15 @@ To print a string in Python 3, just write:
 The terminal should print 
 `"Hello World!"`
 
+### Creating a virtual environment
+Virtual environments create isolated Python environments.  It allows you to install the necessary packages into the environment to be used exclusively by that virtual environment.
+
+### Steps to create a virtual environment
+1. Make sure you have python installed by `typing python`.
+Note: If you get an error while installing typing in python, follow the instructions to install python found here: https://luminosity-led.atlassian.net/wiki/spaces/LL/pages/262146/Setup+Dev+Environment
+2. `cd controller`
+3. Create the virtual environment with `python -m venv .venv`
+4. Activate the virtual environment with `source .venv/Scripts/activate`
+5. Install the python modules in the requirements.txt with `pip install -r requirements.txt`.
+6. You have setup your virtual environment and installed python modules into it.
+7. Deactivate the virtual environment with `deactivate`.
