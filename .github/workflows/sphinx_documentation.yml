@@ -36,5 +36,10 @@ jobs:
           pip3 install -r ${{ github.workspace }}/controller/requirements.txt
 
       # Runs sphinx documentation
-      - name: Run sphinx documentation
+      - name: Build sphinx documentation
         run: sphinx-build -b html controller/docs/source/ controller/docs/build/html 
+      - name: Archive sphinx documentation
+        uses: actions/upload-artifacts@v3
+        with:
+          name: index.html
+          path: controller/docs/build/html/index.html
