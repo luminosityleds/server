@@ -26,17 +26,17 @@ jobs:
         with: 
           fetch-depth: 0
 
-      # Setup python 3.10 on runner
+      # Setup python 3.10 on runner and install all dependencies
       - uses: actions/setup-python@v4
         with: 
           python-version: '3.10'
-          - name: Install dependencies
-            run: |
-              python3 -m pip install --upgrade pip
-              pip3 install -r ${{ GITHUB_WORKSPACE }}/controller/requirements.txt
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install -r ${{ GITHUB_WORKSPACE }}/controller/requirements.txt
 
-          # Runs sphinx documentation
-          - name: Run a multi-line script
-            run: |
-              cd ${{ GITHUB_WORKSPACE }}/controller,
-              sphinx-build -b html docs/source/ docs/build/html 
+      # Runs sphinx documentation
+      - name: Run a multi-line script
+        run: |
+          cd ${{ GITHUB_WORKSPACE }}/controller,
+          sphinx-build -b html docs/source/ docs/build/html 
