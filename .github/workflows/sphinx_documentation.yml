@@ -30,23 +30,30 @@ jobs:
       - uses: actions/setup-python@v4
         with: 
           python-version: '3.10'
+
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
           pip3 install -r ${{ github.workspace }}/controller/requirements.txt
+      
+      - name: Make the sphinx documentation
+        run: |
+          make -C docs clean
+          make -C docs html
+      
+      - name: Initialize a new repo and commit generated files
+        run: |
+          cd docs/build/html
+          git init
+          touch .nojekyll
+          git add --all
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m 'deploy'
 
-      # Runs sphinx documentation
-      - name: Build Sphinx documentation
-        run: sphinx-build -b html controller/docs/source/ controller/docs/build/html 
-      - name: Archive sphinx documentation
-        uses: actions/upload-artifact@v3
-        with:
-          name: html
-          path: controller/docs/build/html/
-      - name: Deploy Sphinx documentation
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          publish_branch: gh-pages
-          publish_dir: controller/docs/build/html
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          force_orphan: true
+      - name: Push to destination branch
+        uses: ad-m/github-push-action@v0.5.0
+        with: 
+          github_token : ${{ secrets.GITHUB_TOKEN}}
+          branch: gh-pages
+          directory: ./docs/build/html 
