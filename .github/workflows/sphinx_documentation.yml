@@ -42,7 +42,7 @@ jobs:
         run: sphinx-build -b html controller/docs/source/ controller/docs/build/html
       
       # Initialize a repo and commmit the changes
-      - name: Initialize a new repo and commit generated files
+      - name: Initialize a new repo, commit generated files, and push the changes
         run: |
           cd controller/docs/build/html
           git init
@@ -52,7 +52,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git commit -m 'deploy'
           git config --global --add safe.directory /github/workspace/controller/docs/build/html
-          git push gh-pages
+          git push origin gh-pages
 
       # # Push those changes to a branch to be shown with gh-pages
       # - name: Push to destination branch
