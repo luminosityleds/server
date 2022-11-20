@@ -29,6 +29,9 @@ Within **devices** there are the following fields:
 <dt><b>powered : Bool</b></dt>
     <dd>A true/false status for determining whether or not a device has power and is ready for use with the site.</dd>
 <br>
+<dt><b>powered_timestamp : Date</b></dt>
+    <dd>A 64-bit integer date object for timestamping when the powered boolean is updated.</dd>
+<br>
 <dt><b>connected : Bool</b></dt>
     <dd>A true/false status for determining whether or not a device is connected and ready for use with the site.</dd>
 <br>
