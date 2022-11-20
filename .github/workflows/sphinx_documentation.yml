@@ -36,10 +36,17 @@ jobs:
           pip3 install -r ${{ github.workspace }}/controller/requirements.txt
 
       # Runs sphinx documentation
-      - name: Build sphinx documentation
+      - name: Build Sphinx documentation
         run: sphinx-build -b html controller/docs/source/ controller/docs/build/html 
       - name: Archive sphinx documentation
         uses: actions/upload-artifact@v3
         with:
           name: html
           path: controller/docs/build/html/
+      - name: Deploy Sphinx documentation
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages
+          publish_dir: controller/docs/build/html
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force_orphan: true
