@@ -26,6 +26,9 @@ Within **devices** there are the following fields:
 <dt><b>_id : ObjectID</b></dt>
     <dd>A unique object identifier added to have a primary key for devices.</dd>
 <br>
+<dt><b>powered : Bool</b></dt>
+    <dd>A true/false status for determining whether or not a device has power and is ready for use with the site.</dd>
+<br>
 <dt><b>connected : Bool</b></dt>
     <dd>A true/false status for determining whether or not a device is connected and ready for use with the site.</dd>
 <br>
