@@ -138,3 +138,71 @@ use('Luminosity');
 //    brightness: 44
 // } )
 //FAIL - connected is not a boolean
+
+
+
+//-----------------Change Validator----------------
+
+// db.runCommand( { collMod: "Devices",
+//     validator: {
+//         $jsonSchema: {
+//             bsonType: "object",
+//             title: "Devices",
+//             required: [ "_id","powered", "powered_timestamp", "connected", "color", "brightness" ],
+//             properties: {
+//                 _id: {
+//                     bsonType: "objectId",
+//                 },
+//                 powered:{
+//                     bsonType: "bool"
+//                 },
+//                 powered_timestamp:{
+//                     bsonType: "date"
+//                 },
+//                 connected: {
+//                     bsonType: "bool",
+//                 },
+//                 color: {
+//                     bsonType: "string",
+//                     pattern: "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+//                     minLength: 4,
+//                     maxLength: 7,
+//                 },
+//                 brightness: {
+//                     bsonType: "int",
+//                     minimum: 0,
+//                     maximum: 100,
+//                     exclusiveMaximum: false
+//                 }
+//             }
+//       }
+//    }
+// } )
+
+// db.runCommand(
+//     {
+//     delete: "Devices",
+//     deletes: [{q: {_id: ObjectId("6360f5b9c2d6669035c3ad31")}, limit: 1}]
+//     }
+// )
+
+// db.Devices.insertOne( {
+//    _id: ObjectId('6360f5b9c2d6669035c3ad31'),
+//    powered: true,
+//    powered_timestamp: new Date(),
+//    connected: true,
+//    color: "#ffffff",
+//    brightness: 42
+// } )
+//PASS
+
+
+// db.Devices.insertOne( {
+//    _id: ObjectId('6360f5b9c2d6669035c3ad32'),
+//    powered: true,
+//    powered_timestamp: Date(),
+//    connected: true,
+//    color: "#ffffff",
+//    brightness: 42
+// } )
+//FAIL - powered_timestamp is a string
