@@ -1,4 +1,4 @@
-name: Lint Python Code with Pylint
+name: Pylint
 
 # Runs on push to any branch or PRs to the master branch
 on:
@@ -13,16 +13,13 @@ on:
 jobs:
   lint-python-code:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: '3.10'
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python
       uses: actions/setup-python@v3
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: '3.10'
     # Install package manager and pylint
     - name: Install dependencies
       run: |
