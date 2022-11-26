@@ -1,7 +1,7 @@
-import express, {Request, Response} from 'express'; 
+const express = require('express')
 const app = express()
 
-app.get('/',(req: Request, res: Response): void => {
+app.get('/',(req, res) => {
     console.log('Here')
     res.status(500).send('luminosity-led Node Server')
 })

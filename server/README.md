@@ -25,15 +25,3 @@ If anyone tries to access your computer on port 8080, they will get a "Hello Wor
 Start your internet browser, and type in the address: http://localhost:8080
 
 You can exit out of the script running by pressing `Ctrl + C`
-
-## Getting Started with TypeScript
-<b>Run all commands as an admin in the root of the server directory</b>
-
-1. Download typescript globally `npm install -g typescript`
-2. `npm install`
-3. For Development ( all TS files in `./src` ): `npm run devStart`
-4. For Build ( all JS files in `./build` ): `npm run build`
-5. For Production ( all JS files in `./build` ): `npm run start`
-6. `package.json` are where the scripts are configured
-7. `tsconfig.json` defines that the built JS code populates in `./build` and that the source directroy is `./src` 
- 
