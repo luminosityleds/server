@@ -3,6 +3,7 @@ name: Lint Python Code with Pylint
 # Runs on push to any branch or PRs to the master branch
 on:
   push:
+  # ** means all branches and tags
    branches: "**"
   pull_request:
    branches: "master"
@@ -16,6 +17,7 @@ jobs:
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
     steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
@@ -29,4 +31,4 @@ jobs:
     # Default score to pass is 10, 0 on fatal error
     - name: Run Pylint
       run: |
-       pylint $(git ls-files '*.py')
+       pylint --rcfile=./controller $(git ls-files '*.py')
