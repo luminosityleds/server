@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: '3.10'
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v3
@@ -31,4 +31,4 @@ jobs:
     # Default score to pass is 10, 0 on fatal error
     - name: Run Pylint
       run: |
-       pylint --rcfile=./controller $(git ls-files '*.py')
+       pylint --rcfile=./controller/pylintrc $(git ls-files '*.py')
