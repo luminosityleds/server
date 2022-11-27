@@ -1,0 +1,31 @@
+name: Pylint
+
+# Runs on push to any branch or PRs to the master branch
+on:
+  push:
+  # ** means all branches and tags
+   branches: "**"
+  pull_request:
+   branches: "master"
+ # Workflow can be triggered manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  lint-python-code:
+    runs-on: ubuntu-latest
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    # Install package manager and pylint
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint
+    # Default score to pass is 10, 0 on fatal error
+    - name: Run Pylint
+      run: |
+       pylint --rcfile=./controller/pylintrc $(git ls-files '*.py')
