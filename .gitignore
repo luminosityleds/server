@@ -1,2 +1,5 @@
-# Ignore Macos desktop services files
+# Ignore macos desktop services files
 .DS_Store
+
+# Ignore Pico-W-o stub directory, which is specific to contributer's dev env
+Pico-W-Stub
