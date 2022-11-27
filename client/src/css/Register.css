@@ -9,7 +9,7 @@
     src: null;
 }
 
-.login-cover {
+.register-cover {
     background-color: lightblue;
     height: 15em;
     width: 15em;
@@ -21,7 +21,6 @@
     align-items: center;
     justify-content: space-around;
     float: left;
-    margin-right: 40px;
 }
 
 input {
@@ -38,7 +37,7 @@ input:focus {
     outline-color: black
 }
 
-.login-btn {
+.sign-up-btn {
     height: 2em;
     width: 35%;
     background-color: lightskyblue;
@@ -48,17 +47,16 @@ input:focus {
     border-radius: 0.5em;
 }
 
-.login-btn:hover { transform: scale(1.15);}
+.sign-up-btn:hover { transform: scale(1.15);}
 
-.forgot-pwd-btn {
+.spacer {
     height: 0.125em;
     width: 15em;
-    color: black;
+    color: lightblue;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 0.125em;
     font-size: small;
+    user-select: none;
 }
-
-.forgot-pwd-btn:hover { transform: scale(1.15);}

@@ -5,7 +5,7 @@ import {Users} from "../Interfaces"
 
 export const Login: FC<Users> = (props: Users) => {
   return (
-    <div className="cover">
+    <div className="login-cover">
         <h1>Login</h1>
         <input type="username" placeholder="username" />
         <input type="password" placeholder="password" />
