@@ -20,3 +20,27 @@
     background-position: top;
     background-color: whitesmoke;
 }
+
+.login-btn {
+    height: 2em;
+    width: 35%;
+    background-color: lightskyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5em;
+}
+
+.login-btn:hover { transform: scale(1.15);}
+
+.sign-up-btn {
+    height: 2em;
+    width: 35%;
+    background-color: lightskyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5em;
+}
+
+.sign-up-btn:hover { transform: scale(1.15);}
