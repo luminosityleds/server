@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import "../css/Register.css"
 import {Users} from "../Interfaces"
 

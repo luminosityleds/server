@@ -1,4 +1,4 @@
-import {FC, ChangeEvent, useState} from 'react';
+import React, {FC, ChangeEvent, useState} from 'react';
 import { Users } from "../Interfaces"
 
 export const Account: FC<Users> = (props: Users) => {
