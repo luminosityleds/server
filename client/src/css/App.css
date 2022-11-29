@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS';
+}
+
+@font-face {
+    font-family: 'Trebuchet MS';
+    src: null;
+}
+
+.App {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../imgs/luminosity-led-logo.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    background-color: whitesmoke;
+}
+
+.login-btn {
+    height: 2em;
+    width: 35%;
+    background-color: lightskyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5em;
+}
+
+.login-btn:hover { transform: scale(1.15);}
+
+.sign-up-btn {
+    height: 2em;
+    width: 35%;
+    background-color: lightskyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5em;
+}
+
+.sign-up-btn:hover { transform: scale(1.15);}
