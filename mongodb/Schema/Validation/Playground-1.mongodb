@@ -1,0 +1,208 @@
+// MongoDB Playground
+// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// Select the database to use.
+use('Luminosity');
+
+//---------------ACCOUNTS----------------
+// db.createCollection("Accounts", {
+//    validator: {
+//       $jsonSchema: {
+//          bsonType: "object",
+//          title: "Accounts",
+//          required: [ "_id", "username", "password", "devices" ],
+//          properties: {
+//             _id: {
+//                bsonType: "objectId",
+//             },
+//             username: {
+//                bsonType: "string",
+//             },
+//             password: {
+//                bsonType: "string",
+//             },
+//             devices: {
+//                bsonType: [ "array" ],
+//                uniqueItems: true,
+//                items:{
+//                   bsonType: "objectId",
+//                   additionalProperties: false
+//                }
+//             }
+//          }
+//       }
+//    }
+// } )
+
+// db.Accounts.insertOne( {
+//    _id: ObjectId('6360f5b9c2da459f35c3ad31'),
+//    username: "Xoikz",
+//    password: "1800helpme",
+//    devices:[]
+// } )
+//PASS
+
+// db.Accounts.insertOne( {
+//    _id: ObjectId('6360f5b9c2da459035c3ad31'),
+//    username: "X34kz",
+//    password: "deerlord",
+//    devices:[ObjectId('6360f5b9c2da454f35c3ad31'), ObjectId('636345b9c2da454f35c3ad31')]
+// } )
+//PASS
+
+//Test Query
+//db.Accounts.find({_id: ObjectId("6360f5b9c2da459035c3ad31")})
+
+// db.Accounts.insertOne( {
+//    _id: ObjectId('6360f5b9c2da779035c3ad31'),
+//    username: "1222",
+//    password: "deerlord",
+//    devices:[ObjectId('6360f5b9c2d9994f35c3ad31'), ObjectId('6360f5b9c2d9994f35c3ad31')]
+// } )
+//FAIL - identical entries in devices[]
+
+// db.Accounts.insertOne( {
+//    _id: ObjectId('6360f5b9c2da779035c3ad31'),
+//    username: "1222",
+//    password: "deerlord",
+//    devices:["anystring?", "yesorno"]
+// } )
+//FAIL - devices does not contain objectIds
+
+
+
+
+//-----------------DEVICES----------------
+
+
+// db.createCollection("Devices", {
+//    validator: {
+//       $jsonSchema: {
+//          bsonType: "object",
+//          title: "Devices",
+//          required: [ "_id", "connected", "color", "brightness" ],
+//          properties: {
+//             _id: {
+//                bsonType: "objectId",
+//             },
+//             connected: {
+//                bsonType: "bool",
+//             },
+//             color: {
+//                bsonType: "string",
+//                pattern: "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+//                minLength: 4,
+//                maxLength: 7,
+//             },
+//             brightness: {
+//                bsonType: "int",
+//                minimum: 0,
+//                maximum: 100,
+//                exclusiveMaximum: false
+//             }
+//          }
+//       }
+//    }
+// } )
+
+// db.Devices.insertOne( {
+//    _id: ObjectId('6360f5b9c2d6669035c3ad31'),
+//    connected: true,
+//    color: "#ffffff",
+//    brightness: 42
+// } )
+//PASS
+
+// db.Devices.insertOne( {
+//    _id: ObjectId('6363y5b9c2d6669035c3ad31'),
+//    connected: true,
+//    color: "#ff939",
+//    brightness: 43
+// } )
+//FAIL - does not meet regex requirements for a valid hex color string
+
+// db.Devices.insertOne( {
+//    _id: ObjectId('636335b9c2d6669035c3ad31'),
+//    connected: true,
+//    color: "#ffffff3",
+//    brightness: 42
+// } )
+//FAIL - color length is not between 4 and 7 characters and does not meet the regex for a valid hex color string
+
+// db.Devices.insertOne( {
+//    _id: ObjectId('636335b9c2d66690p5c3ad31'),
+//    connected: "true",
+//    color: "#ff9339",
+//    brightness: 44
+// } )
+//FAIL - connected is not a boolean
+
+
+
+//-----------------Change Validator----------------
+
+// db.runCommand( { collMod: "Devices",
+//     validator: {
+//         $jsonSchema: {
+//             bsonType: "object",
+//             title: "Devices",
+//             required: [ "_id","powered", "powered_timestamp", "connected", "color", "brightness" ],
+//             properties: {
+//                 _id: {
+//                     bsonType: "objectId",
+//                 },
+//                 powered:{
+//                     bsonType: "bool"
+//                 },
+//                 powered_timestamp:{
+//                     bsonType: "date"
+//                 },
+//                 connected: {
+//                     bsonType: "bool",
+//                 },
+//                 color: {
+//                     bsonType: "string",
+//                     pattern: "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+//                     minLength: 4,
+//                     maxLength: 7,
+//                 },
+//                 brightness: {
+//                     bsonType: "int",
+//                     minimum: 0,
+//                     maximum: 100,
+//                     exclusiveMaximum: false
+//                 }
+//             }
+//       }
+//    }
+// } )
+
+// db.runCommand(
+//     {
+//     delete: "Devices",
+//     deletes: [{q: {_id: ObjectId("6360f5b9c2d6669035c3ad31")}, limit: 1}]
+//     }
+// )
+
+// db.Devices.insertOne( {
+//    _id: ObjectId('6360f5b9c2d6669035c3ad31'),
+//    powered: true,
+//    powered_timestamp: new Date(),
+//    connected: true,
+//    color: "#ffffff",
+//    brightness: 42
+// } )
+//PASS
+
+
+// db.Devices.insertOne( {
+//    _id: ObjectId('6360f5b9c2d6669035c3ad32'),
+//    powered: true,
+//    powered_timestamp: Date(),
+//    connected: true,
+//    color: "#ffffff",
+//    brightness: 42
+// } )
+//FAIL - powered_timestamp is a string

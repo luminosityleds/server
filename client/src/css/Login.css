@@ -1,0 +1,39 @@
+.login-cover {
+    background-color: lightblue;
+    height: 30em;
+    width: 30em;
+    position: relative;
+    border-radius: 2em;
+    box-shadow: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+input {
+    border: none;
+    background-color: white;
+    height: 2em;
+    width: 75%;
+    border-radius: 0.5em;
+    text-align: left;
+    padding: 1.5em;
+}
+
+input:focus {
+    outline-color: black
+}
+
+.forgot-pwd-btn {
+    height: 0.125em;
+    width: 15em;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.125em;
+    font-size: small;
+}
+
+.forgot-pwd-btn:hover { transform: scale(1.15);}

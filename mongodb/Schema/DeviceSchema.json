@@ -1,0 +1,19 @@
+{
+    "title": "device",
+    "required": [
+       "_id",
+       "powered",
+       "powered_timestamp",
+       "connected",
+       "color",
+       "brightness"
+    ],
+    "properties": {
+      "_id": { "bsonType": "objectId" },
+      "powered": { "bsonType": "bool" },
+      "powered_timestamp": { "bsonType": "date" },
+      "connected": { "bsonType": "bool" },
+      "color": { "bsonType": "string" },
+      "brightness": { "bsonType": "integer" }
+    }
+}
