@@ -1,0 +1,63 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  # ** means all branches and tags
+  pull_request:
+    branches: "master"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under ${{ github.workspace }}, so your job can access it.  Fetches most recent commit for all branches and tags
+      - uses: actions/checkout@v3
+        with: 
+          fetch-depth: 0
+
+      # Setup python 3.10 on runner and install all dependencies
+      - uses: actions/setup-python@v4
+        with: 
+          python-version: '3.10'
+
+      # Install the dependencies for running this action
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install -r ${{ github.workspace }}/controller/requirements.txt
+      
+      # Build the sphinx documentation
+      - name: Run sphinx documentation
+        run: sphinx-build -b html controller/docs/source/ controller/docs/build/html
+      
+      # Initialize a repo and commmit the changes
+      - name: Initialize a new repo, commit generated files, and push the changes
+        run: |
+          cd controller/docs/build/html
+          git init
+          touch .nojekyll
+          git add --all
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git config --global --add safe.directory /github/workspace/controller/docs/build/html
+          git commit -m 'deploy'
+
+      # Push those changes to a branch to be shown with gh-pages
+      - name: Push to destination branch
+        uses: ad-m/github-push-action@v0.5.0
+        with: 
+          github_token : ${{ secrets.GITHUB_TOKEN}}
+          branch: gh-pages
+          force_with_lease: true
+          directory: controller/docs/build/html

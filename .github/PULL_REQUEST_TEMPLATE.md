@@ -23,7 +23,11 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 # Checklist (when relevant):
 
 - [ ] My code follows the style guidelines of this project
-- [ ] I have included a reviewer on the pull request
+
+    [TypeScript](https://google.github.io/styleguide/tsguide.html)
+[Python](https://peps.python.org/pep-0008/)
+[Schema](https://learn.microsoft.com/en-us/previous-versions/windows/desktop/forefront-2010/ee652242(v=vs.100))
+- [ ] I have included a reviewer on the pull request [*Replace this text with the reviewer*]
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation
