@@ -30,4 +30,11 @@ Note: If you get an error while installing typing in python, follow the instruct
 4. Activate the virtual environment with `source .venv/Scripts/activate`
 5. Install the python modules in the requirements.txt with `pip install -r requirements.txt`.
 6. You have setup your virtual environment and installed python modules into it.
-7. Deactivate the virtual environment with `deactivate`.
+7. Once you're done, deactivate the virtual environment with `deactivate`.
+
+### Sphinx documentation
+This guide outlines how to generate documentation with Sphinx for the Python code.
+1. Follow the `Steps to create a virtual environment` section to setup a virtual environment. 
+2. Go to the top level of the luminosity-led project with `cd $(git rev-parse --show-toplevel)`
+3. Generate documentation with `sphinx-build -b html docs/source/ docs/build/html`
+4. Open `docs/build/html/index.html` in a web browser and you should see Sphinx documentation. 
