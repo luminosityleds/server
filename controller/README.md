@@ -37,4 +37,4 @@ This guide outlines how to generate documentation with Sphinx for the Python cod
 1. Follow the `Steps to create a virtual environment` section to setup a virtual environment. 
 2. Go to the top level of the luminosity-led project with `cd $(git rev-parse --show-toplevel)`
 3. Generate documentation with `sphinx-build -b html docs/source/ docs/build/html`
-4. Open `docs/build/html/index.html` in a web browser and you should Sphinx documentation. 
+4. Open `docs/build/html/index.html` in a web browser and you should see Sphinx documentation. 
