@@ -38,7 +38,7 @@ jobs:
           pip3 install -r ${{ github.workspace }}/docs/requirements.txt
       
       # Build the sphinx documentation
-      - name: Run sphinx documentation
+      - name: Build sphinx documentation
         run: sphinx-build -b html docs/source/ docs/build/html
       
       # Publish to GitHub Pages
@@ -46,6 +46,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/build
+          publish_dir: docs/build/html
 
       
