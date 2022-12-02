@@ -19,7 +19,7 @@ function usePasswordVisibility(){
 
   return(
     <>
-      <input type={passwordVisible ? "text" : "password"} placeholder="password" />
+      <input type={passwordVisible ? "text" : "password"} placeholder="Password" />
       <i onClick={togglePasswordVisibility}>{passwordVisible ? eye : eyeSlash}</i>
     </>
   );
@@ -31,7 +31,7 @@ export const Login: FC<Users> = (props: Users) => {
   return (
     <div className="login-cover">
       <h1>Login</h1>
-      <input type="username" placeholder="username" />
+      <input type="username" placeholder="Username" />
       {usePasswordVisibility()}
       
       <div className="login-btn">Login</div>
