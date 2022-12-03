@@ -58,7 +58,7 @@ class LightingUnit:
         :param outputPin: controller's output pin ID to unit
         """
         if zeroFormerPin: # Send message to former pinOut to turn all pixels off
-            self.lightingUnit.fill((0, 0, 0))
+            self._lightingUnit.fill((0, 0, 0))
         self._setPinOut(outputPin)
         self._updateUnit()
 
