@@ -36,7 +36,7 @@ class LightingUnit:
     def setColor(self, color: "tuple[int, int, int]"):
         """
         Sets the color of the lighting unit.
-        
+
         :param color: RGB representation of unit's color, 0-255 for each
         """
         self._setColor(color)
@@ -45,7 +45,7 @@ class LightingUnit:
     def setBrightness(self, brightness: int):
         """
         Sets the brightness of the lighting unit.
-        
+
         :param brightness: the brightness of the unit, 0-100
         """
         self._setBrightness(brightness)
@@ -65,7 +65,7 @@ class LightingUnit:
     def setPixelCount(self, pixelCount: int):
         """"
         Sets the pixel count of the unit.
-        
+
         :param pixelCount: the number of pixels in the unit
         """
         self._setPixelCount(pixelCount)
@@ -84,7 +84,7 @@ class LightingUnit:
     def _setBrightness(self, brightness: int):
         """
         Sets brightness without updating the unit.
-        
+
         :param brightness: :param brightness: the brightness of the unit, 0-100
         """
         self._brightness = brightness
@@ -107,7 +107,7 @@ class LightingUnit:
     def _scaleColorByBrightness(self) -> "tuple[int, int, int]":
         """
         Returns the unit's color tuple scaled to the unit's brightness.
-        
+
         :return: unit's RGB color tuple scaled by the unit's brightness
         """
         scaledColor = []
