@@ -1,6 +1,5 @@
-from machine import Pin
 from lighting_unit import LightingUnit
-from utime import sleep
+from time import sleep
 from random import randint
 
 OUTPUT_PIN = 4 # use GPxx number
