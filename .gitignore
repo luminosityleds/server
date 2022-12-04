@@ -1,0 +1,9 @@
+# Ignore macos desktop services files
+.DS_Store
+
+# Ignore Pico-W-Go extension stubs
+.vscode/Pico-W-Stub
+
+# Python virtual environment
+.venv
+
