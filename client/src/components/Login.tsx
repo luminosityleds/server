@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import {useState} from "react";
-import "../css/Login.css"
+import "../css/App.css"
 import {Users} from "../Interfaces"
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -34,8 +34,10 @@ export const Login: FC<Users> = (props: Users) => {
       <input type="username" placeholder="Username" />
       {usePasswordVisibility()}
       
-      <div className="login-btn">Login</div>
-      <div className="forgot-pwd-btn">Forgot Password</div>
+      <div className="login-forgot-btns">
+        <div className="login-btn">Login</div>
+        <div className="forgot-pwd-btn">Forgot Password</div>
+      </div>
       <div className="sign-up-btn"><Link to="/register">Create New Account</Link></div>
     </div>
   );
