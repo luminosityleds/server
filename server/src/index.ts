@@ -30,11 +30,7 @@ function mongodb_connect() {
     });
     
     mongoose.connect(`mongodb+srv://${USR}:${PSW}@${DB}.cgornhw.mongodb.net/test`);
-
-    if(mongoose.connection.readyState === 1) {
-        mongoose.connection.close();
-        process.exit(0);
-    }
 }
 
 mongodb_connect();
+mongoose.disconnect();
