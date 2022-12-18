@@ -1,8 +1,6 @@
 import express, {Request, Response} from 'express'; 
 import mongoose from 'mongoose';
 
-// TODO: Add how to test this file locally 
-
 const USR = process.env.MONGO_INITDB_ROOT_USERNAME;
 const PSW = process.env.MONGO_INITDB_ROOT_PASSWORD;
 const DB = process.env.MONGO_INITDB_DATABASE;
@@ -33,7 +31,9 @@ function mongodb_connect() {
     
     mongoose.connect(`mongodb+srv://${USR}:${PSW}@${DB}.cgornhw.mongodb.net/test`);
 
-    mongoose.connection.close();
+    if(mongoose.connection.readyState === 0) {
+        mongoose.connection.close();
+    }
 }
 
 mongodb_connect();
