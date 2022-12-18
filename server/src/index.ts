@@ -31,8 +31,9 @@ function mongodb_connect() {
     
     mongoose.connect(`mongodb+srv://${USR}:${PSW}@${DB}.cgornhw.mongodb.net/test`);
 
-    if(mongoose.connection.readyState === 0) {
+    if(mongoose.connection.readyState === 1) {
         mongoose.connection.close();
+        process.exit(0);
     }
 }
 
