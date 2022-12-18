@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: '16.x'
       - name: Switch to server directory
-        run: cd ./server
+        run: cd server/
       - name: Install dependencies
         run: npm install
       - name: Test mongoDB connection
