@@ -31,6 +31,7 @@ Change the Nav Bar Color in `App.css` in the `*.nav` attributes
 <h1>Font Color</h1>
 
 <li><mark style="background-color: #110A03">Smoky Black</mark></li> 
+<li>Smoky Black</li>
 
 Change the Font color in `App.css` 
 
