@@ -5,6 +5,7 @@
 	// List of extensions which should be recommended for users of this workspace.
 	"recommendations": [
 		"redhat.vscode-yaml",
+		"wayou.vscode-todo-highlight",
 		"stackbreak.comment-divider",
 		"aaron-bond.better-comments",
 		"formulahendry.auto-rename-tag",
