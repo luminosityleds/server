@@ -28,7 +28,7 @@ export const Register: FC<Users> = (props: Users) => {
   return (
     <div className="register-cover">
         <h1>Register</h1>
-        <input type="username" placeholder="username" />
+        <input type="username" placeholder="Username" />
         {usePasswordVisibility()}
 
         <div className="sign-up-btn">Sign Up</div>
