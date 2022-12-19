@@ -16,18 +16,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(https://wallpaperaccess.com/full/5227230.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
-  background-color: whitesmoke;
+  background-color: #F7B267;
   margin: 0;
 }
 
+/* Login and Forgot Password Container */
+
+.login-forgot-btns {
+  height: 2em;
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5em;
+  grid-gap: 20%;
+}
+
+/* Login */
+
 .login-btn {
   height: 2em;
-  width: 35%;
-  background-color: lightskyblue;
+  width: 50%;
+  float: left;
+  background-color: #F27059;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,10 +52,74 @@
   transform: scale(1.15);
 }
 
+::-ms-reveal {
+  display: none;
+}
+
+.login-cover {
+  background-color: #F79D65;
+  height: 30em;
+  width: 30em;
+  position: relative;
+  border-radius: 2em;
+  box-shadow: #061826;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Forgot Password */
+
+.forgot-pwd-btn {
+  height: 2em;
+  width: 50%;
+  float: right;
+  background-color: #F27059;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5em;
+}
+
+.forgot-pwd-btn:hover { transform: scale(1.15);}
+
+/* Username and Password Inputs */
+
+input {
+  border: none;
+  background-color: white;
+  height: 2em;
+  width: 75%;
+  border-radius: 0.5em;
+  text-align: left;
+  padding: 1.5em;
+  display: inline-block;
+}
+
+input:focus {
+  outline-color: #061826;
+}
+
+/* Show/Hide Password */
+
+i {
+  position: absolute;
+  top: 49.5%;
+  right: 15%;
+}
+
+i:hover {
+  color: #b1b1b1;
+  cursor: pointer;
+}
+
+/* Register Button */
+
 .sign-up-btn {
   height: 2em;
   width: 35%;
-  background-color: lightskyblue;
+  background-color: #F27059;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,12 +134,40 @@
   font-size: 2rem;
 }
 
+.register-cover {
+  background-color: #F79D65;
+  height: 30em;
+  width: 30em;
+  position: relative;
+  border-radius: 2em;
+  box-shadow: #061826;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+input {
+  border: none;
+  background-color: white;
+  height: 2em;
+  width: 75%;
+  border-radius: 0.5em;
+  text-align: left;
+  padding: 1.5em;
+}
+
+input:focus {
+  outline-color: #110A03
+}
+
+/* Nav Bar */
+
 .nav {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(255, 255, 255);
+  background-color: #F4845F;
   background-size: 700;
-  color: lightskyblue;
   align-items: stretch;
   gap: 2rem;
   padding: 0 25px;
@@ -87,6 +193,9 @@
 .nav li:hover {
   color: rgb(0, 0, 0);
 }
+
+/* Logo */
+
 img {
   height: 45px;
   position: absolute;
