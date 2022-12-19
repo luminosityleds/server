@@ -84,6 +84,19 @@
 
 .forgot-pwd-btn:hover { transform: scale(1.15);}
 
+.forgotpwd-cover {
+  background-color: #F79D65;
+  height: 30em;
+  width: 30em;
+  position: relative;
+  border-radius: 2em;
+  box-shadow: #061826;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
 /* Username and Password Inputs */
 
 input {

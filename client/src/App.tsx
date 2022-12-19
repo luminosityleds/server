@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import "./css/App.css";
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
+import { ForgotPwd } from "./components/ForgotPwd";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/Header";
 import SiteInfo from "./components/Main";
@@ -30,6 +31,14 @@ const App: FC = () => {
               element={
                 <div className="Register">
                   <Register username="username" password="password" />
+                </div>
+              }
+            />
+            <Route
+              path="/forgot"
+              element={
+                <div className= "ForgotPwd">
+                  <ForgotPwd username="username" password="password"/>
                 </div>
               }
             />
