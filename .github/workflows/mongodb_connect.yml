@@ -29,7 +29,8 @@ jobs:
         run: |
           cd server
           npm install
-          npm run devStart
+          npm run build
+          npm run start
         env: 
           MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
           MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
