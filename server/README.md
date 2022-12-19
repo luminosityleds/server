@@ -56,6 +56,7 @@ MongoDB is the database that the project is using and a connection can be establ
     <li><code>export MONGO_INITDB_ROOT_USERNAME=&lt;username&gt;</code></li>
     <li><code>export MONGO_INITDB_ROOT_PASSWORD=&lt;password&gt;</code></li>
     <li><code>export MONGO_INITDB_DATABASE=&lt;database&gt;</code></li>
+    <li><code>npm install</code></li>
     <li><code>npm run devStart</code></li>
     <ol type='a'>
         <li>PASS: 
