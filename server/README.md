@@ -41,7 +41,7 @@ You can exit out of the script running by pressing `Ctrl + C`
 <b>Talk with Aaron or Jason for credentials.  
 IMPORTANT: Do not push the credentials up to Github</b>
 
-<b>Run all commands as an admin in the root of the server directory</b>
+<b>Run all commands in the root of the server directory</b>
 
 MongoDB is the database that the project is using and a connection can be established to the server using nodeJS.
 
