@@ -36,4 +36,45 @@ You can exit out of the script running by pressing `Ctrl + C`
 5. For Production ( all JS files in `./build` ): `npm run start`
 6. `package.json` are where the scripts are configured
 7. `tsconfig.json` defines that the built JS code populates in `./build` and that the source directroy is `./src` 
+
+## Getting Started with MongoDB on Development Machine
+<b>Talk with Aaron or Jason for credentials.  
+IMPORTANT: Do not push the credentials up to Github</b>
+
+<b>Run all commands in the root of the server directory</b>
+
+MongoDB is the database that the project is using and a connection can be established to the server using nodeJS.
+
+<ol type="1">
+    <li>Get the credentials from Aaron or Jason</li>
+    <ol type='a'>
+        <li>MONGO_INITDB_ROOT_USERNAME</li>
+        <li>MONGO_INITDB_ROOT_PASSWORD</li>
+        <li>MONGO_INITDB_DATABASE</li>
+    </ol>
+    <li>Open a Git Bash terminal in VScode</li>
+    <li><code>export MONGO_INITDB_ROOT_USERNAME=&lt;username&gt;</code></li>
+    <li><code>export MONGO_INITDB_ROOT_PASSWORD=&lt;password&gt;</code></li>
+    <li><code>export MONGO_INITDB_DATABASE=&lt;database&gt;</code></li>
+    <li><code>npm install</code></li>
+    <li><code>npm run devStart</code></li>
+    <ol type='a'>
+        <li>PASS: 
+            <br>
+                <code>
+                0 connecting 2 connected 1 disconnecting 3 disconnected 0   
+                </code>
+            </br>
+        </li>
+        <li>FAIL: 
+            <br>
+                <code>
+                0 connecting 2 disconnected 0 
+                C:\Users\&lt;machine&gt;\git\luminosity-led\server\node_modules\mongodb-connection-string-url\lib\index.js:111 throw new MongoParseError('URI contained empty userinfo section');
+                </code>
+            </br>
+        </li>
+    </ol>
+</ol>
+
  

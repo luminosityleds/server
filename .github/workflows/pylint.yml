@@ -4,9 +4,9 @@ name: Pylint
 on:
   push:
   # ** means all branches and tags
-   branches: "**"
+   branches: ["**"]
   pull_request:
-   branches: "master"
+   branches: ["master"]
  # Workflow can be triggered manually from the Actions tab
   workflow_dispatch:
 
