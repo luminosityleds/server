@@ -5,10 +5,10 @@ export default function Navbar() {
     <nav className="nav">
       <a href="/" className="site-title">
         Luminosity LED
-      </a>
-      <div className="logo-container">
         <img src="/images/luminosity-led-logo.ico"></img>
-      </div>
+
+      </a>
+
       <ul>
         <li>
           <a href="/login">Log In</a>
