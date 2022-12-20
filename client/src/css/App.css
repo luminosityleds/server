@@ -168,6 +168,7 @@ input:focus {
   justify-content: space-between;
   background-color: #F4845F;
   background-size: 700;
+  height:50px;
   align-items: stretch;
   gap: 2rem;
   padding: 0 25px;
@@ -199,6 +200,6 @@ input:focus {
 img {
   height: 45px;
   position: absolute;
-  left: 280px;
+  left: 10px;
   align-items: stretch;
 }
