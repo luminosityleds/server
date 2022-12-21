@@ -3,12 +3,10 @@ import React, {FC, ChangeEvent, useState} from 'react';
 export default function Navbar() {
   return (
     <nav className="nav">
-      <a href="/" className="site-title">
-        Luminosity LED
+      <a href="/" className="site-title"> 
+          <img src="/images/luminosity-home-logo.ico" alt="Home-logo"></img>
       </a>
-      <div className="logo-container">
-        <img src="/images/luminosity-led-logo.ico"></img>
-      </div>
+
       <ul>
         <li>
           <a href="/login">Log In</a>
