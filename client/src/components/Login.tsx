@@ -25,17 +25,25 @@ function usePasswordVisibility(){
   );
 }
 
+const [usernameLogin, setUsernameLogin] = useState("");
 
+const loginButton = () => {  
+  console.log("This is working");
+}
 
 export const Login: FC<Users> = (props: Users) => {
   return (
     <div className="login-cover">
       <h1>Login</h1>
-      <input type="username" placeholder="Username" />
+      <input type="username" placeholder="Username" 
+        onChange={(e)=> {
+          setUsernameLogin(e.target.value);
+        }}
+      />
       {usePasswordVisibility()}
       
       <div className="login-forgot-btns">
-        <div className="login-btn">Login</div>
+        <button className="login-btn" onClick={loginButton}>Login</button>
         <div className="forgot-pwd-btn">Forgot Password</div>
       </div>
       <div className="sign-up-btn"><Link to="/register">Create New Account</Link></div>
