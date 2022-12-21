@@ -34,3 +34,15 @@ function mongodb_connect() {
 
 mongodb_connect();
 mongoose.disconnect();
+
+/** 
+app.get('/login', (req: Request, res: Response)=> {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  db.account.find(
+    {username: username, password: password}
+  )
+
+})
+*/
