@@ -7,6 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye} from "@fortawesome/free-solid-svg-icons";
 import {faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import { AppleRegister, GoogleRegister, MicrosoftRegister, GitHubRegister } from './ThirdParty';
+import { GoogleOAuthProvider } from "@react-oauth/google"
 
 const eye = <FontAwesomeIcon icon={faEye} />
 const eyeSlash = <FontAwesomeIcon icon={faEyeSlash} />
@@ -38,7 +39,9 @@ export const Register: FC<Users> = (props: Users) => {
         <div><AppleRegister /></div>
       </div>
       <div className="third-party-btns">
-        <div><GoogleRegister /></div>
+      <GoogleOAuthProvider clientId="281168454695-kvsbsq9sp4gtap61erk0mhe53bgddgfl.apps.googleusercontent.com">
+        <GoogleRegister />
+        </GoogleOAuthProvider>
       </div>
       <div className="third-party-btns">
         <div><MicrosoftRegister /></div>

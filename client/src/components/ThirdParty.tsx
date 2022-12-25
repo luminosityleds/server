@@ -2,6 +2,7 @@ import React from "react";
 import "../css/ThirdParty.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faApple, faGoogle, faMicrosoft, faGithub} from "@fortawesome/free-brands-svg-icons";
+import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google"
 
 // Login components
 export const AppleLogin = () => {
@@ -15,9 +16,13 @@ export const AppleLogin = () => {
 };
 
 export const GoogleLogin = () => {
+  const login = useGoogleLogin({
+    onSuccess: tokenResponse => console.log(tokenResponse),
+  });
+
   return (
   <div>
-    <button className="third-party-btn">
+    <button className="third-party-btn" onClick={() => login()}>
       <FontAwesomeIcon className="third-party-icon" icon={faGoogle} size="2x" fixedWidth/>Login with Google
     </button>
   </div>
@@ -56,23 +61,27 @@ export const AppleRegister = () => {
 };
 
 export const GoogleRegister = () => {
-return (
-<div>
-  <button className="third-party-btn">
-    <FontAwesomeIcon className="third-party-icon" icon={faGoogle} size="2x" fixedWidth/>Register with Google
-  </button>
-</div>
+  const login = useGoogleLogin({
+    onSuccess: tokenResponse => console.log(tokenResponse),
+  });
+
+  return (
+  <div>
+    <button className="third-party-btn" onClick={() => login()}>
+      <FontAwesomeIcon className="third-party-icon" icon={faGoogle} size="2x" fixedWidth/>Register with Google
+    </button>
+  </div>
 );
 };
 
 export const MicrosoftRegister = () => {
-return (
-<div>
-  <button className="third-party-btn">
-    <FontAwesomeIcon className="third-party-icon" icon={faMicrosoft} size="2x" fixedWidth/>Register with Microsoft
-  </button>
-</div>
-);
+  return (
+  <div>
+    <button className="third-party-btn">
+      <FontAwesomeIcon className="third-party-icon" icon={faMicrosoft} size="2x" fixedWidth/>Register with Microsoft
+    </button>
+  </div>
+  );
 };
 
 export const GitHubRegister = () => {

@@ -5,9 +5,9 @@ import "../css/ThirdParty.css"
 import {Users} from "../Interfaces"
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEye} from "@fortawesome/free-solid-svg-icons";
-import {faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import {AppleLogin, GoogleLogin, MicrosoftLogin, GitHubLogin} from "./ThirdParty";
+import { GoogleOAuthProvider } from "@react-oauth/google"
 
 const eye = <FontAwesomeIcon icon={faEye} />
 const eyeSlash = <FontAwesomeIcon icon={faEyeSlash} />
@@ -45,7 +45,9 @@ export const Login: FC<Users> = (props: Users) => {
         <div><AppleLogin /></div>
       </div>
       <div className="third-party-btns">
+        <GoogleOAuthProvider clientId="281168454695-kvsbsq9sp4gtap61erk0mhe53bgddgfl.apps.googleusercontent.com">
         <div><GoogleLogin /></div>
+        </GoogleOAuthProvider>
       </div>
       <div className="third-party-btns">
         <div><MicrosoftLogin /></div>
