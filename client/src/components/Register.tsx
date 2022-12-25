@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye} from "@fortawesome/free-solid-svg-icons";
 import {faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+import { AppleRegister, GoogleRegister, MicrosoftRegister, GitHubRegister } from './ThirdParty';
 
 const eye = <FontAwesomeIcon icon={faEye} />
 const eyeSlash = <FontAwesomeIcon icon={faEyeSlash} />
@@ -32,6 +33,20 @@ export const Register: FC<Users> = (props: Users) => {
         {usePasswordVisibility()}
 
         <div className="sign-up-btn">Sign Up</div>
+        {/* Start of third party login buttons */}
+      <div className="third-party-btns">
+        <div><AppleRegister /></div>
+      </div>
+      <div className="third-party-btns">
+        <div><GoogleRegister /></div>
+      </div>
+      <div className="third-party-btns">
+        <div><MicrosoftRegister /></div>
+      </div>
+      <div className="third-party-btns">
+        <div><GitHubRegister /></div>
+      </div>
+      {/* End of third party login buttons */}
         <div className="login-btn"><Link to="/login">Login Here</Link></div>
     </div>
   );

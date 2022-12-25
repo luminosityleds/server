@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 import {useState} from "react";
 import "../css/App.css"
+import "../css/ThirdParty.css"
 import {Users} from "../Interfaces"
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye} from "@fortawesome/free-solid-svg-icons";
 import {faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+import {AppleLogin, GoogleLogin, MicrosoftLogin, GitHubLogin} from "./ThirdParty";
 
 const eye = <FontAwesomeIcon icon={faEye} />
 const eyeSlash = <FontAwesomeIcon icon={faEyeSlash} />
@@ -38,6 +40,20 @@ export const Login: FC<Users> = (props: Users) => {
         <div className="login-btn">Login</div>
         <div className="forgot-pwd-btn">Forgot Password</div>
       </div>
+      {/* Start of third party login buttons */}
+      <div className="third-party-btns">
+        <div><AppleLogin /></div>
+      </div>
+      <div className="third-party-btns">
+        <div><GoogleLogin /></div>
+      </div>
+      <div className="third-party-btns">
+        <div><MicrosoftLogin /></div>
+      </div>
+      <div className="third-party-btns">
+        <div><GitHubLogin /></div>
+      </div>
+      {/* End of third party login buttons */}
       <div className="sign-up-btn"><Link to="/register">Create New Account</Link></div>
     </div>
   );
