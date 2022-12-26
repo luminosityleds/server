@@ -31,10 +31,6 @@ jobs:
         with: 
           node-version: 16
 
-      # Install the npm dependencies for running this action
-      - name: Install npm dependencies
-        run: npm install client
-      
       # Install the npm dependencies & build the react website
       - name: Build react website 
         run: |
@@ -49,5 +45,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: client/build
           force_orphan: true
+          cname: luminosityleds.com
 
       
