@@ -1,12 +1,11 @@
-# This is a basic workflow to help you get started with Actions
+# Workflow to update the luminosityleds.com website on pushes to master only
 
 name: luminosityled.com update
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
-  # ** means all branches and tags
-  pull_request:
+  # Triggers the workflow on push events only to the "master" branch
+  push:
     branches: ["master"]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -31,10 +30,6 @@ jobs:
         with: 
           node-version: 16
 
-      # Install the npm dependencies for running this action
-      - name: Install npm dependencies
-        run: npm install client
-      
       # Install the npm dependencies & build the react website
       - name: Build react website 
         run: |
@@ -49,5 +44,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: client/build
           force_orphan: true
+          cname: luminosityleds.com
 
       

@@ -1,13 +1,13 @@
+# Workflow to lint the python codebase with pylint on pushes to any branch
+
 name: Pylint
 
-# Runs on push to any branch or PRs to the master branch
+# Runs on push to any branch
 on:
   push:
-  # ** means all branches and tags
-   branches: ["**"]
-  pull_request:
-   branches: ["master"]
- # Workflow can be triggered manually from the Actions tab
+    # ** means all branches and tags
+    branches: ["**"]
+  # Workflow can be triggered manually from the Actions tab
   workflow_dispatch:
 
 jobs:
