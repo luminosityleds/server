@@ -46,7 +46,7 @@ export const Login: FC<Users> = (props: Users) => {
       </div>
       <div className="third-party-btns">
         <GoogleOAuthProvider clientId="281168454695-kvsbsq9sp4gtap61erk0mhe53bgddgfl.apps.googleusercontent.com">
-        <div><GoogleLogin /></div>
+          <GoogleLogin />
         </GoogleOAuthProvider>
       </div>
       <div className="third-party-btns">
