@@ -48,6 +48,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## Deploy to Github Pages:
 https://create-react-app.dev/docs/deployment/#github-pages
 
+https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
+
 <b>Github Pages requires `HashRouter` for all React routes.  Do not use &lt;a&gt;page&lt;/a&gt; 
 
 Use &lt;Link to="/&lt;page&gt;"&gt;&lt;/Link&gt;</b>
