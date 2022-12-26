@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import "./css/App.css";
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/Header";
 import SiteInfo from "./components/Main";
 
@@ -14,7 +14,6 @@ const App: FC = () => {
       </div>
       <div className="App">
         <SiteInfo />
-        <Router>
           <Routes>
             <Route path="/" element={<div></div>} />
             <Route
@@ -35,7 +34,6 @@ const App: FC = () => {
             />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
-        </Router>
       </div>
     </>
   );
