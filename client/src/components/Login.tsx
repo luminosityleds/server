@@ -25,14 +25,12 @@ function usePasswordVisibility(){
   );
 }
 
-const [usernameLogin, setUsernameLogin] = useState<string>("");
-
-function loginButtonClick () {
-  console.log("You clicked me!");
-  console.log(usernameLogin);
-}
-
 export const Login: FC<Users> = (props: Users) => {
+  const [usernameLogin, setUsernameLogin] = useState<string>("");
+  function loginButtonClick () {
+    console.log("You clicked me!");
+    console.log(usernameLogin);
+  }
   return (
     <div className="login-cover">
       <h1>Login</h1>
