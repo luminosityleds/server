@@ -1,6 +1,14 @@
+# Workflow to test the connection to mongoDB on pushes to any branch
+
 name: MongoDB Connect
-    
-on: [push, pull_request]
+
+# Runs on push to any branch
+on:
+  push:
+    # ** means all branches and tags
+    branches: ["**"]
+  # Workflow can be triggered manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   # Run tests
