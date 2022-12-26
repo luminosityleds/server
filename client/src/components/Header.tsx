@@ -1,4 +1,5 @@
 import React, {FC, ChangeEvent, useState} from 'react';
+import {Link} from 'react-router-dom';
 
 export default function Navbar() {
   return (
@@ -9,10 +10,10 @@ export default function Navbar() {
 
       <ul>
         <li>
-          <a href="/login">Log In</a>
+          <Link to="/login">Log In</Link>
         </li>
         <li>
-          <a href="/register">Sign Up</a>
+          <Link to="/register">Sign Up</Link>
         </li>
       </ul>
     </nav>
