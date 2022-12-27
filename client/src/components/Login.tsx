@@ -10,7 +10,7 @@ import {faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 const eye = <FontAwesomeIcon icon={faEye} />
 const eyeSlash = <FontAwesomeIcon icon={faEyeSlash} />
 
-function usePasswordVisibility(){
+function usePasswordVisibility(setPasswordLogin: Function){
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setPasswordVisible(passwordVisible ? false : true);
@@ -19,7 +19,11 @@ function usePasswordVisibility(){
 
   return(
     <>
-      <input type={passwordVisible ? "text" : "password"} placeholder="Password" />
+      <input type={passwordVisible ? "text" : "password"} placeholder="Password" 
+         onChange={(e: React.ChangeEvent<HTMLInputElement>)=> {
+           setPasswordLogin(e.target.value);
+         }}        
+       />
       <i onClick={togglePasswordVisibility}>{passwordVisible ? eye : eyeSlash}</i>
     </>
   );
@@ -27,9 +31,11 @@ function usePasswordVisibility(){
 
 export const Login: FC<Users> = (props: Users) => {
   const [usernameLogin, setUsernameLogin] = useState<string>("");
+  const [passwordLogin, setPasswordLogin] = useState<string>("");
   function loginButtonClick () {
     console.log("You clicked me!");
     console.log(usernameLogin);
+    console.log(passwordLogin);
   }
   return (
     <div className="login-cover">
@@ -39,7 +45,7 @@ export const Login: FC<Users> = (props: Users) => {
           setUsernameLogin(e.target.value);
         }}
       />
-      {usePasswordVisibility()}
+      {usePasswordVisibility(setPasswordLogin)}
       
       <div className="login-forgot-btns">
         <button className="login-btn" onClick={loginButtonClick}>Login</button>
