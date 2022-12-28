@@ -2,7 +2,7 @@ import React, {FC, ChangeEvent, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
-
+import {faBarsStaggered} from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -24,7 +24,7 @@ export default function Navbar() {
         <div className="nav_triple_bar_menu">
           <div className="nav_triple_bar_icon">
             {toggleMenu 
-              ? <FontAwesomeIcon icon={faBars} onClick={ () => setToggleMenu(false)}/>
+              ? <FontAwesomeIcon icon={faBarsStaggered} onClick={ () => setToggleMenu(false)}/>
               : <FontAwesomeIcon icon={faBars} onClick={ () => setToggleMenu(true)}/>
             }
           </div>
