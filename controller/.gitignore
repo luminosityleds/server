@@ -1,5 +1,5 @@
 # virtual environment
 .venv
 
-# This will be vary accross machines/environemnts
-.connect-pico 
+# shell script to connect to MCU; this will vary accross machines/environemnts
+.connect*
