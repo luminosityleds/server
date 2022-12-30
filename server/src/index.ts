@@ -33,12 +33,13 @@ function mongodb_connect() {
 }
 
 mongodb_connect();
-/**
- * Verify credentials
+
 app.post('/login', (req: Request, res: Response) => {
   const username : string | null = req.body.username;
   const password : string | null = req.body.password;
-  
+
+  res.send("Post request received");
+
   if (!username) {
     res.send("Username cannot be empty");
   }
@@ -46,9 +47,9 @@ app.post('/login', (req: Request, res: Response) => {
     res.send("Password cannot be empty");
   }
   else {
-    res.send("Username and password is not empty");
+    res.send("Working!");
   }
-  
+
 })
-*/
+
 mongoose.disconnect();
