@@ -57,7 +57,7 @@ export const Login: FC<Users> = (props: Users) => {
       {usePasswordVisibility(setPasswordLogin)}
       
       <div className="login-forgot-btns">
-        <button className="login-btn" onClick={loginButtonClick}>Login</button>
+        <div className="login-btn" onClick={loginButtonClick}>Login</div>
         <div className="forgot-pwd-btn">Forgot Password</div>
       </div>
       <div className="sign-up-btn"><Link to="/register">Create New Account</Link></div>
