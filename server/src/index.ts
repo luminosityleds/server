@@ -5,6 +5,10 @@ const USR = process.env.MONGO_INITDB_ROOT_USERNAME;
 const PSW = process.env.MONGO_INITDB_ROOT_PASSWORD;
 const DB = process.env.MONGO_INITDB_DATABASE;
 
+const app = express();
+const router = express.Router();
+app.use(express.json());
+
 function mongodb_connect() {
     // Function to test mongodb connection.  Approved IP address must be added to mongodb cluster.
     console.log(mongoose.connection.readyState);
