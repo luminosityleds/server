@@ -1,0 +1,14 @@
+{
+    "name": "controller-temp",
+    "stubs": {
+        "rp2-micropython-1.19.1": "1.4.3"
+    },
+    "dev-packages": {
+        "micropy-cli": "*"
+    },
+    "packages": {},
+    "config": {
+        "vscode": true,
+        "pylint": true
+    }
+}

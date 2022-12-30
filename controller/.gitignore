@@ -6,3 +6,6 @@
 
 # shell script to sync MCU with flash directory
 .sync*
+
+# local micropy-cli directory
+.micropy

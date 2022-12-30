@@ -1,3 +1,4 @@
+#main.py
 from lighting_unit import LightingUnit
 from time import sleep
 from random import randint
