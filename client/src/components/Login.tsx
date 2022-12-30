@@ -36,7 +36,15 @@ export const Login: FC<Users> = (props: Users) => {
     console.log("You clicked me!");
     console.log(usernameLogin);
     console.log(passwordLogin);
-  }
+    
+    axios.post("http://localhost:3000/login", {
+      username: usernameLogin, 
+      password: passwordLogin,
+    }).then((res)=> {
+      console.log(res);
+    });
+  };
+  
   return (
     <div className="login-cover">
       <h1>Login</h1>
