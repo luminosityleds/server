@@ -1,5 +1,5 @@
 {
-    "name": "controller-temp",
+    "name": "controller",
     "stubs": {
         "rp2-micropython-1.19.1": "1.4.3"
     },
