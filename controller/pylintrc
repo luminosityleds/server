@@ -1,8 +1,5 @@
 [MASTER]
 
-# Loaded Stubs:  rp2-micropython-1.19.1 
-init-hook='import sys;sys.path[1:1]=["src/lib",".micropy/rp2-micropython-1.19.1/frozen", ".micropy/BradenM-micropy-stubs-4f5a52a/frozen", ".micropy/rp2-micropython-1.19.1/stubs", ".micropy/test",  ]'
-
 # Specify a score threshold under which the program will exit with error.
 fail-under=10.0
 
@@ -17,6 +14,4 @@ fail-under=10.0
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
-disable=R,C,W, missing-docstring, line-too-long, trailing-newlines, broad-except, logging-format-interpolation, invalid-name, empty-docstring,
-        no-method-argument, assignment-from-no-return, too-many-function-args, unexpected-keyword-arg
-        # the 2nd  line deals with the limited information in the generated stubs.
+disable=R,C,W

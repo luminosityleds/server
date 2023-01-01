@@ -25,8 +25,7 @@
 		"vscode-icons-team.vscode-icons",
 		"oouo-diogo-perdigao.docthis",
 		"humao.rest-client",
-		"christian-kohler.npm-intellisense",
-		"VisualStudioExptTeam.vscodeintellicode" // micropy-cli: optional for advanced intellisense
+		"christian-kohler.npm-intellisense"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
