@@ -1,5 +1,5 @@
-from neopixel import NeoPixel # pylint: disable=import-error
-from machine import Pin # pylint: disable=import-error
+from neopixel import NeoPixel # pylint: disable=E0401
+from machine import Pin # pylint: disable=E0401
 
 
 class LightingUnit:
