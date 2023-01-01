@@ -44,3 +44,21 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Deploy to Github Pages:
+https://create-react-app.dev/docs/deployment/#github-pages
+
+https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
+
+<b>Github Pages requires `HashRouter` for all React routes.  Do not use &lt;a&gt;page&lt;/a&gt; 
+
+Use &lt;Link to="/&lt;page&gt;"&gt;&lt;/Link&gt;</b>
+
+## `public` Directory
+The `public` directory contains 
+
+1. The `favicon.ico` which is the icon which renders in the browser.
+2. The `CNAME` which is the custom domain name of the website
+3. The `manifest.json` which lists metadata about the website
+4. The `index.html` which defines how the index.html will be built during `npm run build`
+5. The `images` directory which are images used by the website after being built

@@ -1,13 +1,12 @@
-# This is a basic workflow to help you get started with Actions
+# Workflow to update the luminosityleds.com website on pushes to master only
 
-name: Sphinx Documentation
+name: luminosityled.com update
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
-  # ** means all branches and tags
-  pull_request:
-    branches: "master"
+  # Triggers the workflow on push events only to the "master" branch
+  push:
+    branches: ["master"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -26,20 +25,16 @@ jobs:
         with: 
           fetch-depth: 0
 
-      # Setup python 3.10 on runner and install all dependencies
-      - uses: actions/setup-python@v4
+      # Setup nodejs on runner
+      - uses: actions/setup-node@v3
         with: 
-          python-version: '3.10'
+          node-version: 16
 
-      # Install the dependencies for running this action
-      - name: Install dependencies
+      # Install the npm dependencies & build the react website
+      - name: Build react website 
         run: |
-          python3 -m pip install --upgrade pip
-          pip3 install -r ${{ github.workspace }}/controller/requirements.txt
-      
-      # Build the sphinx documentation
-      - name: Build sphinx documentation
-        run: sphinx-build -b html docs/source/ docs/build/html
+          cd client
+          npm install && npm run build
       
       # Publish to GitHub Pages
       - name: Publish to GitHub Pages
@@ -47,7 +42,8 @@ jobs:
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/build/html
+          publish_dir: client/build
           force_orphan: true
+          cname: luminosityleds.com
 
       
