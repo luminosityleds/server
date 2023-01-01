@@ -38,7 +38,7 @@ export const Login: FC<Users> = (props: Users) => {
         <div className="login-btn">Login</div>
         <div className="forgot-pwd-btn">Forgot Password</div>
       </div>
-      <div className="sign-up-btn"><Link to="/register">Create New Account</Link></div>
+      <div className="sign-up-btn"><Link to="/register">Register</Link></div>
     </div>
   );
 }
