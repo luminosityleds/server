@@ -19,7 +19,7 @@ Change the foreground cover color in `App.css` within the `*-cover` attributes
 <li><mark style="background-color: #F7B267">Mellow Apricot #F7B267</mark></li>
 </ul>
 
-Change the Background Color in `App.css` in the `.App` attribute
+Change the Background Color in `App.css` in the `.page-container` attribute
 
 <h3>Nav Bar Color</h3>
 <ul>
