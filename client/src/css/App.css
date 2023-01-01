@@ -10,10 +10,11 @@
   src: null;
 }
 
-.App {
-  height: 100vh;
+.page-container {
+  min-height: 100vh;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-repeat: no-repeat;
@@ -21,6 +22,10 @@
   background-position: top;
   background-color: #F7B267;
   margin: 0;
+}
+
+.content-wrap {
+  padding-bottom: 3em;
 }
 
 /* Login and Forgot Password Container */
@@ -235,7 +240,6 @@ input:focus {
   }
 }
 
-
 /* Logo */
 
 .header_logo_long {
@@ -244,3 +248,15 @@ input:focus {
   left: 0%;
   align-items: stretch;
 }
+
+/* Footer */
+.main-footer {
+  color: black;
+  background-color: #F4845F;
+  margin-top: auto;
+  position:relative;
+  bottom: 0;
+  width: 100%;
+  columns: 2;
+}
+
