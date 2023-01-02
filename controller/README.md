@@ -52,3 +52,19 @@ as the problematic import statement to ignore the error for that specific line:
 `# pylint: disable=E0401`
 
 [E0401](https://pylint.pycqa.org/en/latest/user_guide/messages/error/import-error.html) is pylint's error alerting you that it was unable to import a package.
+
+### Connecting the Pico W to Wifi https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf
+For a simple connection to a local WiFi network, you can use the following code:
+```
+import network
+wlan = network.WLAN(network.STA_IF) # constructs a client interface object
+wlan.active(True) # activates the network interface ("up")
+wlan.connect(ssid, password) # connects to the given wifi network using given credentials
+```
+For creating a more robust connection, see [the Pico W documentation](https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf).
+
+### Querying the Wifi Connection State
+To querry the Wifi connection state, simply use the following method on the network interface object:
+`wlan.isconnected()`
+
+This returns true if the interface is connected, otherwise false.
