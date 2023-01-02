@@ -1,11 +1,11 @@
 <h1>Color Palette</h1>
 
-<h3>Button Colors</h3>
+<h3>Button Colors on Hover</h3>
 <ul>
 <li><mark style="background-color: #F27059">Bittersweet #F27059</mark></li> 
 </ul>
 
-Change the Button color in `App.css` within the `*-btn` attributes
+Change the Button color in `App.css` within the `*-btn:hover` attributes
 
 <h3>Foreground Cover Color</h3>
 <ul>
@@ -21,12 +21,12 @@ Change the foreground cover color in `App.css` within the `*-cover` attributes
 
 Change the Background Color in `App.css` in the `.page-container` attribute
 
-<h3>Nav Bar Color</h3>
+<h3>Nav Bar Color and Button colors before Hover</h3>
 <ul>
 <li><mark style="background-color: #F4845F">Coral #F4845F</mark></li>
 </ul>
 
-Change the Nav Bar Color in `App.css` in the `*.nav` attributes
+Change the Nav Bar Color in `App.css` in the `*.nav` attributes and `*-btn` attributes
 
 <h1>Font Color</h1>
 
