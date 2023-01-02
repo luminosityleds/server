@@ -9,15 +9,24 @@ export const Footer = () => {
                 {/* Column1 */}
                 <div>
                     <h4>luminosityleds</h4>
-                    <p>
-                        About | Team | <a href='https://github.com/pogi7/luminosityleds/releases/latest'>What's New?</a>
+                    <p className="about">
+                        About
+                    </p>
+                    <p className="team">
+                        Team
+                    </p>
+                    <p className="whats-new">
+                        <a href='https://github.com/pogi7/luminosityleds/releases/latest'>What's New?</a>
                     </p>
                 </div>
                 {/* Column2 */}
                 <div>
                     <h4>Contact</h4>
                     <p>
-                        <FontAwesomeIcon icon={faGithub} /> | <FontAwesomeIcon icon={faAtlassian} /> | <FontAwesomeIcon icon={faDiscord} /> | &copy; {new Date().getFullYear()} | All rights reserved 
+                        <FontAwesomeIcon icon={faGithub} /> | <FontAwesomeIcon icon={faAtlassian} /> | <FontAwesomeIcon icon={faDiscord} />
+                    </p>
+                    <p>
+                        &copy; {new Date().getFullYear()} | All rights reserved 
                     </p>
                 </div>
             </div>
