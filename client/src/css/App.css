@@ -46,7 +46,7 @@
   height: 2em;
   width: 50%;
   float: left;
-  background-color: #F27059;
+  background-color: #F4845F;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +54,8 @@
 }
 
 .login-btn:hover {
-  transform: scale(1.15);
+  background-color: #F27059;
+  cursor: pointer;
 }
 
 ::-ms-reveal {
@@ -80,14 +81,17 @@
   height: 2em;
   width: 50%;
   float: right;
-  background-color: #F27059;
+  background-color: #F4845F;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 0.5em;
 }
 
-.forgot-pwd-btn:hover { transform: scale(1.15);}
+.forgot-pwd-btn:hover {
+  background-color: #F27059;
+  cursor: pointer;
+}
 
 /* Username and Password Inputs */
 
@@ -124,7 +128,7 @@ i:hover {
 .sign-up-btn {
   height: 2em;
   width: 35%;
-  background-color: #F27059;
+  background-color: #F4845F;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,7 +136,8 @@ i:hover {
 }
 
 .sign-up-btn:hover {
-  transform: scale(1.15);
+  background-color: #F27059;
+  cursor: pointer;
 }
 
 .site-title {
