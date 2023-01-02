@@ -260,3 +260,8 @@ input:focus {
   columns: 2;
 }
 
+/* Hyperlinks/Anchors */
+a {
+  text-decoration: none;
+  color: inherit;
+}
