@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
-import {useState} from "react";
 import "../css/App.css"
 import "../css/ThirdParty.css"
 import {Users} from "../Interfaces"
 import {Link} from 'react-router-dom'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {AppleLogin, GoogleLogin, MicrosoftLogin, GitHubLogin} from "./ThirdParty";
 import { GoogleOAuthProvider } from "@react-oauth/google"
 

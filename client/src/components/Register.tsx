@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
-import {useState} from "react";
 import "../css/App.css"
 import {Users} from "../Interfaces"
 import {Link} from 'react-router-dom'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { AppleRegister, GoogleRegister, MicrosoftRegister, GitHubRegister } from './ThirdParty';
 import { GoogleOAuthProvider } from "@react-oauth/google"
 
