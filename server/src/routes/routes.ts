@@ -20,3 +20,6 @@ router.post('/register', (req: any, res: any) => {
 // Delete one
 
 // Delete all
+
+module.exports = router
+export {}
