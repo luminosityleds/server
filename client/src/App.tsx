@@ -5,6 +5,7 @@ import { Register } from "./components/Register";
 import { Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/Header";
 import SiteInfo from "./components/Main";
+import Desktop1 from "./components/AccountPg
 
 const App: FC = () => {
   return (
@@ -32,8 +33,18 @@ const App: FC = () => {
                 </div>
               }
             />
+          <Route
+              path="/account"
+              element={
+                <div className="Desktop1">
+                  <Desktop1 {...desktop1data} />
+                </div>
+              }
+            />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
+        
+         
       </div>
     </>
   );

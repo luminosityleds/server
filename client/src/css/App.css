@@ -19,7 +19,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
-  background-color: #F7B267;
+  background-color: #f7b267;
   margin: 0;
 }
 
@@ -41,7 +41,7 @@
   height: 2em;
   width: 50%;
   float: left;
-  background-color: #F27059;
+  background-color: #f27059;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,7 +57,7 @@
 }
 
 .login-cover {
-  background-color: #F79D65;
+  background-color: #f79d65;
   height: 30em;
   width: 30em;
   position: relative;
@@ -75,14 +75,16 @@
   height: 2em;
   width: 50%;
   float: right;
-  background-color: #F27059;
+  background-color: #f27059;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 0.5em;
 }
 
-.forgot-pwd-btn:hover { transform: scale(1.15);}
+.forgot-pwd-btn:hover {
+  transform: scale(1.15);
+}
 
 /* Username and Password Inputs */
 
@@ -119,7 +121,7 @@ i:hover {
 .sign-up-btn {
   height: 2em;
   width: 35%;
-  background-color: #F27059;
+  background-color: #f27059;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -135,7 +137,7 @@ i:hover {
 }
 
 .register-cover {
-  background-color: #F79D65;
+  background-color: #f79d65;
   height: 30em;
   width: 30em;
   position: relative;
@@ -158,7 +160,7 @@ input {
 }
 
 input:focus {
-  outline-color: #110A03
+  outline-color: #110a03;
 }
 
 /* Nav Bar */
@@ -166,9 +168,9 @@ input:focus {
 .nav {
   display: flex;
   justify-content: space-between;
-  background-color: #F4845F;
+  background-color: #f4845f;
   background-size: 700;
-  height:50px;
+  height: 50px;
   align-items: stretch;
   gap: 2rem;
   padding: 0 25px;
@@ -202,4 +204,267 @@ img {
   position: absolute;
   left: 10px;
   align-items: stretch;
+}
+
+/* account page */
+
+@import url("https://fonts.googleapis.com/css?family=Inter:400,700,300,500,100");
+
+.screen a {
+  display: contents;
+  text-decoration: none;
+}
+.container-center-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.container-center-horizontal > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.valign-text-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.desktop-1 {
+  align-items: flex-end;
+  background-color: #f7b267;
+  border: 1px none;
+  display: flex;
+  flex-direction: column;
+  gap: 174px;
+  height: 1024px;
+  padding: 32px 24x;
+  width: 1440px;
+}
+
+.overlap-group {
+  height: 644px;
+  position: relative;
+  width: 1374px;
+}
+
+.user-greeting {
+  align-items: flex-start;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+  top: 37px;
+  width: fit-content;
+}
+
+.hello-name-my-account-information {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  width: fit-content;
+}
+
+.span1 {
+  color: var(--asphalt);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+.span2 {
+  color: var(--asphalt);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-s);
+  font-weight: 100;
+}
+
+.span3 {
+  color: var(--asphalt);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-m);
+  font-weight: 300;
+}
+
+.user-profile-circle {
+  height: 64px;
+  min-width: 64px;
+}
+
+.username {
+  height: 31px;
+  left: 56px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 177px;
+  width: 84px;
+}
+
+.email {
+  color: transparent;
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-m);
+  font-weight: 400;
+  height: 31px;
+  left: 56px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 313px;
+  width: 56px;
+}
+
+.span1-1 {
+  color: #707070;
+}
+
+.phone-number {
+  height: 31px;
+  left: 56px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 448px;
+  width: 121px;
+}
+
+.frame-container {
+  align-items: flex-start;
+  align-self: center;
+  display: flex;
+  gap: 753px;
+  height: 57px;
+  min-width: 1160px;
+}
+
+.frame-7 {
+  align-items: flex-start;
+  background-color: var(--bittersweet);
+  border-radius: 45px;
+  display: flex;
+  gap: 10px;
+  padding: 15px 20px;
+  width: fit-content;
+}
+
+.reset-password {
+  color: var(--asphalt);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-l);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  text-align: center;
+  width: fit-content;
+}
+
+.frame-6 {
+  align-items: center;
+  background-color: #ff0000;
+  border-radius: 45px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 15px 20px;
+  width: fit-content;
+}
+
+.delete-account {
+  color: #3c3b3b;
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-l);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  text-align: center;
+  width: fit-content;
+}
+
+.content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  left: 0;
+  padding: 10px 20px;
+  position: absolute;
+  top: 0;
+  width: fit-content;
+}
+
+.rectangle-3 {
+  background-color: #f79d65;
+  border-radius: 15px;
+  height: 624px;
+  min-width: 1334px;
+}
+
+.edit-user-pfp-button {
+  align-items: center;
+  background-color: var(--bittersweet);
+  border-radius: 45px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  left: 362px;
+  padding: 10px 27px;
+  position: absolute;
+  top: 60px;
+  width: fit-content;
+}
+
+.edit-user-profile {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  text-align: center;
+  width: fit-content;
+}
+
+.user-information {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  left: 40px;
+  padding: 10px;
+  position: absolute;
+  top: 150px;
+  width: fit-content;
+}
+
+.rectangle-4 {
+  background-color: #fdc990;
+  height: 443px;
+  min-width: 1273px;
+}
+
+.confirm-changes-button {
+  align-items: center;
+  background-color: var(--bittersweet);
+  border-radius: 45px;
+  display: flex;
+  gap: 10px;
+  height: 35px;
+  justify-content: center;
+  left: 1105px;
+  padding: 0px 19px;
+  position: absolute;
+  top: 546px;
+  width: 183px;
+}
+
+.confirm-changes {
+  letter-spacing: 0;
+  line-height: normal;
+  text-align: center;
+  width: fit-content;
 }
