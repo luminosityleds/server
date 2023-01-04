@@ -56,7 +56,7 @@ export const Login: FC<Users> = (props: Users) => {
         <div><GitHubLogin /></div>
       </div>
       {/* End of third party login buttons */}
-      <div className="sign-up-btn"><Link to="/register">Create New Account</Link></div>
+      <div className="sign-up-btn"><Link to="/register">Register</Link></div>
     </div>
   );
 }

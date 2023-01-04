@@ -10,10 +10,11 @@
   src: null;
 }
 
-.App {
-  height: 100vh;
+.page-container {
+  min-height: 100vh;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-repeat: no-repeat;
@@ -21,6 +22,10 @@
   background-position: top;
   background-color: #F7B267;
   margin: 0;
+}
+
+.content-wrap {
+  padding-bottom: 3em;
 }
 
 /* Login and Forgot Password Container */
@@ -41,7 +46,7 @@
   height: 2em;
   width: 50%;
   float: left;
-  background-color: #F27059;
+  background-color: #F4845F;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +54,8 @@
 }
 
 .login-btn:hover {
-  transform: scale(1.15);
+  background-color: #F27059;
+  cursor: pointer;
 }
 
 ::-ms-reveal {
@@ -75,14 +81,17 @@
   height: 2em;
   width: 50%;
   float: right;
-  background-color: #F27059;
+  background-color: #F4845F;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 0.5em;
 }
 
-.forgot-pwd-btn:hover { transform: scale(1.15);}
+.forgot-pwd-btn:hover {
+  background-color: #F27059;
+  cursor: pointer;
+}
 
 /* Username and Password Inputs */
 
@@ -119,7 +128,7 @@ i:hover {
 .sign-up-btn {
   height: 2em;
   width: 35%;
-  background-color: #F27059;
+  background-color: #F4845F;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,7 +136,8 @@ i:hover {
 }
 
 .sign-up-btn:hover {
-  transform: scale(1.15);
+  background-color: #F27059;
+  cursor: pointer;
 }
 
 .site-title {
@@ -235,7 +245,6 @@ input:focus {
   }
 }
 
-
 /* Logo */
 
 .header_logo_long {
@@ -244,3 +253,35 @@ input:focus {
   left: 0%;
   align-items: stretch;
 }
+
+/* Footer */
+.main-footer {
+  color: black;
+  background-color: #F4845F;
+  margin-top: auto;
+  position:relative;
+  bottom: 0;
+  width: 100%;
+  columns: 2;
+}
+
+/* Footer 'luminosityleds' column */
+.about:hover {
+  text-decoration: underline;
+}
+
+.team:hover {
+  text-decoration: underline;
+}
+
+.whats-new:hover {
+  text-decoration: underline;
+}
+
+/* Hyperlinks/Anchors */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
