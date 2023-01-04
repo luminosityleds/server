@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import "../css/App.css"
-import "../css/ThirdParty.css"
 import {Users} from "../Interfaces"
 import {Link} from 'react-router-dom'
 import {AppleLogin, GoogleLogin, MicrosoftLogin, GitHubLogin} from "./ThirdParty";

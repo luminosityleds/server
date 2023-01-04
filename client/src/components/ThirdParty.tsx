@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/ThirdParty.css"
+import "../css/App.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faApple, faGoogle, faMicrosoft, faGithub} from "@fortawesome/free-brands-svg-icons";
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google"
