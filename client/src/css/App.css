@@ -30,21 +30,11 @@
 
 /* Login and Forgot Password Container */
 
-.login-forgot-btns {
-  height: 2em;
-  width: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0.5em;
-  grid-gap: 20%;
-}
-
 /* Login */
 
 .login-btn {
   height: 2em;
-  width: 50%;
+  width: 35%;
   float: left;
   background-color: #F4845F;
   display: flex;
@@ -73,54 +63,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-}
-
-/* Forgot Password */
-
-.forgot-pwd-btn {
-  height: 2em;
-  width: 50%;
-  float: right;
-  background-color: #F4845F;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0.5em;
-}
-
-.forgot-pwd-btn:hover {
-  background-color: #F27059;
-  cursor: pointer;
-}
-
-/* Username and Password Inputs */
-
-input {
-  border: none;
-  background-color: white;
-  height: 2em;
-  width: 75%;
-  border-radius: 0.5em;
-  text-align: left;
-  padding: 1.5em;
-  display: inline-block;
-}
-
-input:focus {
-  outline-color: #061826;
-}
-
-/* Show/Hide Password */
-
-i {
-  position: absolute;
-  top: 28.5%;
-  right: 15%;
-}
-
-i:hover {
-  color: #b1b1b1;
-  cursor: pointer;
 }
 
 /* Register Button */
