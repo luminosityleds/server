@@ -3,9 +3,16 @@ from jira import JIRA
 
 JIRA_OPTIONS = {'server': os.environ['JIRA_URL']}
 
-JIRA_PROJECT_ID = os.environ['JIRA_PROJECT_ID']
-
 jira = JIRA(options=JIRA_OPTIONS, basic_auth=(os.environ['JIRA_USERNAME'], os.environ['JIRA_PASSWORD']))
+
+ID = []
+
+VERSIONS = jira.project_versions("LL")
+
+for v in VERSIONS:
+    ID.append(v.id)
+
+JIRA_PROJECT_ID = max(ID)
 
 VERSION = jira.version(JIRA_PROJECT_ID)
 

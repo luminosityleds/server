@@ -268,17 +268,14 @@ input:focus {
 /* Footer 'luminosityleds' column */
 .about:hover {
   text-decoration: underline;
-  display: inline-block;
 }
 
 .team:hover {
   text-decoration: underline;
-  display: inline-block;
 }
 
 .whats-new:hover {
   text-decoration: underline;
-  display: inline-block;
 }
 
 /* Hyperlinks/Anchors */
