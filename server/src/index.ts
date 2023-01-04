@@ -30,6 +30,16 @@ function mongodb_connect() {
     });
     
     mongoose.connect(`mongodb+srv://${USR}:${PSW}@${DB}.cgornhw.mongodb.net/test`);
+
+    mongoose.connection.on('open', function (ref) {
+      console.log('Connected to mongo server.');
+      //trying to get collection names
+      mongoose.connection.db.listCollections().toArray(function (err, names) {
+          console.log(names); // [{ name: 'dbname.myCollection' }]
+          module.exports.Collection = names;
+          console.log('Test.');
+      });
+  })
 }
 
 mongodb_connect();
