@@ -10,10 +10,11 @@
   src: null;
 }
 
-.App {
-  height: 100vh;
+.page-container {
+  min-height: 100vh;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-repeat: no-repeat;
@@ -23,25 +24,19 @@
   margin: 0;
 }
 
-/* Login and Forgot Password Container */
-
-.login-forgot-btns {
-  height: 2em;
-  width: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0.5em;
-  grid-gap: 20%;
+.content-wrap {
+  padding-bottom: 3em;
 }
+
+/* Login and Forgot Password Container */
 
 /* Login */
 
 .login-btn {
   height: 2em;
-  width: 50%;
+  width: 35%;
   float: left;
-  background-color: #f27059;
+  background-color: #F4845F;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +44,8 @@
 }
 
 .login-btn:hover {
-  transform: scale(1.15);
+  background-color: #F27059;
+  cursor: pointer;
 }
 
 ::-ms-reveal {
@@ -129,7 +125,8 @@ i:hover {
 }
 
 .sign-up-btn:hover {
-  transform: scale(1.15);
+  background-color: #F27059;
+  cursor: pointer;
 }
 
 .site-title {
@@ -173,7 +170,6 @@ input:focus {
   height: 50px;
   align-items: stretch;
   gap: 2rem;
-  padding: 0 25px;
 }
 
 .nav ul {
@@ -197,12 +193,53 @@ input:focus {
   color: rgb(0, 0, 0);
 }
 
+.nav_triple_bar_menu{
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.nav_triple_bar_icon{
+  display: none;
+  justify-self: end;
+  height: 50px;
+  padding: 15px;
+  font-size: x-large;
+}
+
+.nav_triple_bar_links_container,
+.nav_triple_bar_links{
+  display: none;
+  align-items: center;
+  flex-direction: column;
+  background: #F27059;
+}
+
+@media screen and (max-width: 550px) {
+  .nav li{
+    display: none;
+  }
+
+  .nav_triple_bar_menu,
+  .nav_triple_bar_icon,
+  .nav_triple_bar_links_container,
+  .nav_triple_bar_links{
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header_logo_long {
+    width: 80%;
+  }
+}
+
 /* Logo */
 
-img {
+.header_logo_long {
   height: 45px;
   position: absolute;
-  left: 10px;
+  left: 0%;
   align-items: stretch;
 }
 
@@ -467,4 +504,67 @@ img {
   line-height: normal;
   text-align: center;
   width: fit-content;
+}
+/* Footer */
+.main-footer {
+  color: black;
+  background-color: #F4845F;
+  margin-top: auto;
+  position:relative;
+  bottom: 0;
+  width: 100%;
+  columns: 2;
+}
+
+/* Footer 'luminosityleds' column */
+.about:hover {
+  text-decoration: underline;
+}
+
+.team:hover {
+  text-decoration: underline;
+}
+
+.whats-new:hover {
+  text-decoration: underline;
+}
+
+/* Hyperlinks/Anchors */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Third Party */
+.third-party-btn {
+  height: 3em;
+  width: 28em;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5em;
+  border: none;
+  font-family: "Trebuchet MS";
+  font-size: 0.8em; 
+  padding: 0.5em;
+}
+
+.third-party-btn:hover {
+  background-color: rgb(245, 245, 245);
+  cursor: pointer;
+}
+
+.third-party-icon {
+  margin-right: 0.1em;
+}
+
+.third-party-btns {
+height: 2em;
+width: 75%;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 0.5em;
+grid-gap: 25%;
 }

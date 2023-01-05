@@ -37,4 +37,34 @@ This guide outlines how to generate documentation with Sphinx for the Python cod
 1. Follow the `Steps to create a virtual environment` section to setup a virtual environment. 
 2. Go to the top level of the luminosity-led project with `cd $(git rev-parse --show-toplevel)`
 3. Generate documentation with `sphinx-build -b html docs/source/ docs/build/html`
-4. Open `docs/build/html/index.html` in a web browser and you should see Sphinx documentation. 
+4. Open `docs/build/html/index.html` in a web browser and you should see Sphinx documentation.
+
+### MicroPython: https://www.raspberrypi.com/documentation/microcontrollers/micropython.html
+MicroPython is a version of Python created specifically for use on embedded systems.
+This is what we will be using to program on the Raspberry Pi Pico W.
+
+Since MicroPython packages are created specifically for use on embedded systems,
+we can't easily install them on a pc through pip. That means that importing
+a MicoPython package into embedded code on your pc will cause pylint to throw
+an import error. You can place the following comment in your code on the same line
+as the problematic import statement to ignore the error for that specific line:
+
+`# pylint: disable=E0401`
+
+[E0401](https://pylint.pycqa.org/en/latest/user_guide/messages/error/import-error.html) is pylint's error alerting you that it was unable to import a package.
+
+### Connecting the Pico W to Wifi https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf
+For a simple connection to a local WiFi network, you can use the following code:
+```
+import network
+wlan = network.WLAN(network.STA_IF) # constructs a client interface object
+wlan.active(True) # activates the network interface ("up")
+wlan.connect(ssid, password) # connects to the given wifi network using given credentials
+```
+For creating a more robust connection, see [the Pico W documentation](https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf).
+
+### Querying the Wifi Connection State
+To querry the Wifi connection state, simply use the following method on the network interface object:
+`wlan.isconnected()`
+
+This returns true if the interface is connected, otherwise false.

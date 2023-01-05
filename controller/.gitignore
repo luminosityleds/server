@@ -1,1 +1,11 @@
+# virtual environment
 .venv
+
+# shell scripts to connect to MCU; this will vary accross machines/environemnts
+.connect*
+
+# shell script to sync MCU with flash directory
+.sync*
+
+# local micropy-cli directory
+.micropy

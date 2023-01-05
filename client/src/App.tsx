@@ -2,10 +2,11 @@ import React, { FC } from "react";
 import "./css/App.css";
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Header";
 import SiteInfo from "./components/Main";
-import Desktop1 from "./components/AccountPg
+import Desktop1 from "./components/AccountPg";
+import Footer from "./components/Footer";
 
 const App: FC = () => {
   return (
@@ -13,7 +14,8 @@ const App: FC = () => {
       <div>
         <Navbar />
       </div>
-      <div className="App">
+      <div className="page-container">
+        <div className="content-wrap">
         <SiteInfo />
           <Routes>
             <Route path="/" element={<div></div>} />
@@ -43,8 +45,8 @@ const App: FC = () => {
             />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
-        
-         
+        </div>
+        <Footer />
       </div>
     </>
   );
