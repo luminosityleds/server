@@ -156,3 +156,5 @@ const desktop1data = {
   EditUserPfpButtonProps: editUserPfpButtonData,
   confirmChangesButtonData: confirmChangesButtonData,
 };
+
+export default Desktop1;
