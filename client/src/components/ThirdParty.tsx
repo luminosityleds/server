@@ -74,10 +74,12 @@ export const MicrosoftLogin = () => {
 
 export const GitHubLogin = () => {
   const CLIENT_ID : String = "02284f577fe71db5964b";
+
   function login() {
-    console.log("login");
     window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);
-  }
+
+  } 
+
 
   return (
   <div>
@@ -158,9 +160,16 @@ export const MicrosoftRegister = () => {
 };
 
 export const GitHubRegister = () => {
+  const CLIENT_ID : String = "02284f577fe71db5964b";
+
+  function login() {
+    window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);
+
+  } 
+
 return (
 <div>
-  <button className="third-party-btn">
+  <button className="third-party-btn" onClick = {login}>
     <FontAwesomeIcon className="third-party-icon" icon={faGithub} size="2x" fixedWidth/>Register with GitHub
   </button>
 </div>
