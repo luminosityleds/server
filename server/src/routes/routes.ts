@@ -1,6 +1,7 @@
 const express = require("express");
 const User = require("../models/UserSchema")
-const router = express.Router()
+
+export const router = express.Router()
 
 // Post method
 router.post('/register', (req: any, res: any) => {
@@ -14,12 +15,21 @@ router.post('/register', (req: any, res: any) => {
 // Get all method
 
 // Get one method
+router.get('/get/:email', (req: any, res: any) => {
+    User.findOne({email: req.body.email}, function(err: any, res: any) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(res)
+        }
+    })
+})
 
 // Update one
 
 // Delete one
 
 // Delete all
-
 module.exports = router
-export {}
+

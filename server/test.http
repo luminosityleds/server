@@ -1,7 +1,7 @@
-POST http://localhost:3000/#/signup
+GET http://localhost:4000/app/get/
 Content-Type: application/json
 
 {
-    "email": "test@test.com",
+    "email": "test@gmail.com",
     "name": "test"
 }

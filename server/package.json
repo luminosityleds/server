@@ -4,7 +4,7 @@
   "description": "",
   "main": "helloWorld.js",
   "scripts": {
-    "start": "node ./build/index.js",
+    "start": "nodemon ./src/server/server.ts",
     "build": "tsc -p .",
     "devStart": "nodemon ./src/index.ts"
   },
