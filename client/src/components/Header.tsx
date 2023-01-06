@@ -7,14 +7,23 @@ function showUser() {
   const loggedIn = window.localStorage.getItem("isLoggedIn");
   const user = window.localStorage.getItem("userName")
   if (loggedIn === 'true') {
-    return <li>Hello {user}</li>
+    return (
+      <div className="loggedInNav">
+        <ul>
+          <li>Hello {user}</li>
+        </ul>
+      </div>
+    )
   }
   else {
     return (
-    <div>
-      <li><Link to="/login">Log In</Link></li>
-      <li><Link to="/register">Sign Up</Link></li>
-    </div>)
+    <div className="loggedOutNav">
+      <ul>
+        <li><Link to="/login">Log In</Link></li>
+        <li><Link to="/register">Sign Up</Link></li>
+      </ul>
+    </div>
+    )
   }
 }
 
