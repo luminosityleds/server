@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const routeURLs = require('../routes/routes')
+const routeURLs = require('./routes/routes')
 const cors = require('cors')
 
 const USR = process.env.MONGO_INITDB_ROOT_USERNAME;
