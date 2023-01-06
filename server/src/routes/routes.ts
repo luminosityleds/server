@@ -9,7 +9,14 @@ router.post('/register', (req: any, res: any) => {
         email:req.body.email,
         name:req.body.name
     })
-    user.save()
+    user.save(function (err: any, res: any) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(res)
+        }
+    })
 })
 
 // Get all method

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 import "../css/App.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faApple, faGoogle, faMicrosoft, faGithub} from "@fortawesome/free-brands-svg-icons";
@@ -90,8 +91,14 @@ export const GoogleRegister = () => {
         }
 
         const backend_response = axios.post('http://localhost:4000/app/register', data)
-                                      .then(response => console.log(response.data))
+                                      .then(response => console.log(response.data));
         
+        // Set that the user is now logged in
+        window.localStorage.setItem("isLoggedIn", "true")
+        window.localStorage.setItem("userName", data.name)
+
+        // Go back to the homepage
+        window.location.href = "/"
       }
       catch (err) {
         console.log(err);
