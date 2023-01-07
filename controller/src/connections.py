@@ -49,7 +49,7 @@ class WLANConnection:
         else:
             print("connection established\n")
 
-    def disconnect(self):
+    def disconnect(self) -> None:
         """
         Disconnect from current wireless network.
         """
@@ -63,3 +63,47 @@ class WLANConnection:
         :return: True if the device is connected to a WLAN, else False
         """
         return self._wlan.isconnected()
+
+    @property
+    def ssid(self) -> str:
+        """
+        The ssid of the current connection.
+        """
+        return self._ssid
+    
+    @ssid.setter
+    def ssid(self, ssid: str) -> None:
+        """
+        Attempts to set the ssid of the connection, granted the connection
+        status is False (disconnected). Raises RuntimeError if this is 
+        attempted on an open connection.
+
+        :param ssid: The ssid of the target WLAN
+        """
+        if self._wlan.active():
+            raise RuntimeError(
+                "attempting to change the ssid of an active connection")
+        else:
+            self._ssid = ssid
+
+    @property
+    def password(self) -> None:
+        """
+        The password of the current connection.
+        """
+        # For security reasons, does NOT return the password
+        # This is here in order to use the setter decorator
+        return None
+
+    @password.setter
+    def password(self, password: str) -> None:
+        """
+        Attempts to set the password of the connection, granted the connection
+        status is False (disconnected). Raises RuntimeError if this is 
+        attempted on an open connection.
+        """
+        if self._wlan.active():
+            raise RuntimeError(
+                "attempting to change the ssid of an active connection")
+        else:
+            self._password = password
