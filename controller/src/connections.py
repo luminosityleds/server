@@ -25,6 +25,9 @@ class WLANConnection:
         self._password = password
         self._wlan = network.WLAN(network.STA_IF) # init WLAN object as station
 
+    def __eq__(self, other: object) -> bool:
+        return (self._wlan == other._wlan)
+
     def connect(self) -> None:
         """
         Connect to the WLAN network specified by the object's ssid parameter.
