@@ -1,7 +1,7 @@
 # connections.py
-import network # pylint: disable=E0401
-import rp2 # pylint: disable=E0401
-import time
+import network # type: ignore pylint: disable=E0401
+import rp2 # type: ignore pylint: disable=E0401
+import time # translates to utime in MicroPython upon evaluation
 
 class WLANConnection:
     """
@@ -46,7 +46,6 @@ class WLANConnection:
 
     def __repr__(self) -> str:
         return f"WLANConnection(ssid={self._ssid}, password={self._password})"
-
 
     def connect(self) -> None:
         """
