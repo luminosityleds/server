@@ -115,9 +115,7 @@ class WLANConnection:
         """
         The password of the current connection.
         """
-        # For security reasons, does NOT return the password
-        # This is here in order to use the setter decorator
-        return None
+        return self._password
 
     @password.setter
     def password(self, password: str) -> None:
@@ -125,6 +123,8 @@ class WLANConnection:
         Attempts to set the password of the connection, granted the connection
         status is False (disconnected). Raises RuntimeError if this is 
         attempted on an open connection.
+
+        :param password: the password for the target WLAN
         """
         if self.connected == False:
             raise RuntimeError(
