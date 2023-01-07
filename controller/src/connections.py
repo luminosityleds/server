@@ -1,5 +1,6 @@
 # connections.py
 import network # pylint: disable=E0401
+import rp2 # pylint: disable=E0401
 import time
 
 class WLANConnection:
@@ -27,6 +28,21 @@ class WLANConnection:
 
     def __eq__(self, other: object) -> bool:
         return (self._wlan == other._wlan)
+
+    def __str__(self) -> str:
+        interfaceParams = self._wlan.ifconfig()
+
+        return f"""
+                WLAN Connection:
+                    SSID: {self._ssid}
+                    Connected: {self.connected}
+                    Connection Status: {self._wlan.status()}
+                    IP: {interfaceParams[0]}
+                    Subnet Mask: {interfaceParams[1]}
+                    Gateway: {interfaceParams[2]}
+                    DNS Server: {interfaceParams[3]}
+                    Country: {rp2.country()}
+                """
 
     def connect(self) -> None:
         """
