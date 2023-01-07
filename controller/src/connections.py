@@ -4,10 +4,10 @@ import time
 
 class WLANConnection:
     """
-    A class representing a wifi connection.
+    A class representing a WiFi connection.
     """
 
-    # Constants
+    # Class Constants
     TRIES = 10 # Number of times to attempt a connection before giving up
     WAIT_TIME = 1 # Number of seconds to wait before next connection attempt
     WAIT_CODES  = [1, 2] # cyw43 status codes indicating connection in progress
@@ -15,7 +15,7 @@ class WLANConnection:
 
     def __init__(self, ssid: str, password: str) -> None:
         """
-        Constructor method for creating a LightingUnit object.
+        Constructor method for creating a WLANConnection object.
 
         :param ssid: the target wifi network's service set identifier (name)
         :param password: the target wifi network's password
@@ -38,10 +38,11 @@ class WLANConnection:
             print("establishing connection...")
             time.sleep(WLANConnection.WAIT_TIME)
 
-        #connection failure
+        # Connection failure
         if self._wlan.status() != WLANConnection.CONNECTION_SUCCESS:
             raise RuntimeError("network connection failed, status " 
                 + str(self._wlan.status()))
 
+        # Connection success
         else:
             print("connection established\n")
