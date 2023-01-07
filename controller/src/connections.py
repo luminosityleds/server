@@ -4,7 +4,8 @@ import time
 
 class WLANConnection:
     """
-    A class representing a WiFi connection.
+    A class representing a WLAN connection between the device and a local
+    network.
     """
 
     # Class Constants
@@ -26,13 +27,14 @@ class WLANConnection:
 
     def connect(self) -> None:
         """
-        Connect to the WiFi network specified by the object's ssid parameter.
+        Connect to the WLAN network specified by the object's ssid parameter.
         """
         self._wlan.active(True) # activate the network interface
         self._wlan.connect(self._ssid, self._password)
 
-        # Wait for a connection to be established or a failure
+        # Wait for a connection to be established
         for i in range(WLANConnection.TRIES):
+
             if self._wlan.status() not in WLANConnection.WAIT_CODES:
                 break
             print("establishing connection...")
@@ -46,3 +48,18 @@ class WLANConnection:
         # Connection success
         else:
             print("connection established\n")
+
+    def disconnect(self):
+        """
+        Disconnect from current wireless network.
+        """
+        self._wlan.disconnect()
+
+    @property
+    def connected(self) -> bool:
+        """
+        Query the state of the WLAN connection.
+
+        :return: True if the device is connected to a WLAN, else False
+        """
+        return self._wlan.isconnected()
