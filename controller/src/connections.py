@@ -81,7 +81,7 @@ class WLANConnection:
 
         :param ssid: The ssid of the target WLAN
         """
-        if self._wlan.active():
+        if self.connected == False:
             raise RuntimeError(
                 "attempting to change the ssid of an active connection")
         else:
@@ -103,8 +103,8 @@ class WLANConnection:
         status is False (disconnected). Raises RuntimeError if this is 
         attempted on an open connection.
         """
-        if self._wlan.active():
+        if self.connected == False:
             raise RuntimeError(
-                "attempting to change the ssid of an active connection")
+                "attempting to change the password of an active connection")
         else:
             self._password = password
