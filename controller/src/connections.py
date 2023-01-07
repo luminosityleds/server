@@ -42,6 +42,7 @@ class WLANConnection:
 
         # Connection failure
         if self._wlan.status() != WLANConnection.CONNECTION_SUCCESS:
+            self._wlan.active(False) # deactivate the network interface
             raise RuntimeError("network connection failed, status " 
                 + str(self._wlan.status()))
 
