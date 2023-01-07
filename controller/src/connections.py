@@ -44,6 +44,10 @@ class WLANConnection:
                     Country: {rp2.country()}
                 """
 
+    def __repr__(self) -> str:
+        return f"WLANConnection(ssid={self._ssid}, password={self._password})"
+
+
     def connect(self) -> None:
         """
         Connect to the WLAN network specified by the object's ssid parameter.
