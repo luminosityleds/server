@@ -7,16 +7,16 @@ Within **accounts** there are the following fields:
 <dt><b>_id : ObjectID</b></dt>
     <dd>A unique object identifier added to have a primary key for accounts.</dd>
 <br>
-<dt><b>username : String</b></dt>
-    <dd>A username for the account credentials. Used for login and user representation purposes.</dd>
+<dt><b>email : String</b></dt>
+    <dd>An email for the account credentials. Used for login and user representation purposes.</dd>
 <br>
-<dt><b>password : String</b></dt>
-    <dd>A password for the account credentials. Needed for login authentication purposes.</dd>
+<dt><b>name : String</b></dt>
+    <dd>A name for the account credentials. Needed for login authentication purposes.</dd>
 <br>
 <dt><b>devices : Array</b></dt>
     <dd>An array of devices registered to an account. Stores unique device objectIds to reference from the mongoDB collection of devices.</dd>
 <br>
-* id, username, password, and devices are required fields.  The <i>devices</i> array may be empty.
+* id, email, name, and devices are required fields.  The <i>devices</i> array may be empty.
 
 <br>
 <hr>

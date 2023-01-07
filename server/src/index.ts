@@ -40,7 +40,6 @@ function mongodb_connect() {
           console.log('Test.');
       });
   })
-    
 }
 
 mongodb_connect();

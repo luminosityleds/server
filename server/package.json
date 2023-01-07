@@ -5,6 +5,7 @@
   "main": "helloWorld.js",
   "scripts": {
     "start": "node ./build/index.js",
+    "serverStart": "nodemon ./src/server.ts",
     "build": "tsc -p .",
     "devStart": "nodemon ./src/index.ts"
   },
