@@ -37,7 +37,7 @@ class WLANConnection:
 
         return f"""
                 WLAN Connection:
-                    SSID: {self._ssid}
+                    SSID: {self._credentials[0]}
                     Connected: {self.connected}
                     Connection Status: {self._wlan.status()}
                     IP: {interfaceParams[0]}
