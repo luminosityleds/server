@@ -2,6 +2,9 @@
 import network # type: ignore pylint: disable=E0401
 import rp2 # type: ignore pylint: disable=E0401
 import time # translates to utime in MicroPython upon evaluation
+import json
+
+WLAN_CREDENTIALS_FILEPATH = "wlan-credentials.json"
 
 class WLANConnection:
     """
@@ -47,6 +50,37 @@ class WLANConnection:
     def __repr__(self) -> str:
         return f"WLANConnection(ssid={self._ssid}, password={self._password})"
 
+    @classmethod
+    def fromJSON(cls) -> object:
+        """
+        Attempts create a WLANConnection instance from prior instance,
+        if available.
+
+        :return: WLANConnection instance or None, if not available
+        """
+        try:
+            with open(WLAN_CREDENTIALS_FILEPATH, "r") as file:
+                connection = json.load(WLAN_CREDENTIALS_FILEPATH)
+                file.close()
+                return connection
+
+        except OSError as error:
+            if error.errno == 2:
+                return None
+            else:
+                raise error
+    
+    def toJSON(self, path=WLAN_CREDENTIALS_FILEPATH) -> None:
+        """
+        Saves WLANConnection instance to the json file specified.
+
+        :param path: filepath at which to save WLANConnection instance
+        """
+        with open(WLAN_CREDENTIALS_FILEPATH, "r") as file:
+            json.dump(WLAN_CREDENTIALS_FILEPATH)
+
+
+
     def connect(self) -> None:
         """
         Connect to the WLAN network specified by the object's ssid parameter.
@@ -70,6 +104,7 @@ class WLANConnection:
 
         # Connection success
         else:
+            self.toJSON # save object instance for use at a later time
             print("connection established\n")
 
     def disconnect(self) -> None:
