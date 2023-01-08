@@ -60,8 +60,11 @@ class WLANConnection:
         """
         try:
             with open(WLAN_CREDENTIALS_FILEPATH, "r") as file:
-                connection = json.load(WLAN_CREDENTIALS_FILEPATH)
+                jsonString = file.read()
                 file.close()
+                print(jsonString)
+                args = json.loads(jsonString)
+                connection = WLANConnection(args[0], args[1])
                 return connection
 
         except OSError as error:
@@ -76,8 +79,11 @@ class WLANConnection:
 
         :param path: filepath at which to save WLANConnection instance
         """
-        with open(WLAN_CREDENTIALS_FILEPATH, "r") as file:
-            json.dump(WLAN_CREDENTIALS_FILEPATH)
+        with open(WLAN_CREDENTIALS_FILEPATH, "w") as file:
+            args = [self.ssid, self.password]
+            jsonString = json.dumps(args)
+            file.write(jsonString)
+            file.close()
 
     def connect(self) -> None:
         """
