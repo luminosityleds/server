@@ -1,10 +1,11 @@
 # connections.py
+
 import network # type: ignore pylint: disable=E0401
 import rp2 # type: ignore pylint: disable=E0401
 import time # translates to utime in MicroPython upon evaluation
 import json
 
-WLAN_CREDENTIALS_FILEPATH = "wlan-credentials.json"
+WLAN_CREDENTIALS_FILEPATH = "../.data/wlan-credentials.json"
 
 class WLANConnection:
     """
@@ -25,8 +26,7 @@ class WLANConnection:
         :param ssid: the target wifi network's service set identifier (name)
         :param password: the target wifi network's password
         """
-        self._ssid = ssid
-        self._password = password
+        self._credentials = [ssid, password]
         self._wlan = network.WLAN(network.STA_IF) # init WLAN object as station
 
     def __eq__(self, other: object) -> bool:
@@ -48,7 +48,8 @@ class WLANConnection:
                 """
 
     def __repr__(self) -> str:
-        return f"WLANConnection(ssid={self._ssid}, password={self._password})"
+        return f"WLANConnection(ssid='{self._credentials[0]}', " \
+            f"password='{self._credentials[1]}')"
 
     @classmethod
     def fromJSON(cls) -> object:
@@ -90,7 +91,7 @@ class WLANConnection:
         Connect to the WLAN network specified by the object's ssid parameter.
         """
         self._wlan.active(True) # activate the network interface
-        self._wlan.connect(self._ssid, self._password)
+        self._wlan.connect(self._credentials[0], self._credentials[1])
 
         # Wait for a connection to be established
         for i in range(WLANConnection.TRIES):
@@ -131,7 +132,7 @@ class WLANConnection:
         """
         The ssid of the current connection.
         """
-        return self._ssid
+        return self._credentials[0]
     
     @ssid.setter
     def ssid(self, ssid: str) -> None:
@@ -146,14 +147,14 @@ class WLANConnection:
             raise RuntimeError(
                 "attempting to change the ssid of an active connection")
         else:
-            self._ssid = ssid
+            self._credentials[0] = ssid
 
     @property
     def password(self) -> None:
         """
         The password of the current connection.
         """
-        return self._password
+        return self._credentials[1]
 
     @password.setter
     def password(self, password: str) -> None:
@@ -168,4 +169,4 @@ class WLANConnection:
             raise RuntimeError(
                 "attempting to change the password of an active connection")
         else:
-            self._password = password
+            self._credentials[1] = password
