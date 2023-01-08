@@ -79,8 +79,6 @@ class WLANConnection:
         with open(WLAN_CREDENTIALS_FILEPATH, "r") as file:
             json.dump(WLAN_CREDENTIALS_FILEPATH)
 
-
-
     def connect(self) -> None:
         """
         Connect to the WLAN network specified by the object's ssid parameter.
