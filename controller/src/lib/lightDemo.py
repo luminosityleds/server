@@ -1,6 +1,6 @@
 # lightDemo.py
 
-from lightingUnit import LightingUnit
+from lib.lightingUnit import LightingUnit
 from time import sleep
 from random import randint
 
