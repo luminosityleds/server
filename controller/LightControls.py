@@ -13,9 +13,13 @@ class LED_Control:
         pixelNums (integer): number of Leds that will be used for full strip
         '''
         self.pin = machine.Pin(pin, Pin.OUT)
+        self.VBUS = Pin('WL_GPIO2', Pin.IN)
         self.pixelNums = pixelNums
+
         self.main = neopixel.NeoPixel(self.pin, self.pixelNums)
         self._color = (0, 0, 0)
+        self._noColor = (0, 0, 0)
+        self._brightness = 0
 
     def setColor(self, color):
         '''
@@ -46,7 +50,7 @@ class LED_Control:
         brightness (integer): takes in a numerical value in order to change the brightness of the LED, should
         correspond directly to the setColor.
 
-        This is still currently a work in progress 
+        This is still currently a work in progress
 
         '''
         if brightness < 1:
@@ -58,8 +62,49 @@ class LED_Control:
         # for i in self.main[3]:
         #     if i < brightness:
 
+        self.update()
+
+    def _setBrightness(self, brightness):
+        '''
+        Used to change brightness
+
+        brightness (integer): takes in a numerical value in order to change the brightness of the LED, should
+        correspond directly to the setColor.
+
+        This is still currently a work in progress
+
+        '''
+
+        self._setBrightness = brightness
+
+    def isConnectedToPower(self):
+        '''
+        Used to check if the central power to the LED are getting the 5 volts.
+
+        The user will be able to call member function to confirm if power is being given to LED's 
+
+        '''
+        if (self.VBUS.value()):
+            print('Power is High: ', self.VBUS.value())
+
+        else:
+            print('Power is Low: ', self.VBUS.value())
+
+    def LEDStatus(self):
+        '''
+        Indicates weather the LED is on an ON or OFF state. 
+
+        The user will be able to call member function to confirm if at least the first LED is displaying color. 
+
+        '''
+        if self.main[0] == self._noColor:
+            print("LED is Off")
+        else:
+            print("LED is On")
+
     def update(self):
         '''
         Instantiates the "write" method from the neopixel in order to update any changes 
         '''
+
         self.main.write()
