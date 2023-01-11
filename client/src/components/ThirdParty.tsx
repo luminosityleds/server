@@ -2,8 +2,9 @@ import React from "react";
 import "../css/App.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faApple, faGoogle, faMicrosoft, faGithub} from "@fortawesome/free-brands-svg-icons";
-import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google"
+import { useGoogleLogin } from "@react-oauth/google"
 import axios from "axios"
+
 
 // Login components
 export const AppleLogin = () => {
@@ -48,7 +49,8 @@ export const MicrosoftLogin = () => {
   return (
   <div>
     <button className="third-party-btn">
-      <FontAwesomeIcon className="third-party-icon" icon={faMicrosoft} size="2x" fixedWidth/>Login with Microsoft
+      <FontAwesomeIcon className="third-party-icon" icon={faMicrosoft} size="2x" fixedWidth/>
+      <a href="/auth/signin">Login with Microsoft</a>
     </button>
   </div>
 );
