@@ -73,11 +73,13 @@ export const MicrosoftLogin = () => {
 };
 
 export const GitHubLogin = () => {
-  const CLIENT_ID : String = "02284f577fe71db5964b";
+  const CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+  const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
   function login() {
-    window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);
-
+   window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);
+   console.log(CLIENT_ID);
+   console.log(CLIENT_SECRET);
   } 
 
 
@@ -160,11 +162,13 @@ export const MicrosoftRegister = () => {
 };
 
 export const GitHubRegister = () => {
-  const CLIENT_ID : String = "02284f577fe71db5964b";
+  const CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+  const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
   function login() {
-    window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);
-
+   window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);
+   console.log(CLIENT_ID);
+   console.log(CLIENT_SECRET);
   } 
 
 return (
