@@ -52,7 +52,7 @@ class WLANConnection:
             f"password='{self._credentials[1]}')"
 
     @classmethod
-    def fromJSON(cls) -> object:
+    def fromJSON(cls, path: str = WLAN_CREDENTIALS_FILEPATH) -> object:
         """
         Attempts create a WLANConnection instance from prior instance,
         if available.
@@ -60,7 +60,7 @@ class WLANConnection:
         :return: WLANConnection instance or None, if not available
         """
         try:
-            with open(WLAN_CREDENTIALS_FILEPATH, "r") as file:
+            with open(path, "r") as file:
                 jsonString = file.read()
                 file.close()
                 print(jsonString)
