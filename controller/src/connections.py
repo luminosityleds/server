@@ -51,6 +51,7 @@ class WLANConnection:
         return f"WLANConnection(ssid='{self._credentials[0]}', " \
             f"password='{self._credentials[1]}')"
 
+    @staticmethod
     def fromJSON(cls, path: str = WLAN_CREDENTIALS_FILEPATH) -> object:
         """
         Attempts create a WLANConnection instance from prior instance,
