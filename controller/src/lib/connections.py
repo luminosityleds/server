@@ -51,7 +51,6 @@ class WLANConnection:
         return f"WLANConnection(ssid='{self._credentials[0]}', " \
             f"password='{self._credentials[1]}')"
 
-    @classmethod
     def fromJSON(cls, path: str = WLAN_CREDENTIALS_FILEPATH) -> object:
         """
         Attempts create a WLANConnection instance from prior instance,
@@ -73,7 +72,7 @@ class WLANConnection:
                 return None
             else:
                 raise error
-    
+
     def toJSON(self, path=WLAN_CREDENTIALS_FILEPATH) -> None:
         """
         Saves WLANConnection instance to the json file specified.
@@ -133,7 +132,7 @@ class WLANConnection:
         The ssid of the current connection.
         """
         return self._credentials[0]
-    
+
     @ssid.setter
     def ssid(self, ssid: str) -> None:
         """
