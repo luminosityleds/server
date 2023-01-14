@@ -1,0 +1,7 @@
+GET http://localhost:4000/app/get/
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "name": "test"
+}
