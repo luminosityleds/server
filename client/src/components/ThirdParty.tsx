@@ -54,8 +54,8 @@ export const MicrosoftLogin = () => {
 };
 
 export const GitHubLogin = () => {
-  const CLIENT_ID = process.env.GITHUB_CLIENT_ID;
-  const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+  const CLIENT_ID = process.env.REACT_APP_GH_ID;
+  const CLIENT_SECRET = process.env.REACT_APP_GH_SECRET;
 
   function login() {
    window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);
