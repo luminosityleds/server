@@ -1,37 +1,46 @@
-import React, {FC} from 'react';
+import React, { FC } from "react";
 import "./css/App.css";
-import { Login } from "./components/Login"
-import { Register } from "./components/Register"
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom" 
+import { Login } from "./components/Login";
+import { Register } from "./components/Register";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Header";
+import SiteInfo from "./components/Main";
+import Footer from "./components/Footer";
 
 const App: FC = () => {
   return (
-    <div className="App">
-
-      <Router>
-        <Routes>
-          <Route path='/' element={
-          <div>
-            <h1>Home Page</h1>
-            <h2><Link to="/login">Login</Link></h2>
-            <h2><Link to="/register">Register</Link></h2>
-          </div>
-        }/>
-          <Route path='/login' element={
-            <div className="Login">
-              <Login username='username' password='password'/>
-            </div>
-          }/>
-          <Route path='/register' element={
-            <div className="Register">
-              <Register username='username' password='password' />
-            </div>
-          }/>
-          <Route path='*' element={ <h1>404 Not Found</h1> } />
-        </Routes>
-      </Router>
-    </div>
+    <>
+      <div>
+        <Navbar />
+      </div>
+      <div className="page-container">
+        <div className="content-wrap">
+        <SiteInfo />
+          <Routes>
+            <Route path="/" element={<div></div>} />
+            <Route
+              path="/login"
+              element={
+                <div className="Login">
+                  <Login username="username" password="password" />
+                </div>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <div className="Register">
+                  <Register username="username" password="password" />
+                </div>
+              }
+            />
+            <Route path="*" element={<h1>404 Not Found</h1>} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </>
   );
-}
+};
 
 export default App;

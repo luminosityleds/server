@@ -2,14 +2,14 @@
     "title": "account",
     "required": [
        "_id",
-       "username",
-       "password",
+       "email",
+       "name",
        "devices"
     ],
     "properties": {
       "_id": { "bsonType": "objectId" },
-      "username": { "bsonType": "string" },
-      "password": { "bsonType": "string" },
+      "email": { "bsonType": "string" },
+      "name": { "bsonType": "string" },
       "devices": { "bsonType": "array", "uniqueItems": "true" }
     }
 }

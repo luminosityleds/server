@@ -1,0 +1,76 @@
+# Workflow to update the luminosityleds.com website on pushes to master only
+
+name: luminosityled.com update
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow only on tag events
+  push:
+    tags: ["**"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under ${{ github.workspace }}, so your job can access it.  Fetches most recent commit for all branches and tags
+      - uses: actions/checkout@v3
+        with: 
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies and generate release notes
+        env:
+            JIRA_URL: ${{ secrets.JIRA_URL }}
+            JIRA_PROJECT_ID: ${{ secrets.JIRA_PROJECT_ID }}
+            JIRA_USERNAME: ${{ secrets.JIRA_USERNAME }}
+            JIRA_PASSWORD: ${{ secrets.JIRA_PASSWORD }}
+        run: |
+          cd scripts
+          pip install -r requirements.txt
+          python create_jira_release_notes.py 
+
+      # Create Github Release
+      - name: Upload Artifacts and Create Github Release
+        # ${{ github.ref_name }} is most recent tag name.  For workflows triggered by push, this is the branch or tag ref that was pushed.
+        # https://docs.github.com/en/actions/learn-github-actions/contexts
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          body_path: ${{ github.workspace }}/scripts/release_notes.md
+        if: ${{ github.ref_type == 'tag' }} # Run job on tag only
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+
+      # Setup nodejs on runner
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 16
+
+      # Install the npm dependencies & build the react website
+      - name: Build react website 
+        run: |
+          cd client
+          npm install && npm run build
+      
+      # Publish to GitHub Pages
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: client/build
+          force_orphan: true
+          cname: luminosityleds.com

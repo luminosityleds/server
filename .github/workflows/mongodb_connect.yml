@@ -1,0 +1,46 @@
+# Workflow to test the connection to mongoDB on pushes to any branch
+
+name: MongoDB Connect
+
+# Runs on push to any branch
+on:
+  push:
+    # ** means all branches and tags
+    branches: ["**"]
+  # Workflow can be triggered manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # Run tests
+  mongodb_connect:
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo
+        env:
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+          MONGO_INITDB_DATABASE: ${{ secrets.MONGO_INITDB_DATABASE }}
+          options: >-
+            --health-cmd mongo
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
+        ports:
+          - 27017:27017
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+      - name: Test mongoDB connection
+        run: |
+          cd server
+          npm install
+          npm run build
+          npm run start
+        env: 
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+          MONGO_INITDB_DATABASE: ${{ secrets.MONGO_INITDB_DATABASE }}
+        timeout-minutes: 1
