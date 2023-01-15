@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import "../css/App.css"
 import {Users} from "../Interfaces"
 import {Link} from 'react-router-dom'
-import { AppleRegister, GoogleRegister, MicrosoftRegister, GitHubRegister } from './ThirdParty';
+import { GoogleRegister, MicrosoftRegister, GitHubRegister } from './ThirdParty';
 import { GoogleOAuthProvider } from "@react-oauth/google"
 
 export const Register: FC<Users> = (props: Users) => {
@@ -10,9 +10,6 @@ export const Register: FC<Users> = (props: Users) => {
     <div className="register-cover">
         <h1>Register</h1>
         {/* Start of third party login buttons */}
-      <div className="third-party-btns">
-        <div><AppleRegister /></div>
-      </div>
       <div className="third-party-btns">
       <GoogleOAuthProvider clientId="281168454695-kvsbsq9sp4gtap61erk0mhe53bgddgfl.apps.googleusercontent.com">
         <GoogleRegister />

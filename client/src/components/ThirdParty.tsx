@@ -2,21 +2,11 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import "../css/App.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faApple, faGoogle, faMicrosoft, faGithub} from "@fortawesome/free-brands-svg-icons";
-import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google"
+import { faGoogle, faMicrosoft, faGithub} from "@fortawesome/free-brands-svg-icons";
+import { useGoogleLogin } from "@react-oauth/google"
 import axios from "axios"
 
 // Login components
-export const AppleLogin = () => {
-    return (
-    <div>
-      <button className="third-party-btn">
-        <FontAwesomeIcon className="third-party-icon" icon={faApple} size="2x" fixedWidth/>Login with Apple
-      </button>
-    </div>
-  );
-};
-
 export const GoogleLogin = () => {
   const login = useGoogleLogin({
     onSuccess: async response => {
@@ -64,16 +54,6 @@ export const GitHubLogin = () => {
 };
 
 // Register components
-export const AppleRegister = () => {
-  return (
-  <div>
-    <button className="third-party-btn">
-      <FontAwesomeIcon className="third-party-icon" icon={faApple} size="2x" fixedWidth/>Register with Apple
-    </button>
-  </div>
-);
-};
-
 export const GoogleRegister = () => {
   const register = useGoogleLogin({
     onSuccess: async response => {
