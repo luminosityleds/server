@@ -10,8 +10,11 @@ import axios from "axios"
 export const MicrosoftConfig = {
   auth: {
     // Place your clientId
-    clientId: '56d1f83f-16ae-432e-890c-31352348af92',
-    authority: 'https://login.microsoftonline.com/common/'
+    clientId: ".env.CLIENT_ID",
+    authority: 'https://login.microsoftonline.com/common/',
+    redirectUri: 'http://localhost:3000/auth/redirect',
+    postLogoutRedirectUri: 'http://localhost:3000'
+
   }
 }
 
@@ -57,11 +60,24 @@ export const GoogleLogin = () => {
 };
 
 export const MicrosoftLogin = () => {
+  const login = async function() {
+    var loginRequest = {
+      scopes: ["user.read"],
+      prompt: "select_account"
+    };
+  
+    try {
+      const loginResponse = await msalInstance.loginPopup(loginRequest);
+      console.log(loginResponse)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
   return (
   <div>
-    <button className="third-party-btn">
-      <FontAwesomeIcon className="third-party-icon" icon={faMicrosoft} size="2x" fixedWidth/>
-      <a href="/auth/signin">Login with Microsoft</a>
+    <button className="third-party-btn" onClick={() => login()}>
+      <FontAwesomeIcon className="third-party-icon" icon={faMicrosoft} size="2x" fixedWidth/>Login with Microsoft
     </button>
   </div>
 );
@@ -121,11 +137,13 @@ export const MicrosoftRegister = () => {
 
   const login = async function() {
     var loginRequest = {
-      scopes: ["user.read"]
+      scopes: ["user.read"],
+      prompt: "select_account"
     };
   
     try {
       const loginResponse = await msalInstance.loginPopup(loginRequest);
+      console.log(loginResponse)
     }
     catch (err) {
       console.log(err);
