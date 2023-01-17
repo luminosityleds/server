@@ -5,3 +5,4 @@ pylint==2.15.7
 pytest==7.2.0
 rshell==0.0.31
 mpremote==0.4.0
+pytest==7.2.0
