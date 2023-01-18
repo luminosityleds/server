@@ -1,14 +1,14 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
+const expressTest = require("express");
+const corsTest = require("cors");
+const appTest = express();
 const router = require('./routes')
 
 const PORT = 4000;
 
-app.use("/", router);
-app.use(cors())
+appTest.use("/", router);
+appTest.use(corsTest())
 
-app.listen(PORT, () => {
+appTest.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });
 
