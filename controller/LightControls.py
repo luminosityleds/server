@@ -1,6 +1,6 @@
 
-from machine import Pin
-import neopixel
+from machine import Pin # pylint: disable=E0401
+import neopixel # pylint: disable=E0401
 
 
 class LED_Control:
@@ -53,11 +53,11 @@ class LED_Control:
         This is still currently a work in progress
 
         '''
-        if brightness < 1:
-            brightness = 1
-        if brightness > 255:
-            brightness = 255
-        self.brightnessVal = brightness
+        # if brightness < 1:
+        #     brightness = 1
+        # if brightness > 255:
+        #     brightness = 255
+        # self.brightnessVal = brightness
 
         # for i in self.main[3]:
         #     if i < brightness:

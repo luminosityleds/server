@@ -2,8 +2,8 @@ from LightControls import LED_Control
 from time import sleep
 
 
-from machine import Pin
-import neopixel
+from machine import Pin # pylint: disable=E0401
+import neopixel # pylint: disable=E0401
 
 
 # This object is used to start the program, we are calling it "LEDSTRIP"
