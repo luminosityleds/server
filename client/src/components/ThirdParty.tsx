@@ -77,9 +77,9 @@ export const GitHubLogin = () => {
   const CLIENT_SECRET = process.env.REACT_APP_GH_SECRET;
 
   function login() {
-   window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);
-   console.log(CLIENT_ID);
-   console.log(CLIENT_SECRET);
+    axios.get("http://localhost:4000/login").then((response) => {
+      console.log(response.data);
+    });
   } 
 
 
