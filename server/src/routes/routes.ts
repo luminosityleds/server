@@ -1,23 +1,42 @@
 const express = require("express");
-const userModel = require("../models/UserSchema")
-const app = express();
+const User = require("../models/UserSchema")
+
+export const router = express.Router()
 
 // Post method
-app.post('/post', (req: any, res: { send: (arg0: string) => void; }) => {
-    const data = new userModel({
-        
+router.post('/register', (req: any, res: any) => {
+    const user = new User({
+        email:req.body.email,
+        name:req.body.name
+    })
+    user.save(function (err: any, res: any) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(res)
+        }
     })
 })
 
 // Get all method
-app.post('/getAll', (req: any, res: { send: (arg0: string) => void; }) => {
-    res.send('Get all')
-})
 
 // Get one method
+router.get('/get/:email', (req: any, res: any) => {
+    User.findOne({email: req.body.email}, function(err: any, res: any) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(res)
+        }
+    })
+})
 
 // Update one
 
 // Delete one
 
 // Delete all
+module.exports = router
+

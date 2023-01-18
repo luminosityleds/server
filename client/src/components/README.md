@@ -40,3 +40,14 @@ React is all about re-using code, and it is recommended to split your components
 
 To do that, create a new file with a `.tsx` file extension and put the code inside it.
 </p>
+
+<h2>Third Party Single Sign On and Registering</h2> 
+There are 4 third party services that are being used for sign in and registering accounts:
+<ol>
+    <li>Apple</li>
+    <li>Google</li>
+    <li>Microsoft</li>
+    <li>Github</li>
+</ol>
+
+Front end functionality for sign in and registering using these third party services are defined in the `ThirdParty.tsx` file.  

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 import "../css/App.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faApple, faGoogle, faMicrosoft, faGithub} from "@fortawesome/free-brands-svg-icons";
@@ -41,8 +42,6 @@ export const GoogleLogin = () => {
             "Authorization": `Bearer ${response.access_token}` 
           }
         }) 
-
-        console.log(google_response)
       }
       catch (err) {
         console.log(err);
@@ -105,7 +104,7 @@ export const AppleRegister = () => {
 };
 
 export const GoogleRegister = () => {
-  const login = useGoogleLogin({
+  const register = useGoogleLogin({
     onSuccess: async response => {
       try {
         const google_response = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", 
@@ -115,7 +114,20 @@ export const GoogleRegister = () => {
           }
         }) 
 
-        console.log(google_response)
+        const data = {
+          email: google_response.data.email,
+          name: google_response.data.name
+        }
+
+        const backend_response = axios.post('http://localhost:4000/app/register', data)
+                                      .then(response => console.log(response.data));
+        
+        // Set that the user is now logged in
+        window.localStorage.setItem("isLoggedIn", "true")
+        window.localStorage.setItem("userName", data.name)
+
+        // Go back to the homepage
+        window.location.href = "/"
       }
       catch (err) {
         console.log(err);
@@ -125,7 +137,7 @@ export const GoogleRegister = () => {
 
   return (
   <div>
-    <button className="third-party-btn" onClick={() => login()}>
+    <button className="third-party-btn" onClick={() => register()}>
       <FontAwesomeIcon className="third-party-icon" icon={faGoogle} size="2x" fixedWidth/>Register with Google
     </button>
   </div>
