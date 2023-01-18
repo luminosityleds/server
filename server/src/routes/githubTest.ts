@@ -1,11 +1,17 @@
-import { Request, Response } from 'express';
-const express = require('express');
+const express = require("express");
+const cors = require("cors");
 const app = express();
+const router = require('./routes')
 
-app.get('/github', (req: Request, res: Response) => {
-  console.log("working");
-})
+const PORT = 4000;
 
-app.listen(4000, function() {
-    console.log("App listening on port 4000");
+app.use("/", router);
+app.use(cors())
+
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+});
+
+router.get("/login", (req: any, res: any) => {
+  res.send("success");
 });
