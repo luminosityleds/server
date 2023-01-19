@@ -1,5 +1,5 @@
 # wlan.py
-from network import WLAN # type: ignore pylint: disable=E0401
+from network import WLAN, STA_IF # type: ignore pylint: disable=E0401
 import rp2 # type: ignore pylint: disable=E0401
 import time
 from credentials import WLANCredentials
@@ -13,14 +13,14 @@ _CONNECTION_SUCCESS_CODE = 3 # cyw43 status code for successful connection
 
 # fields
 _credentials = WLANCredentials()
-_wlan = WLAN(network.STA_IF) # init WLAN object as station interface
+_wlan = WLAN(STA_IF) # init WLAN object as station interface
 
 class WLANConnectionError(Exception):
     pass
 
 # initialization
 _wlan.active(True) # activate the network interface
-rp2.country(_COUNTRY)
+rp2.country(_COUNTRY) # set the MCU's country code for the connection
 
 # public methods
 def connect(credentials: WLANCredentials) -> WLANCredentials:
