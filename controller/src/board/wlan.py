@@ -1,8 +1,13 @@
 # wlan.py
-from network import WLAN, STA_IF # type: ignore pylint: disable=E0401
-import rp2 # type: ignore pylint: disable=E0401
 import time
-from credentials import WLANCredentials
+from .credentials import WLANCredentials
+
+try: # importing MicroPython-specific libraries
+    from network import WLAN, STA_IF # type: ignore pylint: disable=E0401
+    import rp2 # type: ignore pylint: disable=E0401
+
+except ImportError: #import stubs
+    from controller.tests.mpstubs import network, rp2
 
 # constants
 _COUNTRY = 'US'
@@ -13,7 +18,7 @@ _CONNECTION_SUCCESS_CODE = 3 # cyw43 status code for successful connection
 
 # fields
 _credentials = WLANCredentials()
-_wlan = WLAN(STA_IF) # init WLAN object as station interface
+_wlan = network.WLAN(network.STA_IF) # init WLAN object as station interface
 
 class WLANConnectionError(Exception):
     pass
