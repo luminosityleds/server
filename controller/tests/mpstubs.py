@@ -14,19 +14,19 @@ class network:
         """
         Mock the MicroPython network.WLAN class for testing purposes.
         """
-        connect_state = True
-        status_code = 3
-        def __init__(self, dummy=None):
-            self.dummy = dummy
+        def __init__(self, interface):
+            self.interface = interface
+            self.status_code = 3
+            self.connect_state = True
 
         def active(self, state: bool):
             pass
 
         def connect(self, ssid: str, password: str):
-            pass
+            return self.status_code
 
         def status(self):
-            return network.WLAN.status_code
+            return self.status_code
 
 class rp2:
     """
