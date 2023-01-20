@@ -39,7 +39,7 @@ def connect(credentials: WLANCredentials) -> WLANCredentials:
     Attempts to connect to the WLAN network specified by the given credentials.
     Raises an WLANConnectionError exception if unable to connect
 
-    :returns: the given WLANCredentials upon successful connection
+    :return: the given WLANCredentials upon successful connection
     """
     # check argument type
     if isinstance(credentials, WLANCredentials) == False:
@@ -87,4 +87,9 @@ def connected() -> bool:
     return _wlan.isconnected()
 
 def getCredentials() -> WLANCredentials:
+    """
+    Fetch WLANCredentials object from the current WLAN connection state.
+
+    :return: WLANCredentials associated with current connection state
+    """
     return _credentials
