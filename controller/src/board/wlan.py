@@ -6,8 +6,9 @@ try: # importing MicroPython-specific libraries
     from network import WLAN, STA_IF # type: ignore pylint: disable=E0401
     import rp2 # type: ignore pylint: disable=E0401
 
-except ImportError: #import stubs
+finally:
     from controller.tests.mpstubs import network, rp2
+
 
 # constants
 _COUNTRY = 'US'

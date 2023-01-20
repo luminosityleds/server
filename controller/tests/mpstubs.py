@@ -38,5 +38,6 @@ class rp2:
     """
     Container for for objects from the MicroPython library `rp2`.
     """
+    @staticmethod
     def country(dummy=None):
         pass
