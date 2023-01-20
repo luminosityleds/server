@@ -15,6 +15,7 @@ CYW43_STATUS_CODES = {
 test_credentials = credentials.WLANCredentials("id", "pass")
 
 def test_connect_success():
+    wlan._wlan.connect_state = False
     wlan._wlan.status_code = CYW43_STATUS_CODES["CYW43_LINK_UP"]
     assert test_credentials == wlan.connect(test_credentials)
 
@@ -36,7 +37,9 @@ def test_connect_bad_arg():
         wlan.connect("these are not credentials")
 
 def test_connect_already_connected():
-    pass
+    wlan._wlan.connect_state = True
+    with pytest.raises(wlan.WLANConnectionActiveError):
+        wlan.connect(test_credentials)
 
 def test_disconnect_connected():
     pass

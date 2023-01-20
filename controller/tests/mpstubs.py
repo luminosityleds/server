@@ -28,6 +28,9 @@ class network:
         def status(self):
             return self.status_code
 
+        def isconnected(self):
+            return self.connect_state
+
 class rp2:
     """
     Container for for objects from the MicroPython library `rp2`.

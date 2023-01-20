@@ -26,6 +26,9 @@ class WLANConnectionFailure(Exception):
 class WLANConnectionTimeout(Exception):
     pass
 
+class WLANConnectionActiveError(Exception):
+    pass
+
 # initialization
 _wlan.active(True) # activate the network interface
 rp2.country(_COUNTRY) # set the MCU's country code for the connection
@@ -41,6 +44,11 @@ def connect(credentials: WLANCredentials) -> WLANCredentials:
     # check argument type
     if isinstance(credentials, WLANCredentials) == False:
         raise TypeError("credentials must be of type WLANCredentials")
+    
+    # check for already established connection
+    if _wlan.isconnected():
+        raise WLANConnectionActiveError(
+            "attempting to connect to a WLAN when already connected to a WLAN")
 
     _wlan.connect(credentials.ssid, credentials.password)
     for attempt in range(_ATTEMPTS):
