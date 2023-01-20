@@ -41,10 +41,7 @@ def test_connect_already_connected():
     with pytest.raises(wlan.WLANConnectionActiveError):
         wlan.connect(test_credentials)
 
-def test_disconnect_connected():
-    pass
-
-def test_disconnect_non_connected():
+def test_disconnect():
     pass
 
 def test_getCredentials():
