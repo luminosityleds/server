@@ -38,6 +38,10 @@ def connect(credentials: WLANCredentials) -> WLANCredentials:
 
     :returns: the given WLANCredentials upon successful connection
     """
+    # check argument type
+    if isinstance(credentials, WLANCredentials) == False:
+        raise TypeError("credentials must be of type WLANCredentials")
+
     _wlan.connect(credentials.ssid, credentials.password)
     for attempt in range(_ATTEMPTS):
             if _wlan.status() not in _WAIT_CODES:

@@ -12,30 +12,28 @@ CYW43_STATUS_CODES = {
     "CYW43_LINK_UP": 3
 }
 
-@pytest.fixture
-def wlan_credentials():
-    return credentials.WLANCredentials("ssid", "pass")
+test_credentials = credentials.WLANCredentials("id", "pass")
 
-def test_connect_success(wlan_credentials):
+def test_connect_success():
     wlan._wlan.status_code = CYW43_STATUS_CODES["CYW43_LINK_UP"]
-    assert wlan_credentials == wlan.connect(wlan_credentials)
+    assert test_credentials == wlan.connect(test_credentials)
 
-def test_connect_failure(wlan_credentials):
+def test_connect_failure():
     for key in ["CYW43_LINK_FAIL", "CYW43_LINK_NONET", "CYW43_LINK_BADAUTH"]:
         wlan._wlan.status_code = CYW43_STATUS_CODES[key]
         with pytest.raises(wlan.WLANConnectionFailure):
-            wlan.connect(wlan_credentials)
+            wlan.connect(test_credentials)
 
 @patch('time.sleep', return_value=None)
-def test_connect_timeout(wlan_credentials):
+def test_connect_timeout(patched_time_sleep):
     for key in ["CYW43_LINK_DOWN", "CYW43_LINK_JOIN", "CYW43_LINK_NOIP"]:
         wlan._wlan.status_code = CYW43_STATUS_CODES[key]
         with pytest.raises(wlan.WLANConnectionTimeout):
-            wlan.connect(wlan_credentials)
-
+            wlan.connect(test_credentials)
 
 def test_connect_bad_arg():
-    pass
+    with pytest.raises(TypeError):
+        wlan.connect("these are not credentials")
 
 def test_connect_already_connected():
     pass
