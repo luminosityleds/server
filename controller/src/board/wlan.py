@@ -13,7 +13,7 @@ except ImportError: #import stubs
 _COUNTRY = 'US'
 _ATTEMPTS = 10 # Number of times to check for a connection before giving up
 _WAIT_TIME = 1 # Number of seconds to wait before next connection attempt
-_WAIT_CODES  = [1, 2] # cyw43 status codes indicating connection in progress
+_WAIT_CODES  = [0, 1, 2] # cyw43 status codes indicating connection in progress
 _CONNECTION_SUCCESS_CODE = 3 # cyw43 status code for successful connection
 
 # fields
@@ -36,8 +36,8 @@ def connect(credentials: WLANCredentials) -> WLANCredentials:
     :returns: the given WLANCredentials upon successful connection
     """
     _wlan.connect(credentials.ssid, credentials.password)
-
     for attempt in range(_ATTEMPTS):
+            print("Attempt")
             if _wlan.status() not in _WAIT_CODES:
                 break
             print("establishing connection...")
