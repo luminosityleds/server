@@ -3,68 +3,67 @@ from machine import Pin # pylint: disable=E0401
 import neopixel # pylint: disable=E0401
 
 
-class LED_Control:
+# Constants
+_GPIO_PIN = 28
+_pixelCount = 60
+_OFFColor = [0, 0, 0]
 
-    def __init__(self, pin, pixelNums):
-        '''
-        Initializes an the control of Led object
+# Fields
+_pin = Pin(_GPIO_PIN, Pin.OUT)
+_neopixel = neopixel.NeoPixel(_pin, _pixelCount)
+_color = [0, 0, 0]
+_brightness = 0
+_powered = False
 
-        pin (machine class): includes pin for Rasberry Pi Pico W where Led is being used
-        pixelNums (integer): number of Leds that will be used for full strip
-        '''
+# Public Methods
+def setColor(color):
+    '''
+    Initializes the color of the LED's
 
-        self._neopixel = neopixel.NeoPixel(self._pin, self._pixelCount)
-        self._pin = machine.Pin(pin, Pin.OUT)
-        self._pixelCount = pixelNums
-        #_GPIO_PIN 
-        self._color = [0, 0, 0]
-        self._OFF = [0, 0, 0]
-        self._brightness = 0
-        self._powered = False
+    color (list): takes in the list variable for setting the color when instantiated.
 
-    def setColor(self, color):
-        '''
-        Initializes the color of the LED's
+    '''
+    _color = color
+    for i in range(_pixelCount):
+        _neopixel[i] = (_color)
 
-        color (list): takes in the list variable for setting the color when instantiated.
+def getColor():
+    '''
+    Returns list of the current color of LED's
 
-        '''
-    def getColor(self):
-        '''
-        Returns list of the current color of LED's
+    '''
 
-        '''
+def setBrightness(brightness):
+    '''
+    Allows to change brightness of LED's
 
-    def setBrightness(self, brightness):
-        '''
-        Allows to change brightness of LED's
+    brightness (integer): takes in a numerical value in order to change the brightness of the LED, scaled from 0 to 100
 
-        brightness (integer): takes in a numerical value in order to change the brightness of the LED, scaled from 0 to 100
+    '''
 
-        '''
+
+def getBrightness():
+    '''
+    Returns integer of the current brightness of LED's
+
+    '''
     
-    def getBrightness(self):
-        '''
-        Returns integer of the current brightness of LED's
 
-        '''
+def setPowered(power):
+    '''
+    Allows to set conencted state of LED's
+    '''
+    _powered = power
+    if _powered == True:
+        setColor([255,255,255])
+    setColor([0,0,0])
 
-    def setPowered(self, power):
-        '''
-        Allows to set conencted state of Pico W
-        '''
-    def getPowered(self):
-        '''
-        Returns bool if Pico W is connected to power
 
-        '''
-    def setConnected(self, connect):
-        '''
-        Allows to set connected state of LED's
+def getPowered():
+    '''
+    Returns bool if LED's are on
 
-        '''
-    def getConnected(self):
-        '''
-        Returns bool if LED's are connected/showing color
-
-        '''
+    '''
+    if _neopixel[0] == _OFFColor:
+        return False
+    return True
