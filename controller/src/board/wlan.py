@@ -20,7 +20,10 @@ _CONNECTION_SUCCESS_CODE = 3 # cyw43 status code for successful connection
 _credentials = WLANCredentials()
 _wlan = network.WLAN(network.STA_IF) # init WLAN object as station interface
 
-class WLANConnectionError(Exception):
+class WLANConnectionFailure(Exception):
+    pass
+
+class WLANConnectionTimeout(Exception):
     pass
 
 # initialization
@@ -37,22 +40,25 @@ def connect(credentials: WLANCredentials) -> WLANCredentials:
     """
     _wlan.connect(credentials.ssid, credentials.password)
     for attempt in range(_ATTEMPTS):
-            print("Attempt")
             if _wlan.status() not in _WAIT_CODES:
                 break
             print("establishing connection...")
             time.sleep(_WAIT_TIME)
 
-    # Connection failure
-    if _wlan.status() != _CONNECTION_SUCCESS_CODE:
-        _wlan.active(False) # deactivate the network interface
-        raise WLANConnectionError(
-            f"unable to establish connection, status: {_wlan.status()}")
+    # connection timeout
+    if _wlan.status() in _WAIT_CODES:
+        raise WLANConnectionTimeout(
+            f"connection timeout, status: {_wlan.status()}")
 
-    # Connection success
+    # connection fail
+    elif _wlan.status() != _CONNECTION_SUCCESS_CODE:
+        raise WLANConnectionFailure(
+        f"connection failed, status: {_wlan.status()}")
+
+    # connection success
     else:
-            print("connection established\n")
-            return credentials
+        print("connection established\n")
+        return credentials
 
 def disconnect() -> None:
     """
