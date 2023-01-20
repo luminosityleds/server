@@ -1,3 +1,4 @@
+# controller/src/board/credentials.py
 from dataclasses import dataclass
 
 @dataclass(frozen=True)

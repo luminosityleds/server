@@ -42,13 +42,17 @@ def test_connect_already_connected():
         wlan.connect(test_credentials)
 
 def test_disconnect():
-    pass
+    wlan._wlan.connect_state = True
+    wlan.disconnect()
+    assert wlan._wlan.connect_state == False
 
 def test_getCredentials():
-    pass
+    assert isinstance(wlan.getCredentials(), credentials.WLANCredentials)
 
 def test_connected_true():
-    pass
+    wlan._wlan.connect_state = True
+    assert wlan.connected() == True
 
 def test_connected_false():
-    pass
+    wlan._wlan.connect_state = False
+    assert wlan.connected() == False 

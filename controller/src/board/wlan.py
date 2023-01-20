@@ -85,3 +85,6 @@ def connected() -> bool:
     :return: True if the device is connected to a WLAN, else False
     fi"""
     return _wlan.isconnected()
+
+def getCredentials() -> WLANCredentials:
+    return _credentials

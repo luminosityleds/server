@@ -31,6 +31,9 @@ class network:
         def isconnected(self):
             return self.connect_state
 
+        def disconnect(self):
+            self.connect_state = False
+
 class rp2:
     """
     Container for for objects from the MicroPython library `rp2`.
