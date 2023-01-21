@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -10,13 +10,37 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    devices: {
-        type: Array,
+    devicesLinked: [{
+        type: Schema.Types.ObjectId,
         required: false,
-        default: [],
+        ref: 'Device'
+    }]
+})
+
+const DeviceSchema = new mongoose.Schema({
+    uuid: { 
+        type: String, 
+        unique: true
     },
+    powered: { 
+        type: Boolean
+    },
+    powered_timestamp: { 
+        type: Date 
+    },
+    connected: { 
+        type: Boolean 
+    },
+    color: { 
+        type: String
+    },
+    brightness: { 
+        type: Number
+     }
 })
 
 const User = mongoose.model("Account", UserSchema)
+const Device = mongoose.model("Device", DeviceSchema)
 
 module.exports = User;
+module.exports = Device;
