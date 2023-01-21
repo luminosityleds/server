@@ -1,12 +1,13 @@
 # wlan.py
 import time
 from .credentials import WLANCredentials
+import os
 
-try: # importing MicroPython-specific libraries
-    from network import WLAN, STA_IF # type: ignore pylint: disable=E0401
+if "rp2" in os.uname():
+    import network # type: ignore pylint: disable=E0401
     import rp2 # type: ignore pylint: disable=E0401
 
-finally:
+else:
     from controller.tests.mpstubs import network, rp2
 
 
@@ -71,6 +72,7 @@ def connect(credentials: WLANCredentials) -> WLANCredentials:
     # connection success
     else:
         print("connection established\n")
+        _credentials = credentials
         return credentials
 
 def disconnect() -> None:
