@@ -67,7 +67,7 @@ wlan.connect(creds)
 Wlan will let you know if you are connected to the internet.
 > Note: if the Pico is already connected to the network before wlan is initialized, the credentials stored will default to None for both ssid and password.
 
-You can disconnect from the network with `wlan.disconnect()`
+You can disconnect from the network with `wlan.disconnect()` and query the connection state with `wlan.connected()`.
 
 ### Querying the Wifi Connection State
 To query the Wifi connection state, simply use the following method on the network interface object:
