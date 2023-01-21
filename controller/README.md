@@ -54,17 +54,23 @@ as the problematic import statement to ignore the error for that specific line:
 [E0401](https://pylint.pycqa.org/en/latest/user_guide/messages/error/import-error.html) is pylint's error alerting you that it was unable to import a package.
 
 ### Connecting the Pico W to Wifi https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf
-For a simple connection to a local WiFi network, you can use the following code:
+To connect the Pico to a local wifi network, you can use the `wlan` and `credentials` provided by `board`.
+Once you have synced your Pico with the `controller/src/`, you can use the following in a REPL to establish a connection:
 ```
-import network
-wlan = network.WLAN(network.STA_IF) # constructs a client interface object
-wlan.active(True) # activates the network interface ("up")
-wlan.connect(ssid, password) # connects to the given wifi network using given credentials
+from board import wlan
+from board.credentials import WLANCredentials
+
+creds = WLANCredentials("your_ssid", "your_password")
+wlan.connect(creds)
 ```
-For creating a more robust connection, see [the Pico W documentation](https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf).
+
+Wlan will let you know if you are connected to the internet.
+> Note: if the Pico is already connected to the network before wlan is initialized, the credentials stored will default to None for both ssid and password.
+
+You can disconnect from the network with `wlan.disconnect()`
 
 ### Querying the Wifi Connection State
-To querry the Wifi connection state, simply use the following method on the network interface object:
+To query the Wifi connection state, simply use the following method on the network interface object:
 `wlan.isconnected()`
 
 This returns true if the interface is connected, otherwise false.
