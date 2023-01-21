@@ -20,7 +20,7 @@ class WLANCredentials:
         Retrieves the last WLAN credentials stored by the class.
         """
         print("trying to get last used credentials, just a stub for now...")
-        return None
+        return WLANCredentials()
 
     @classmethod
     def setLastCredentials(cls, credentials: object):
