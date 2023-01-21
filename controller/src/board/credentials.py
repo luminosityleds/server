@@ -1,10 +1,17 @@
 # controller/src/board/credentials.py
-from dataclasses import dataclass
 
-@dataclass(frozen=True)
-class WLANCredentials():
+class WLANCredentials:
     """
     Represents the credentials associated with a WLAN connection.
     """
-    ssid: str = None
-    password: str = None
+    def __init__(self, ssid: str = None, password: str = None):
+        self._ssid = ssid
+        self._password = password
+    
+    @property
+    def ssid(self):
+        return self._ssid
+
+    @property
+    def password(self):
+        return self._password
