@@ -4,7 +4,6 @@ import "../css/App.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faGoogle, faMicrosoft, faGithub} from "@fortawesome/free-brands-svg-icons";
 import { useGoogleLogin } from "@react-oauth/google"
-import { useGoogleLogin } from "@react-oauth/google"
 import { PublicClientApplication } from "@azure/msal-browser"
 import axios from "axios"
 
