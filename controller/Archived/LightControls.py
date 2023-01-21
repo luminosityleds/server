@@ -43,39 +43,39 @@ class LED_Control:
         '''
         self._color = color
 
-    def setBrightness(self, brightness):
-        '''
-        Used to change brightness
+    # def setBrightness(self, brightness):
+    #     '''
+    #     Used to change brightness
 
-        brightness (integer): takes in a numerical value in order to change the brightness of the LED, should
-        correspond directly to the setColor.
+    #     brightness (integer): takes in a numerical value in order to change the brightness of the LED, should
+    #     correspond directly to the setColor.
 
-        This is still currently a work in progress
+    #     This is still currently a work in progress
 
-        '''
-        # if brightness < 1:
-        #     brightness = 1
-        # if brightness > 255:
-        #     brightness = 255
-        # self.brightnessVal = brightness
+    #     '''
+    #     # if brightness < 1:
+    #     #     brightness = 1
+    #     # if brightness > 255:
+    #     #     brightness = 255
+    #     # self.brightnessVal = brightness
 
-        # for i in self.main[3]:
-        #     if i < brightness:
+    #     # for i in self.main[3]:
+    #     #     if i < brightness:
 
-        self.update()
+    #     self.update()
 
-    def _setBrightness(self, brightness):
-        '''
-        Used to change brightness
+    # def _setBrightness(self, brightness):
+    #     '''
+    #     Used to change brightness
 
-        brightness (integer): takes in a numerical value in order to change the brightness of the LED, should
-        correspond directly to the setColor.
+    #     brightness (integer): takes in a numerical value in order to change the brightness of the LED, should
+    #     correspond directly to the setColor.
 
-        This is still currently a work in progress
+    #     This is still currently a work in progress
 
-        '''
+    #     '''
 
-        self._setBrightness = brightness
+    #     self._setBrightness = brightness
 
     def isConnectedToPower(self):
         '''
