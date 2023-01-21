@@ -19,7 +19,7 @@ class WLANCredentials:
         """
         Retrieves the last WLAN credentials stored by the class.
         """
-        print("Just a stub for now...")
+        print("trying to get last used credentials, just a stub for now...")
         return None
 
     @classmethod
@@ -27,7 +27,7 @@ class WLANCredentials:
         """
         Stores the given WLAN credentials as the last used.
         """
-        print("Just a stub for now...")
+        print("trying to store credentials, just a stub for now...")
 
     @property
     def ssid(self):

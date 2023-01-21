@@ -33,11 +33,11 @@ class WLANConnectionActiveError(Exception):
     pass
 
 # initialization
-if _wlan.isconnected():
-    try:
+if _wlan.isconnected(): # if MCU is connected to a wlan prior to initialization
+    try: # to load the last credentials
         _credentials = WLANCredentials.getLastCredentials()
-    except WLANCredentials.CredentialLoadError:
-        print("active WLAN connection with unknown credentials...")
+    except WLANCredentials.CredentialLoadError as error:
+        print("CredentialLoadError: unable to load last credentials...")
 
 _wlan.active(True) # activate the network interface
 rp2.country(_COUNTRY) # set the MCU's country code for the connection
