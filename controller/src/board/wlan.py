@@ -22,6 +22,7 @@ _CONNECTION_SUCCESS_CODE = 3 # cyw43 status code for successful connection
 _credentials = WLANCredentials()
 _wlan = network.WLAN(network.STA_IF) # init WLAN object as station interface
 
+# exceptions
 class WLANConnectionFailure(Exception):
     pass
 
@@ -32,6 +33,12 @@ class WLANConnectionActiveError(Exception):
     pass
 
 # initialization
+if _wlan.isconnected():
+    try:
+        _credentials = WLANCredentials.getLastCredentials()
+    except WLANCredentials.CredentialLoadError:
+        print("active WLAN connection with unknown credentials...")
+
 _wlan.active(True) # activate the network interface
 rp2.country(_COUNTRY) # set the MCU's country code for the connection
 
