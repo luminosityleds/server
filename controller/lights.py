@@ -2,11 +2,10 @@
 from machine import Pin # pylint: disable=E0401
 import neopixel # pylint: disable=E0401
 
-
 # Constants
 _GPIO_PIN = 28
 _pixelCount = 60
-_OFFColor = (0, 0, 0)
+_OFFColor = [0, 0, 0]
 _ONColor = [255, 255, 255]
 
 # Fields
@@ -35,7 +34,7 @@ def getColor() -> list:
     Returns list of the current color of LED's
 
     '''
-    return _neopixel[0]
+    return (list(_neopixel[0]))
 
 def setBrightness(brightness:int):
     '''
@@ -45,8 +44,6 @@ def setBrightness(brightness:int):
 
     '''
     _brightness = brightness
-    
-
     for component in getColor():
         try:
             scaledColor.append(int(round(component * _brightness / 100)))    
@@ -60,6 +57,7 @@ def getBrightness() -> int:
     Returns integer of the current brightness of LED's
 
     '''
+
     return (_brightness)
 
 
@@ -71,7 +69,7 @@ def setPowered(power:bool):
     if _powered == True:
         setColor(_ONColor)
     if _powered == False:
-        setColor([0,0,0])
+        setColor(_OFFColor)
 
 
 def getPowered() -> bool:
@@ -79,7 +77,7 @@ def getPowered() -> bool:
     Returns bool if LED's are on
 
     '''
-    if _neopixel[0] == _OFFColor:
+    if list(_neopixel[0]) == _OFFColor:
         return False
     return True
 
