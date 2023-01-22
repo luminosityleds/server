@@ -12,7 +12,7 @@ class LED_Control:
         pin (machine class): includes pin for Rasberry Pi Pico W where Led is being used
         pixelNums (integer): number of Leds that will be used for full strip
         '''
-        self.pin = machine.Pin(pin, Pin.OUT)
+        self.pin = Pin(pin, Pin.OUT)
         self.VBUS = Pin('WL_GPIO2', Pin.IN)
         self.pixelNums = pixelNums
 
