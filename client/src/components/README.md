@@ -42,9 +42,8 @@ To do that, create a new file with a `.tsx` file extension and put the code insi
 </p>
 
 <h2>Third Party Single Sign On and Registering</h2> 
-There are 4 third party services that are being used for sign in and registering accounts:
+There are 3 third party services that are being used for sign in and registering accounts:
 <ol>
-    <li>Apple</li>
     <li>Google</li>
     <li>Microsoft</li>
     <li>Github</li>
