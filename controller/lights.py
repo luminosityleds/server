@@ -1,6 +1,7 @@
 
-from machine import Pin # pylint: disable=E0401
-import neopixel # pylint: disable=E0401
+from machine import Pin 
+import neopixel 
+from time import sleep
 
 # Constants
 _GPIO_PIN = 28
@@ -15,6 +16,7 @@ _color = [0, 0, 0]
 _brightness = 0
 _powered = False
 scaledColor = []
+UnscaledColor = []
 
 # Public Methods
 def setColor(color:list):
@@ -36,29 +38,35 @@ def getColor() -> list:
     '''
     return (list(_neopixel[0]))
 
-def setBrightness(brightness:int):
+def setBrightness(_brightness:int):
     '''
     Allows to change brightness of LED's
 
     brightness (integer): takes in a anumerical value in order to change the brightness of the LED, scaled from 0 to 100
 
     '''
-    _brightness = brightness
+    
     for component in getColor():
         try:
-            scaledColor.append(int(round(component * _brightness / 100)))    
+            scaledColor.append(int(round(component * _brightness / 100)))  
         except ZeroDivisionError:
             scaledColor.append(0)
     setColor(scaledColor)
 
 
-def getBrightness() -> int:
+def getBrightness():
     '''
     Returns integer of the current brightness of LED's
 
     '''
-
-    return (_brightness)
+    for component in getColor():
+        try:
+            UnscaledColor.append(int(round((component * 100)/255)))  
+            
+        except ZeroDivisionError:
+            UnscaledColor.append(0)
+    return (UnscaledColor[0])
+        
 
 
 def setPowered(power:bool):
