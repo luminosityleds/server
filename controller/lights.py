@@ -54,7 +54,7 @@ def setBrightness(_brightness:int):
     setColor(scaledColor)
 
 
-def getBrightness():
+def getBrightness()-> int:
     '''
     Returns integer of the current brightness of LED's
 
@@ -65,7 +65,8 @@ def getBrightness():
             
         except ZeroDivisionError:
             UnscaledColor.append(0)
-    return (UnscaledColor[0])
+    _brightness= UnscaledColor[0] 
+    return (_brightness)
         
 
 
@@ -88,4 +89,3 @@ def getPowered() -> bool:
     if list(_neopixel[0]) == _OFFColor:
         return False
     return True
-
