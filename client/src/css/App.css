@@ -20,7 +20,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
-  background-color: #F7B267;
+  background-color: #f7b267;
   margin: 0;
 }
 
@@ -36,7 +36,7 @@
   height: 2em;
   width: 35%;
   float: left;
-  background-color: #F4845F;
+  background-color: #f4845f;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +44,7 @@
 }
 
 .login-btn:hover {
-  background-color: #F27059;
+  background-color: #f27059;
   cursor: pointer;
 }
 
@@ -53,7 +53,7 @@
 }
 
 .login-cover {
-  background-color: #F79D65;
+  background-color: #f79d65;
   height: 30em;
   width: 30em;
   position: relative;
@@ -70,7 +70,7 @@
 .sign-up-btn {
   height: 2em;
   width: 35%;
-  background-color: #F4845F;
+  background-color: #f4845f;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,7 +78,7 @@
 }
 
 .sign-up-btn:hover {
-  background-color: #F27059;
+  background-color: #f27059;
   cursor: pointer;
 }
 
@@ -87,7 +87,7 @@
 }
 
 .register-cover {
-  background-color: #F79D65;
+  background-color: #f79d65;
   height: 30em;
   width: 30em;
   position: relative;
@@ -110,7 +110,7 @@ input {
 }
 
 input:focus {
-  outline-color: #110A03
+  outline-color: #110a03;
 }
 
 /* Nav Bar */
@@ -118,9 +118,9 @@ input:focus {
 .nav {
   display: flex;
   justify-content: space-between;
-  background-color: #F4845F;
+  background-color: #f4845f;
   background-size: 700;
-  height:50px;
+  height: 50px;
   align-items: stretch;
   gap: 2rem;
 }
@@ -146,13 +146,13 @@ input:focus {
   color: rgb(0, 0, 0);
 }
 
-.nav_triple_bar_menu{
+.nav_triple_bar_menu {
   display: none;
   flex-direction: column;
   align-items: flex-end;
 }
 
-.nav_triple_bar_icon{
+.nav_triple_bar_icon {
   display: none;
   justify-self: end;
   height: 50px;
@@ -161,22 +161,22 @@ input:focus {
 }
 
 .nav_triple_bar_links_container,
-.nav_triple_bar_links{
+.nav_triple_bar_links {
   display: none;
   align-items: center;
   flex-direction: column;
-  background: #F27059;
+  background: #f27059;
 }
 
 @media screen and (max-width: 550px) {
-  .nav li{
+  .nav li {
     display: none;
   }
 
   .nav_triple_bar_menu,
   .nav_triple_bar_icon,
   .nav_triple_bar_links_container,
-  .nav_triple_bar_links{
+  .nav_triple_bar_links {
     display: flex;
   }
 }
@@ -210,9 +210,9 @@ input:focus {
 /* Footer */
 .main-footer {
   color: black;
-  background-color: #F4845F;
+  background-color: #f4845f;
   margin-top: auto;
-  position:relative;
+  position: relative;
   bottom: 0;
   width: 100%;
   columns: 2;
@@ -248,7 +248,7 @@ a {
   border-radius: 0.5em;
   border: none;
   font-family: "Trebuchet MS";
-  font-size: 0.8em; 
+  font-size: 0.8em;
   padding: 0.5em;
 }
 
@@ -262,11 +262,79 @@ a {
 }
 
 .third-party-btns {
-height: 2em;
-width: 75%;
-display: flex;
-justify-content: center;
-align-items: center;
-border-radius: 0.5em;
-grid-gap: 25%;
+  height: 2em;
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5em;
+  grid-gap: 25%;
+}
+
+/* Account Page  */
+
+.abackground {
+  align-items: flex-start;
+  background-color: #f7b267;
+  width: 100%;
+  height: 100%;
+  border: 1px none;
+}
+
+.header-container {
+  background-color: #f79d65;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin: 1.2rem 1.2em 1.2em 1.2em;
+  padding: 1.3rem;
+}
+
+.account-container {
+  background-color: #f7b267;
+  padding: 1.5rem;
+}
+
+.edit {
+  background-color: #f4845f;
+  border-radius: 45px;
+  border: 0em;
+  margin: 1.2rem;
+}
+
+.reset-btn {
+  background-color: #f4845f;
+  font-weight: 400;
+  padding: 0.3rem 1.5rem 0.3rem 1.5rem;
+  border-radius: 45px;
+  border: 0em;
+}
+
+.delete-btn {
+  background-color: red;
+  font-weight: 400;
+  padding: 0.3rem 1.5rem 0.3rem 1.5rem;
+  border-radius: 45px;
+  border: 0em;
+}
+
+.ainfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btns-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.edit:hover {
+  background-color: #f27059;
+}
+
+.reset-btn:hover {
+  background-color: #f27059;
 }

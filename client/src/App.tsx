@@ -15,7 +15,7 @@ const App: FC = () => {
       </div>
       <div className="page-container">
         <div className="content-wrap">
-        <SiteInfo />
+          <SiteInfo />
           <Routes>
             <Route path="/" element={<div></div>} />
             <Route
@@ -34,6 +34,7 @@ const App: FC = () => {
                 </div>
               }
             />
+            <Route path="/account" element={<div className="AccountPg" />} />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
         </div>
