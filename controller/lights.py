@@ -1,6 +1,5 @@
-
-from machine import Pin 
-import neopixel 
+from machine import Pin  # pylint: disable=E0401
+import neopixel  # pylint: disable=E0401
 from time import sleep
 
 # Constants
