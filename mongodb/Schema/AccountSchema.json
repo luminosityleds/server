@@ -1,16 +1,29 @@
 {
-    "title": "account",
-    "required": [
-       "_id",
-       "email",
-       "name",
-       "devices"
-    ],
-    "properties": {
-      "_id": { "bsonType": "objectId" },
-      "email": { "bsonType": "string" },
-      "name": { "bsonType": "string" },
-      "devices": { "bsonType": "array", "uniqueItems": "true" }
-    }
+  "title": "accounts",
+  "required": ["lastUpdated"],
+  "properties": {
+      "creationDate": {
+        "bsonType": "date"
+      },
+      "deletionDate": {
+        "bsonType": ["date", "null"]
+      },
+      "lastUpdated": {
+        "bsonType": "date"
+      },
+      "email": {
+        "bsonType": "string",
+        "pattern": "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
+      },
+      "name": {
+        "bsonType": "string"
+      },
+      "devicesLinked": {
+        "bsonType": [ "array" ],
+        "uniqueItems": true,
+        "items": {
+            "bsonType": "objectId"
+        }
+      }
+  }
 }
-
