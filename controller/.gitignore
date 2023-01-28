@@ -9,3 +9,6 @@
 
 # local micropy-cli directory
 .micropy
+
+# ignore secrets.py, which will contain private development env credentials
+secrets.py

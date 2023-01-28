@@ -23,13 +23,13 @@ The terminal should print
 Virtual environments create isolated Python environments.  It allows you to install the necessary packages into the environment to be used exclusively by that virtual environment.
 
 ### Steps to create a virtual environment
-1. Make sure you have python installed by `typing python`.
+1. Make sure you have python installed by typing `python` for Windows or `python3` for Mac.
 Note: If you get an error while installing typing in python, follow the instructions to install python found here: https://luminosity-led.atlassian.net/wiki/spaces/LL/pages/262146/Setup+Dev+Environment
 2. `cd controller`
-3. Create the virtual environment with `python -m venv .venv`
+3. Create the virtual environment with `python -m venv .venv` for Windows or `python3 -m venv .venv` for Mac
 4. Activate the virtual environment with `source .venv/Scripts/activate`
 5. Install the python modules in the requirements.txt with `pip install -r requirements.txt`.
-6. You have setup your virtual environment and installed python modules into it.
+6. You have setup your virtual environment and installed python modules into it. Use this virtual environment whenever developing for this directory to ensure that all packages are installed correctly.
 7. Once you're done, deactivate the virtual environment with `deactivate`.
 
 ### Sphinx documentation
@@ -54,17 +54,23 @@ as the problematic import statement to ignore the error for that specific line:
 [E0401](https://pylint.pycqa.org/en/latest/user_guide/messages/error/import-error.html) is pylint's error alerting you that it was unable to import a package.
 
 ### Connecting the Pico W to Wifi https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf
-For a simple connection to a local WiFi network, you can use the following code:
+To connect the Pico to a local wifi network, you can use the `wlan` and `credentials` provided by `board`.
+Once you have synced your Pico with the `controller/src/`, you can use the following in a REPL to establish a connection:
 ```
-import network
-wlan = network.WLAN(network.STA_IF) # constructs a client interface object
-wlan.active(True) # activates the network interface ("up")
-wlan.connect(ssid, password) # connects to the given wifi network using given credentials
+from board import wlan
+from board.credentials import WLANCredentials
+
+creds = WLANCredentials("your_ssid", "your_password")
+wlan.connect(creds)
 ```
-For creating a more robust connection, see [the Pico W documentation](https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf).
+
+Wlan will let you know if you are connected to the internet.
+> Note: if the Pico is already connected to the network before wlan is initialized, the credentials stored will default to None for both ssid and password.
+
+You can disconnect from the network with `wlan.disconnect()` and query the connection state with `wlan.connected()`.
 
 ### Querying the Wifi Connection State
-To querry the Wifi connection state, simply use the following method on the network interface object:
+To query the Wifi connection state, simply use the following method on the network interface object:
 `wlan.isconnected()`
 
 This returns true if the interface is connected, otherwise false.
