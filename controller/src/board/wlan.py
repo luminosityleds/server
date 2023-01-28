@@ -8,7 +8,7 @@ if "rp2" in os.uname():
     import rp2 # type: ignore pylint: disable=E0401
 
 else:
-    from controller.tests.mpstubs import network, rp2
+    from controller.test.mpstubs import network, rp2
 
 
 # constants
