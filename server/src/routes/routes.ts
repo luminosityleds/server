@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/UserSchema")
+import { Response } from 'express';
 
 export const router = express.Router()
 
@@ -22,15 +23,21 @@ router.post('/register', (req: any, res: any) => {
 // Get all method
 
 // Get one method
-router.get('/get/:email', (req: any, res: any) => {
-    User.findOne({email: req.body.email}, function(err: any, res: any) {
+router.get('/account', (req: any, res: any) => {
+    User.findOne({email: req.headers.email}, function(err: any, result: any) {
         if (err) {
+            res.json({success: false, message: 'Invalid credentials'})
             console.log(err)
         }
-        else {
-            console.log(res)
+        else if (result === null) {
+            res.json({success: false, message: "User doesn't exist"})
+            console.log("The result is: ", result)
         }
-    })
+        else {
+            res.json({success: true, message: "Successful login"})
+            console.log("The result is: ", result)
+        }
+    });
 })
 
 // Update one
