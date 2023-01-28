@@ -1,2 +1,4 @@
 # Ignore macos desktop services files
 .DS_Store
+
+__pycache__/
