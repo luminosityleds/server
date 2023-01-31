@@ -6,6 +6,7 @@ import { faGoogle, faMicrosoft, faGithub} from "@fortawesome/free-brands-svg-ico
 import { useGoogleLogin } from "@react-oauth/google"
 import { PublicClientApplication } from "@azure/msal-browser"
 import axios from "axios"
+import queryString from "querystring"
 
 // Microsoft config
 export const MicrosoftConfig = {
@@ -20,6 +21,9 @@ export const MicrosoftConfig = {
 }
 
 const msalInstance = new PublicClientApplication(MicrosoftConfig)
+
+// Github Client ID
+const CLIENT_ID = process.env.REACT_APP_GH_ID;
 
 // Login components
 export const GoogleLogin = () => {
@@ -73,16 +77,11 @@ export const MicrosoftLogin = () => {
 };
 
 export const GitHubLogin = () => {
-  const CLIENT_ID = process.env.REACT_APP_GH_ID;
-  const CLIENT_SECRET = process.env.REACT_APP_GH_SECRET;
 
   function login() {
     // Default scopes 
-    axios.get("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID).then((response) => {
-      window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);  
-    })
-  } 
-
+    window.location.href = "https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID;
+  }
 
   return (
   <div>
@@ -163,13 +162,10 @@ export const MicrosoftRegister = () => {
 };
 
 export const GitHubRegister = () => {
-  const CLIENT_ID = process.env.GITHUB_CLIENT_ID;
-  const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
   function register() {
-    axios.get("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID).then((response) => {
-      window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);  
-    })
+    // Default scopes 
+    window.location.href = "https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID;
   }  
 
 return (
