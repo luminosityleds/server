@@ -4,8 +4,17 @@ There are two collections created: One for accounts and one for devices.
 <br>
 
 Within **accounts** there are the following fields:
-<dt><b>_id : ObjectID</b></dt>
+<dt><b>_id : ObjectId</b></dt>
     <dd>A unique object identifier added to have a primary key for accounts.</dd>
+<br>
+<dt><b>creationDate : Date</b></dt>
+    <dd>A date object for logging the time when the account was created.</dd>
+<br>
+<dt><b>deletionDate : Date | NULL</b></dt>
+    <dd>A date object that is NULL by default. When NULL, the account is implicitly considered not deleted. Once deleted, a date will be recorded.</dd>
+<br>
+<dt><b>lastUpdated : Date</b></dt>
+    <dd>A date object for logging the last time a change was made to the document.</dd>
 <br>
 <dt><b>email : String</b></dt>
     <dd>An email for the account credentials. Used for login and user representation purposes.</dd>
@@ -13,35 +22,50 @@ Within **accounts** there are the following fields:
 <dt><b>name : String</b></dt>
     <dd>A name for the account credentials. Needed for login authentication purposes.</dd>
 <br>
-<dt><b>devices : Array</b></dt>
+<dt><b>devicesLinked : Array</b></dt>
     <dd>An array of devices registered to an account. Stores unique device objectIds to reference from the mongoDB collection of devices.</dd>
 <br>
-* id, email, name, and devices are required fields.  The <i>devices</i> array may be empty.
+* ``lastUpdated`` is a required field and the ``devicesLinked`` array may be empty.
 
 <br>
 <hr>
 <br>
 
 Within **devices** there are the following fields:
-<dt><b>_id : ObjectID</b></dt>
+<dt><b>_id : ObjectId</b></dt>
     <dd>A unique object identifier added to have a primary key for devices.</dd>
+<br>
+<dt><b>uuid : String</b></dt>
+    <dd>A unique object identifier added to have an additional, shorter, primary key for identifying devices.</dd>
+<br>
+<dt><b>lastUpdated : Date</b></dt>
+    <dd>A date object for logging the last time a change was made to the document.</dd>
 <br>
 <dt><b>powered : Bool</b></dt>
     <dd>A true/false status for determining whether or not a device has power and is ready for use with the site.</dd>
 <br>
-<dt><b>powered_timestamp : Date</b></dt>
-    <dd>A 64-bit integer date object for timestamping when the powered boolean is updated.</dd>
+<dt><b>poweredTimestamp : Date</b></dt>
+    <dd>A date object for timestamping when the powered boolean was last updated.</dd>
 <br>
 <dt><b>connected : Bool</b></dt>
     <dd>A true/false status for determining whether or not a device is connected and ready for use with the site.</dd>
 <br>
+<dt><b>connectedTimestamp : Date</b></dt>
+    <dd>A date object for timestamping when the connected boolean was last updated.</dd>
+<br>
 <dt><b>color : String</b></dt>
     <dd>A hexadecimal representation of color for the device to display.</dd>
+<br>
+<dt><b>colorTimestamp : Date</b></dt>
+    <dd>A date object for timestamping when the color string was last updated.</dd>
 <br>
 <dt><b>brightness : Integer</b></dt>
     <dd>An integer used to determine the strength of the light emitted from the device. Ranges from 0 to 100.</dd>
 <br>
-* All of the fields are required.
+<dt><b>brightnessTimestamp : Date</b></dt>
+    <dd>A date object for timestamping when the brightness integer was last updated.</dd>
+<br>
+* ``lastUpdated`` is required.
 <br>
 <br>
 <br>
@@ -50,49 +74,56 @@ Within **devices** there are the following fields:
 
 Because it is desired for the database to only accept specific information, it is important to validate the data being handled. This will reduce the potential for errors to occur due to incorrect formatting and other potentially unexpected ways.
 
-To validate the schema structure above, the Accounts and Devices collections were made with validation rules. Below is an example of how the Accounts validates data.
+To validate the schema structure above, the `accounts` and `devices` collections were made with validation rules. Below is an example of how the Accounts validates data.
 
 ```js
-db.createCollection("Accounts", {
    validator: {
       $jsonSchema: {
          bsonType: "object",
-         title: "Accounts",
-         required: [ "_id", "username", "password", "devices" ],
+         title: "accounts",
+         required: ["lastUpdated"],
          properties: {
-            _id: {
-               bsonType: "objectId",
+            creationDate: {
+               bsonType: "date"
             },
-            username: {
+            deletionDate: {
+               bsonType: ["date", "null"]
+            },
+            lastUpdated: {
+               bsonType: "date"
+            },
+            email: {
                bsonType: "string",
+               pattern: "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
             },
-            password: {
-               bsonType: "string",
+            name: {
+               bsonType: "string"
             },
-            devices: {
+            devicesLinked: {
                bsonType: [ "array" ],
                uniqueItems: true,
-               items:{
-                  bsonType: "objectId",
-                  additionalProperties: false
+               items: {
+                  bsonType: "objectId"
                }
             }
          }
       }
    }
-} )
 ```
 
-The validator will require data to have an objectId _id, a string username, a string password, and an array of devices where there are no duplicates and the items in the array are objectIds. Do note, the devices array is required but items in the array are not.
+The validator will check data inputed to have approperiate field names, types, and formatting. Notably, `deletionDate` accepts both a date object as well as `NULL`. 
 
 With the validator in place, queries can be used to test validation. For example, the following querey would pass and be inserted into the database.
 
 ```js
-db.Accounts.insertOne( {
-   _id: ObjectId('6360f5b9c2da459035c3ad31'),
-   username: "X34kz",
-   password: "deerlord",
-   devices:[ObjectId('6360f5b9c2da454f35c3ad31'), ObjectId('636345b9c2da454f35c3ad31')]
+db.accounts.insertOne( {
+   _id: ObjectId('6360f5b9c2da459f35c3ad33'),
+   creationDate: new Date(),
+   deletionDate: new Date(),
+   lastUpdated: new Date(),
+   email: "test.test@gmail.com",
+   name: "Test",
+   devicesLinked:[ObjectId("6360f5b9c2d6669035c3ad31")]
 } )
 ```
 Output: 
@@ -100,7 +131,7 @@ Output:
 {
   "acknowledged": true,
   "insertedId": {
-    "$oid": "6360f5b9c2da459035c3ad31"
+    "$oid": "6360f5b9c2da459f35c3ad33"
   }
 }
 ```
@@ -108,23 +139,29 @@ The result shows the querey passed validation and was successfully inserted into
 
 Query:
 ```js
-db.Accounts.find({_id: ObjectId("6360f5b9c2da459035c3ad31")})
+db.accounts.find({_id: ObjectId("6360f5b9c2da459035c3ad31")})
 ```
 Result:
 ```json
 [
   {
     "_id": {
-      "$oid": "6360f5b9c2da459035c3ad31"
+      "$oid": "6360f5b9c2da459f35c3ad33"
     },
-    "username": "X34kz",
-    "password": "deerlord",
-    "devices": [
+    "creationDate": {
+      "$date": "2023-01-28T07:50:08.261Z"
+    },
+    "deletionDate": {
+      "$date": "2023-01-28T07:50:08.261Z"
+    },
+    "lastUpdated": {
+      "$date": "2023-01-28T07:50:08.261Z"
+    },
+    "email": "test.test@gmail.com",
+    "name": "Test",
+    "devicesLinked": [
       {
-        "$oid": "6360f5b9c2da454f35c3ad31"
-      },
-      {
-        "$oid": "636345b9c2da454f35c3ad31"
+        "$oid": "6360f5b9c2d6669035c3ad31"
       }
     ]
   }
@@ -136,14 +173,18 @@ Result:
 
 On the other hand, if an invalid query is made, such as the one below:
 ```js
-db.Accounts.insertOne( {
-   _id: ObjectId('6360f5b9c2da779035c3ad31'),
-   username: "1222",
-   password: "deerlord",
-   devices:[ObjectId('6360f5b9c2d9994f35c3ad31'), ObjectId('6360f5b9c2d9994f35c3ad31')]
+db.accounts.insertOne( {
+   _id: ObjectId('6360f5b9c2da459f35c3ad33'),
+   creationDate: new Date(),
+   deletionDate: new Date(),
+   lastUpdated: new Date(),
+   email: "test.test@gmail.com",
+   name: "Test",
+   devicesLinked:[ObjectId("6360f5b9c2d6669035c3ad31"),
+                  ObjectId("6360f5b9c2d6669035c3ad31")]
 } )
 ```
-Invalid because of duplicate items in the array: A error will occur and the query will not do anything.
+Invalid because of duplicate items in the array: An error will occur and the query will not do anything.
 
 ![validation error](./imgs/validationError.png)
 

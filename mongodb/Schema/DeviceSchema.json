@@ -1,19 +1,42 @@
 {
-    "title": "device",
-    "required": [
-       "_id",
-       "powered",
-       "powered_timestamp",
-       "connected",
-       "color",
-       "brightness"
-    ],
-    "properties": {
-      "_id": { "bsonType": "objectId" },
-      "powered": { "bsonType": "bool" },
-      "powered_timestamp": { "bsonType": "date" },
-      "connected": { "bsonType": "bool" },
-      "color": { "bsonType": "string" },
-      "brightness": { "bsonType": "integer" }
+  "title": "devices",
+  "required": ["lastUpdated"],
+  "properties": {
+    "uuid": {
+      "bsonType": "string"
+    },
+    "lastUpdated": {
+      "bsonType": "date"
+    },
+    "powered": {
+      "bsonType": "bool"
+    },
+    "poweredTimestamp": {
+      "bsonType": "date"
+    },
+    "connected": {
+      "bsonType": "bool"
+    },
+    "connectedTimestamp": {
+      "bsonType": "date"
+    },
+    "color": {
+      "bsonType": "string",
+      "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "minLength": 4,
+      "maxLength": 7
+    },
+    "colorTimestamp":{
+      "bsonType": "date"
+    },
+    "brightness": {
+      "bsonType": "int",
+      "minimum": 0,
+      "maximum": 100,
+      "exclusiveMaximum": false
+    },
+    "brightnessTimestamp":{
+      "bsonType": "date"
     }
+  }
 }
