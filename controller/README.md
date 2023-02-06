@@ -17,10 +17,10 @@ To print a string in Python 3, just write:
 `print("Hello World!")`
 
 1. Make sure you are at the root of this directory
-2. On the command line run, 
+2. On the command line run,
 `python helloWorld.py`
 
-The terminal should print 
+The terminal should print
 `"Hello World!"`
 
 ### Creating a virtual environment
@@ -42,7 +42,7 @@ Note: If you get an error while installing typing in python, follow the instruct
 
 This guide outlines how to generate documentation with Sphinx for the Python code.
 
-1. Follow the `Steps to create a virtual environment` section to setup a virtual environment. 
+1. Follow the `Steps to create a virtual environment` section to setup a virtual environment.
 2. Go to the top level of the luminosity-led project with `cd $(git rev-parse --show-toplevel)`
 3. Generate documentation with `sphinx-build -b html docs/source/ docs/build/html`
 4. Open `docs/build/html/index.html` in a web browser and you should see Sphinx documentation.
@@ -62,7 +62,7 @@ as the problematic import statement to ignore the error for that specific line:
 
 [E0401](https://pylint.pycqa.org/en/latest/user_guide/messages/error/import-error.html) is pylint's error alerting you that it was unable to import a package.
 
-### Connecting the Pico W to Wifi https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf
+### [Connecting the Pico W to Wifi](https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf)
 
 To connect the Pico to a local wifi network, you can use the `wlan` and `credentials` provided by `board`.
 Once you have synced your Pico with the `controller/src/`, you can use the following in a REPL to establish a connection:
