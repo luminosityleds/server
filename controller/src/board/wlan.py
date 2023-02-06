@@ -13,6 +13,8 @@ else:
 
 # constants
 _COUNTRY = 'US'
+_AP_ESSID = "LuminosityLEDs" # essid for the access point, when needed
+_AP_PASSWORD = "temporary_password" # password for the access point
 _ATTEMPTS = 10 # Number of times to check for a connection before giving up
 _WAIT_TIME = 1 # Number of seconds to wait before next connection attempt
 _WAIT_CODES  = [0, 1, 2] # cyw43 status codes indicating connection in progress
@@ -103,3 +105,13 @@ def getCredentials() -> WLANCredentials:
     :return: WLANCredentials associated with current connection state
     """
     return _credentials
+
+def commission() -> None:
+    _wlan = network.WLAN(network.AP_IF) # set WLAN to access point interface
+    _wlan.config(essid=_AP_ESSID, password=_AP_PASSWORD)
+    _wlan.active(True)
+
+    while _wlan.active == False: # wait until AP is active
+        pass
+
+    print(_wlan.ifconfig())
