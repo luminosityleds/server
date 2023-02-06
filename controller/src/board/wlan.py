@@ -110,3 +110,4 @@ def commission() -> None:
     with the correct credentials for it to access the desired WLAN.
     """
     import board.softAP as softAP
+    softAP.run()
