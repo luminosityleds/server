@@ -91,7 +91,7 @@ class Logger:
 
     def exc(self, e, msg, *args):
         self.log(ERROR, msg, *args)
-        sys.print_exception(e, _stream)
+        sys.print_exception(e, _stream) # pylint: disable=E1101
 
     def exception(self, msg, *args):
         self.exc(sys.exc_info()[1], msg, *args)

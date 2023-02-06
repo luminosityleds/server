@@ -109,5 +109,5 @@ def commission() -> None:
     Begin the device commissioning process. This involves providing the device
     with the correct credentials for it to access the desired WLAN.
     """
-    import board.softAP as softAP
+    from . import softAP as softAP
     softAP.run()

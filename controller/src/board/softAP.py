@@ -4,8 +4,8 @@ approach](https://www.recantha.co.uk/blog/?p=21398).
 """
 
 import network # type: ignore pylint: disable=E0401
-from board.credentials import WLANCredentials
-import board.tinyweb as tinyweb
+from .credentials import WLANCredentials
+from . import tinyweb as tinyweb
 
 _AP_ESSID = "LuminosityLEDs" # essid for the access point, when needed
 _AP_PASSWORD = "temporary_password" # password for the access point

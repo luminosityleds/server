@@ -3,7 +3,7 @@ Tiny Web - pretty simple and powerful web server for tiny platforms like ESP8266
 MIT license
 (C) Konstantin Belyalov 2017-2018
 """
-import board.logging as logging
+from .. import logging as logging
 import uasyncio as asyncio # type: ignore pylint: disable=E0401
 import uasyncio.core # type: ignore pylint: disable=E0401
 import ujson as json # type: ignore pylint: disable=E0401
@@ -132,7 +132,7 @@ class request:
             # Unknown content type, return unparsed, raw data
             return {}
         size = int(self.headers[b'Content-Length'])
-        if size > self.params['max_body_size'] or size < 0:
+        if size > self.params['max_body_size'] or size < 0: # pylint: disable=E1101
             raise HTTPException(413)
         data = await self.reader.readexactly(size)
         # Use only string before ';', e.g:
@@ -225,9 +225,9 @@ class response:
         """Add Access Control related HTTP response headers.
         This is required when working with RestApi (JSON requests)
         """
-        self.add_header('Access-Control-Allow-Origin', self.params['allowed_access_control_origins'])
-        self.add_header('Access-Control-Allow-Methods', self.params['allowed_access_control_methods'])
-        self.add_header('Access-Control-Allow-Headers', self.params['allowed_access_control_headers'])
+        self.add_header('Access-Control-Allow-Origin', self.params['allowed_access_control_origins']) # pylint: disable=E1101
+        self.add_header('Access-Control-Allow-Methods', self.params['allowed_access_control_methods']) # pylint: disable=E1101
+        self.add_header('Access-Control-Allow-Headers', self.params['allowed_access_control_headers']) # pylint: disable=E1101
 
     async def start_html(self):
         """Start response with HTML content type.
@@ -438,7 +438,7 @@ class webserver:
                 return
 
             # Ensure that HTTP method is allowed for this path
-            if req.method not in req.params['methods']:
+            if req.method not in req.params['methods']: # pylint: disable=E1101
                 raise HTTPException(405)
 
             # Handle URL
@@ -446,7 +446,7 @@ class webserver:
             if hasattr(req, '_param'):
                 await req.handler(req, resp, req._param)
             else:
-                await req.handler(req, resp)
+                await req.handler(req, resp) # pylint: disable=E1101
             # Done here
         except (asyncio.CancelledError, asyncio.TimeoutError):
             pass
@@ -471,7 +471,7 @@ class webserver:
                 await resp.error(500)
                 # Send exception info if desired
                 if self.debug:
-                    sys.print_exception(e, resp.writer.s)
+                    sys.print_exception(e, resp.writer.s) # pylint: disable=E1101
             except Exception as e:
                 pass
         finally:
