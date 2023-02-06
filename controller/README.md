@@ -74,3 +74,13 @@ To query the Wifi connection state, simply use the following method on the netwo
 `wlan.isconnected()`
 
 This returns true if the interface is connected, otherwise false.
+
+### Device Commissioning
+
+In order to enable the MCU to connect to the local wireless network, we need to somehow provide it with the networks credentials.
+The current strategy to do this is to use SoftAp device commissioning, which involves using the MCU as an access point to a private WLAN.
+The user connects to the MCU's WLAN and heads to a predetermined website hosted by the MCU. Here, the user is prompted to enter their network's credentials.
+After that, the MCU closes the private WLAN connection and attempts to connect to the network with the given credentials. If it is unable to connect to the network,
+the MCU will once again enter access point mode to allow the user to try again.
+
+To start the device commissioning process, simply run `board.wlan.commission()`.
