@@ -9,6 +9,15 @@ from . import tinyweb as tinyweb
 
 _AP_ESSID = "LuminosityLEDs" # essid for the access point, when needed
 _AP_PASSWORD = "temporary_password" # password for the access point
+_FORM = '''
+    <form action="http://192.168.4.1/save" method="post">
+    <label for="fname">SSID:</label><br>
+    <input type="text" id="ssid" name="ssid" value=""><br>
+    <label for="password">Password:</label><br>
+    <input type="text" id="password" name="password" value=""><br><br>
+    <input type="submit" value="Submit">
+    </form>
+    '''
 
 def run() -> WLANCredentials:
     _ap = network.WLAN(network.AP_IF) # set WLAN to access point interface
@@ -30,7 +39,11 @@ def run() -> WLANCredentials:
         # Start HTTP response with content-type text/html
         await response.start_html()
         # Send actual HTML page
-        await response.send('<html><body><h1>Hello, world!</h1></body></html>\n')
+        await response.send(_FORM)
+    
+    @app.route('/save')
+    async def credentials(request, response):
+        print(request.query_string)
 
     # Run the web server as the sole process
     app.run(host="0.0.0.0", port=80)
