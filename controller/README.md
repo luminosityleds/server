@@ -1,4 +1,8 @@
-# Source: https://www.learnpython.org/en/Hello%2C_World%21
+# /controller
+
+## The MCU Development Environment
+
+### [Source](https://www.learnpython.org/en/Hello%2C_World%21)
 
 Python is a very simple language, and has a very straightforward syntax. It encourages programmers to program without boilerplate (prepared) code. The simplest directive in Python is the "print" directive - it simply prints out a line (and also includes a newline, unlike in C).
 
@@ -20,9 +24,11 @@ The terminal should print
 `"Hello World!"`
 
 ### Creating a virtual environment
+
 Virtual environments create isolated Python environments.  It allows you to install the necessary packages into the environment to be used exclusively by that virtual environment.
 
 ### Steps to create a virtual environment
+
 1. Make sure you have python installed by typing `python` for Windows or `python3` for Mac.
 Note: If you get an error while installing typing in python, follow the instructions to install python found here: https://luminosity-led.atlassian.net/wiki/spaces/LL/pages/262146/Setup+Dev+Environment
 2. `cd controller`
@@ -33,13 +39,16 @@ Note: If you get an error while installing typing in python, follow the instruct
 7. Once you're done, deactivate the virtual environment with `deactivate`.
 
 ### Sphinx documentation
+
 This guide outlines how to generate documentation with Sphinx for the Python code.
+
 1. Follow the `Steps to create a virtual environment` section to setup a virtual environment. 
 2. Go to the top level of the luminosity-led project with `cd $(git rev-parse --show-toplevel)`
 3. Generate documentation with `sphinx-build -b html docs/source/ docs/build/html`
 4. Open `docs/build/html/index.html` in a web browser and you should see Sphinx documentation.
 
 ### MicroPython: https://www.raspberrypi.com/documentation/microcontrollers/micropython.html
+
 MicroPython is a version of Python created specifically for use on embedded systems.
 This is what we will be using to program on the Raspberry Pi Pico W.
 
@@ -54,9 +63,11 @@ as the problematic import statement to ignore the error for that specific line:
 [E0401](https://pylint.pycqa.org/en/latest/user_guide/messages/error/import-error.html) is pylint's error alerting you that it was unable to import a package.
 
 ### Connecting the Pico W to Wifi https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf
+
 To connect the Pico to a local wifi network, you can use the `wlan` and `credentials` provided by `board`.
 Once you have synced your Pico with the `controller/src/`, you can use the following in a REPL to establish a connection:
-```
+
+```python
 from board import wlan
 from board.credentials import WLANCredentials
 
@@ -70,6 +81,7 @@ Wlan will let you know if you are connected to the internet.
 You can disconnect from the network with `wlan.disconnect()` and query the connection state with `wlan.connected()`.
 
 ### Querying the Wifi Connection State
+
 To query the Wifi connection state, simply use the following method on the network interface object:
 `wlan.isconnected()`
 
