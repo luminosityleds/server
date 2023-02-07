@@ -318,3 +318,13 @@ text-align: center;
   margin-right: 10px;
   width: 100%;
 }
+
+.faPlus{
+  color: rgb(0, 0, 0)
+}
+.faCheck{
+  color: green
+}
+.faXmark{
+  color: red
+}
