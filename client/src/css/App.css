@@ -272,39 +272,17 @@ grid-gap: 25%;
 }
 
 
-.team-page-cover-1 {
+.team-page-cover {
   padding: 10px 50px 20px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: space-around;
-}
-
-.team-page-cover-2 {
-  padding: 10px 50px 20px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-}
 
-.team-page-cover-3 {
-  padding: 10px 50px 20px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: right;
-  justify-content: space-around;
 }
 
 .member-layout {
 padding: 50px;
-display: flex;
-justify-content: center;
-align-items: center;
-border-radius: 0.5em;
-grid-gap: 25%;
+display: block;
+text-align: center;
+/* justify-content: space-around; */
+
 }
 
