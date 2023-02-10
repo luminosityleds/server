@@ -1,25 +1,39 @@
 import React from "react";
+import {Link} from "react-router-dom"
+import "../css/App.css"
+const teamStyle = {
+  
+  padding: "10px 50px 20px",
+  // position: 'fixed'
+  // fontFamily: "Arial"
+};
 
 export const Team = () => 
 {
   return (
-    <div className="team">
-        <h1> Team Page </h1>
-        <p>
-    <div> Aaron Levitt : Team Lead </div>
-    <h2> Matthew Levitt : Full-stack Engineer </h2>
-    <h2> Erika Ledesma : Full-stack Engineer </h2>
-    <h2> Jason Chhan : Full-stack Engineer </h2>
-    <h2> Alan Mong : Full-stack Engineer </h2>
-    <h2> Andrew Haigh : Cybersecurity Analyst </h2>
-    <h2> Alex Matei : Embedded Software Engineer </h2>
-    <h2> Nick Teran : Embedded Software Engineer </h2>
-  </p>
-        
+
+    
+    <div className="member-layout">
+      <h1 style={{textAlign: "center",fontSize:60, padding: "20px"}}> Team Page </h1>
+        <h2 style={teamStyle}>Member 2</h2>
+        <h2 style={teamStyle}>Member 2</h2>
+        <h2 style={teamStyle}>Member 3</h2>
+        <h2 style={teamStyle}>Member 3</h2>
+        <h2 style={teamStyle}>Member 1</h2>
+        <h2 style={teamStyle}>Member 2</h2>
+        <h2 style={teamStyle}>Member 3</h2>
+        <h2 style={teamStyle}>Member 3</h2>
     </div>
+
+
+
+
   );
 };
 
 
 
+
 export default Team;
+
+

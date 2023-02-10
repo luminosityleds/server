@@ -270,3 +270,8 @@ align-items: center;
 border-radius: 0.5em;
 grid-gap: 25%;
 }
+
+.member-layout {
+padding: "10px 50px 20px";
+text-align: center;
+  }
