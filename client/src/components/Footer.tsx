@@ -27,7 +27,9 @@ export const Footer = () => {
             <a href="https://github.com/pogi7/luminosityleds">
               <FontAwesomeIcon icon={faGithub} />{" "}
             </a>
+            <a href="https://discord.gg/t4CBBfMj">
               | <FontAwesomeIcon icon={faDiscord} />{" "}
+            </a>
           </p>
           <p>&copy; {new Date().getFullYear()} | All rights reserved</p>
         </div>
