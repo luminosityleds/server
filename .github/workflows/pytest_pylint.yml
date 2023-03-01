@@ -1,6 +1,6 @@
 # Workflow to lint the python codebase with pylint on pushes to any branch
 
-name: Pylint
+name: Pytest and Pylint
 
 # Runs on push to any branch
 on:
@@ -22,11 +22,12 @@ jobs:
         python-version: '3.10'
     
     # Default score to pass is 10, 0 on fatal error
-    - name: Install Controller dependencies and Run Pylint on Controller Files
+    - name: Install Controller dependencies and Run Pytest and Pylint on Controller Files
       run: |
         cd ./controller
         pip install -r requirements.txt
         python -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
+        python -m pytest test/mongodb/test_color.py
         cd ..
     # Default score to pass is 10, 0 on fatal error
     - name: Install Scripts dependencies and Run Pylint on Scripts Files
