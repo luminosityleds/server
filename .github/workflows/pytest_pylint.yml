@@ -11,8 +11,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint-python-code:
+  pytest-pylint-code:
     runs-on: ubuntu-latest
+    env:
+      MONGO_URL: ${{ secrets.MONGO_URL }}
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v3

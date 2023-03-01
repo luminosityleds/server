@@ -1,4 +1,4 @@
-from src.mongodb.secret import SECRETS # pylint: disable=E0611
+import os
 import pymongo
 from pymongo.collection import ReturnDocument
 import certifi
@@ -8,7 +8,7 @@ import datetime
 ca = certifi.where()
 
 # MongoDB Connection
-mongo = pymongo.MongoClient(f'{SECRETS["URL"]}',
+mongo = pymongo.MongoClient(f'{os.environ["MONGO_URL"]}',
          tlsCAFile=ca)
 db = mongo.Luminosity
 collection = db.devices
