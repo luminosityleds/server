@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGithub,
@@ -13,7 +14,7 @@ export const Footer = () => {
         <div>
           <h4>luminosityleds</h4>
           <p className="about">About</p>
-          <p className="team">Team</p>
+          <p className="team"><Link to="/team">Team</Link></p>
           <p className="whats-new">
             <a href="https://github.com/pogi7/luminosityleds/releases/latest">
               What's New?
