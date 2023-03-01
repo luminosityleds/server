@@ -28,7 +28,7 @@ jobs:
     # Default score to pass is 10, 0 on fatal error
     - name: Run Pylint on Controller Files
       run: |
-       pylint --rcfile=./controller/pylintrc $(git ls-files 'controller/*.py')
+       pylint --rcfile=./controller/.pylintrc $(git ls-files 'controller/*.py')
     - name: Install Scripts dependencies
       run: |
         python -m pip install --upgrade pip
@@ -36,5 +36,5 @@ jobs:
     # Default score to pass is 10, 0 on fatal error
     - name: Run Pylint on Scripts Files
       run: |
-       pylint --rcfile=./scripts/pylintrc $(git ls-files 'scripts/*.py')
+       pylint --rcfile=./scripts/.pylintrc $(git ls-files 'scripts/*.py')
     
