@@ -1,4 +1,4 @@
-from src.mongodb.secret import SECRETS
+from src.mongodb.secret import SECRETS # pylint: disable=E0611
 import pymongo
 from pymongo.collection import ReturnDocument
 import certifi
