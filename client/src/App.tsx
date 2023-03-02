@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Header";
 import SiteInfo from "./components/Main";
 import Footer from "./components/Footer";
+import Team from "./components/Team";
 
 const App: FC = () => {
   return (
@@ -31,6 +32,14 @@ const App: FC = () => {
               element={
                 <div className="Register">
                   <Register username="username" password="password" />
+                </div>
+              }
+            />
+            <Route
+              path="/team"
+              element={
+                <div className="Team">
+                  <Team  />
                 </div>
               }
             />
