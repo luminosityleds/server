@@ -30,6 +30,7 @@ jobs:
         pip install -r requirements.txt
         python -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
         python -m pytest test/mongodb/test_color.py
+        python -m pytest test/mongodb/test_brightness.py
         cd ..
     # Default score to pass is 10, 0 on fatal error
     - name: Install Scripts dependencies and Run Pylint on Scripts Files
