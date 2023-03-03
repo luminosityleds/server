@@ -28,7 +28,7 @@ export const Footer = () => {
             <a href="https://github.com/pogi7/luminosityleds">
               <FontAwesomeIcon icon={faGithub} />{" "}
             </a>
-            <a href="https://discord.gg/t4CBBfMj">
+            <a href="https://discord.gg/h6TjezfTDj">
               | <FontAwesomeIcon icon={faDiscord} />{" "}
             </a>
           </p>
