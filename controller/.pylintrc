@@ -60,7 +60,7 @@ ignore-patterns=^\.#
 # and thus existing member attributes cannot be deduced by static analysis). It
 # supports qualified module names, as well as Unix pattern matching.
 # Ignore secrets file
-ignored-modules=src.mongodb.secret, src.mongodb.brightness
+ignored-modules=src.mongodb.secret, src.mongodb.brightness, src.mongodb.connected
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
