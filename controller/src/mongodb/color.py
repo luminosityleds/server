@@ -33,5 +33,5 @@ def setColor(uuid: str, value: str):
                         return_document = ReturnDocument.AFTER
                 ))
         else:
-                print(f"ERROR | SET | COLOR: {value} is not a valid hex color! | TIME: {datetime.datetime.now()}")
+                print(f"ERROR | SET | COLOR: {value} is not a valid color value! | TIME: {datetime.datetime.now()}")
                 raise Exception
