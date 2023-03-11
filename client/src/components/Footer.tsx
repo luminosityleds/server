@@ -1,8 +1,8 @@
 import React from "react";
+import {Link} from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGithub,
-  faAtlassian,
   faDiscord,
 } from "@fortawesome/free-brands-svg-icons";
 
@@ -14,7 +14,7 @@ export const Footer = () => {
         <div>
           <h4>luminosityleds</h4>
           <p className="about">About</p>
-          <p className="team">Team</p>
+          <p className="team"><Link to="/team">Team</Link></p>
           <p className="whats-new">
             <a href="https://github.com/pogi7/luminosityleds/releases/latest">
               What's New?
@@ -28,8 +28,7 @@ export const Footer = () => {
             <a href="https://github.com/pogi7/luminosityleds">
               <FontAwesomeIcon icon={faGithub} />{" "}
             </a>
-            | <FontAwesomeIcon icon={faAtlassian} />
-            <a href="https://discord.gg/t4CBBfMj">
+            <a href="https://discord.gg/h6TjezfTDj">
               | <FontAwesomeIcon icon={faDiscord} />{" "}
             </a>
           </p>
