@@ -270,3 +270,9 @@ align-items: center;
 border-radius: 0.5em;
 grid-gap: 25%;
 }
+
+/* About Page */
+.about-page {
+  padding-top: 100px;
+  font-family: 'Work Sans', sans-serif;
+}

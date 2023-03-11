@@ -1,15 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faAtlassian, faDiscord } from '@fortawesome/free-brands-svg-icons'
 
 export const Footer = () => {
+
+    const navigate = useNavigate();
+
     return(
         <div className="main-footer">
             <div>
                 {/* Column1 */}
                 <div>
                     <h4>luminosityleds</h4>
-                    <p className="about">
+                    <p className="about" onClick={() => {
+                        navigate("/about");
+                    }}>
                         About
                     </p>
                     <p className="team">
