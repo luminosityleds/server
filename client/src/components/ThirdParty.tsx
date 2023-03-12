@@ -73,9 +73,20 @@ export const MicrosoftLogin = () => {
 };
 
 export const GitHubLogin = () => {
+  const CLIENT_ID = process.env.REACT_APP_GH_ID;
+  const CLIENT_SECRET = process.env.REACT_APP_GH_SECRET;
+
+  function login() {
+    // Default scopes 
+    axios.get("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID).then((response) => {
+      window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);  
+    })
+  } 
+
+
   return (
   <div>
-    <button className="third-party-btn">
+    <button className="third-party-btn" onClick={login}>
       <FontAwesomeIcon className="third-party-icon" icon={faGithub} size="2x" fixedWidth/>Login with GitHub
     </button>
   </div>
@@ -152,9 +163,18 @@ export const MicrosoftRegister = () => {
 };
 
 export const GitHubRegister = () => {
+  const CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+  const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+
+  function register() {
+    axios.get("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID).then((response) => {
+      window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID);  
+    })
+  }  
+
 return (
 <div>
-  <button className="third-party-btn">
+  <button className="third-party-btn" onClick = {register}>
     <FontAwesomeIcon className="third-party-icon" icon={faGithub} size="2x" fixedWidth/>Register with GitHub
   </button>
 </div>

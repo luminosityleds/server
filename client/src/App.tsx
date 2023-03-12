@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import "./css/App.css";
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
+import { About } from "./components/About";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Header";
 import SiteInfo from "./components/Main";
@@ -42,6 +43,14 @@ const App: FC = () => {
                   <Team  />
                 </div>
               }
+            />
+            <Route
+            path="/about"
+            element={
+              <div className="About">
+                <About />
+              </div>
+            }
             />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
