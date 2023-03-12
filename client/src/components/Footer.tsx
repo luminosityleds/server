@@ -1,7 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faAtlassian, faDiscord } from '@fortawesome/free-brands-svg-icons'
+import { faGithub, faDiscord } from '@fortawesome/free-brands-svg-icons'
 
 export const Footer = () => {
 
@@ -18,9 +18,7 @@ export const Footer = () => {
                     }}>
                         About
                     </p>
-                    <p className="team">
-                        Team
-                    </p>
+                    <p className="team"><Link to="/team">Team</Link></p>
                     <p className="whats-new">
                         <a href='https://github.com/pogi7/luminosityleds/releases/latest'>What's New?</a>
                     </p>
@@ -29,29 +27,17 @@ export const Footer = () => {
                 <div>
                     <h4>Contact</h4>
                     <p>
-                        <FontAwesomeIcon icon={faGithub} /> | <FontAwesomeIcon icon={faAtlassian} /> | <FontAwesomeIcon icon={faDiscord} />
+                        <a href="https://github.com/pogi7/luminosityleds">
+                        <FontAwesomeIcon icon={faGithub} />{" "}
+                        </a>
+                        <a href="https://discord.gg/h6TjezfTDj">
+                        | <FontAwesomeIcon icon={faDiscord} />{" "}
+                        </a>
                     </p>
-                    <p>
-                        &copy; {new Date().getFullYear()} | All rights reserved 
-                    </p>
+                    <p>&copy; {new Date().getFullYear()} | All rights reserved</p>
                 </div>
             </div>
         </div>
-        {/* Column2 */}
-        <div>
-          <h4>Contact</h4>
-          <p>
-            <a href="https://github.com/pogi7/luminosityleds">
-              <FontAwesomeIcon icon={faGithub} />{" "}
-            </a>
-            <a href="https://discord.gg/h6TjezfTDj">
-              | <FontAwesomeIcon icon={faDiscord} />{" "}
-            </a>
-          </p>
-          <p>&copy; {new Date().getFullYear()} | All rights reserved</p>
-        </div>
-      </div>
-    </div>
   );
 };
 

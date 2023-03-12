@@ -41,12 +41,16 @@ const App: FC = () => {
               element={
                 <div className="Team">
                   <Team  />
-              path="/about"
-              element={
-                <div className="About">
-                  <About />
                 </div>
               }
+            />
+            <Route
+            path="/about"
+            element={
+              <div className="About">
+                <About />
+              </div>
+            }
             />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
