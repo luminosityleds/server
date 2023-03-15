@@ -17,7 +17,7 @@ app.use("/", router);
 app.use(cors());
 
 // Creates CORS Anywhere proxy
-// For security purposes, origin and header needs to be specified for production
+// For security purposes, origin and header needs to be specified after proxy URL has been changed to luminosityleds
 cors_proxy.createServer({
   originWhitelist: [],            
   requireHeader: [],

@@ -77,12 +77,10 @@ export const MicrosoftLogin = () => {
 };
 
 export const GitHubLogin = () => {
-
   function login() {
     // Default scopes 
     window.location.href = "https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID;
   }
-
   return (
   <div>
     <button className="third-party-btn" onClick={login}>
@@ -162,12 +160,10 @@ export const MicrosoftRegister = () => {
 };
 
 export const GitHubRegister = () => {
-
   function register() {
     // Default scopes 
     window.location.href = "https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID;
   }  
-
 return (
 <div>
   <button className="third-party-btn" onClick = {register}>
