@@ -28,6 +28,7 @@ jobs:
       run: |
         cd ./controller
         pip install -r requirements.txt
+        python -m tox -e py
         python -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
         python -m pytest test/mongodb/test_color.py
         python -m pytest test/mongodb/test_brightness.py
