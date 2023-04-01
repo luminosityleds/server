@@ -1,37 +1,47 @@
-import os
-import pymongo
-from pymongo.collection import ReturnDocument
-import certifi
-import datetime
-
-# CA certificate needed to connect to MongoDB
-ca = certifi.where()
-
-# MongoDB Connection
-mongo = pymongo.MongoClient(f'{os.environ["MONGO_URL"]}',
-         tlsCAFile=ca)
-db = mongo.Luminosity
-collection = db.devices
+import requests
+from src.secrets import MONGO_URL, MONGO_API_KEY
 
 def getBrightness(uuid: str):
         """ Getter for brightness state in the DB.  Stdout when method is instantiated and the values."""
-        brightness = (collection.find_one(filter={'uuid' : f"{uuid}"}))["brightness"]
-        print(f"INFO | GET | BRIGHTNESS: {brightness} | TIME: {datetime.datetime.now()}")
+        headers = {
+        "api-key": f"{MONGO_API_KEY}",
+        "Content-Type": "application/json"
+        }
+
+        body = {
+                "dataSource": "LuminosityCluster-0",
+                "database": "Luminosity",
+                "collection": "devices",
+                "filter": {"uuid": "testtest"},
+                "projection": {"brightness": 1}
+        }
+
+        response = requests.post(MONGO_URL + "/action/findOne", headers=headers, json=body)
+        print(response)
+        brightness = response.json()["document"]["brightness"]
+
+        print(f"INFO | GET | BRIGHTNESS: {brightness}")
         return brightness
 
 def setBrightness(uuid: str, value: int):
         """ Setter for brightness state in the DB.  Stdout when method is instantiated and the values."""
         if value > -1 and value < 101: 
-                print(f"INFO | SET | BRIGHTNESS: {value} | TIME: {datetime.datetime.now()}")
-                (collection.find_one_and_update(
-                        {'uuid' : f"{uuid}"},
-                        {'$set': {'brightness': value, 
-                        'brightnessTimestamp' : datetime.datetime.now(),
-                        'lastUpdated' : datetime.datetime.now()
-                                }
-                        },
-                        return_document = ReturnDocument.AFTER
-                ))
+                print(f"INFO | SET | BRIGHTNESS: {value}")
+
+                headers = {
+                "api-key": f"{MONGO_API_KEY}",
+                "Content-Type": "application/json"
+                }
+
+                body = {
+                        "dataSource": "LuminosityCluster-0",
+                        "database": "Luminosity",
+                        "collection": "devices",
+                        "filter": {"uuid": "testtest"},
+                        "update": {"$set": {'brightness': value}}
+                }
+
+                response = requests.post(MONGO_URL+ "/action/updateOne", headers=headers, json=body)
         else:
-                print(f"ERROR | SET | BRIGHTNESS: {value} is not a valid brightness value! | TIME: {datetime.datetime.now()}")
+                print(f"ERROR | SET | BRIGHTNESS: {value} is not a valid brightness value!")
                 raise Exception
