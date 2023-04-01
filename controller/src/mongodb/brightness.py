@@ -1,5 +1,5 @@
 import requests # type: ignore pylint: disable=E0401
-from src.secrets import MONGO_URL, MONGO_API_KEY # type: ignore pylint: disable=E0401
+from src.secrets import MONGO_URL, MONGO_API_KEY # type: ignore pylint: disable=E0401,E0611
 
 def getBrightness(uuid: str):
         """ Getter for brightness state in the DB.  Stdout when method is instantiated and the values."""
