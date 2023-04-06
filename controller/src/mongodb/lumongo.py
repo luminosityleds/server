@@ -30,7 +30,7 @@ HEADERS = {
 
 
 def findOne(filter : dict, projection : dict = None) -> dict:
-    """Querys the LL database and returns the result."""
+    """Queries the LL database and returns the result."""
     body = _findOneRequestBody(filter, projection)
     response = requests.post(
         BASE_URL + "/action/findOne", 
