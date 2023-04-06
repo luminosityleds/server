@@ -1,5 +1,5 @@
 try: # to import uPy version of requests
-        import urequests # type: ignore pylint: disable=E0401
+        import urequests as requests # type: ignore pylint: disable=E0401
 except ImportError: # import cPy version of requests
         import requests # type: ignore pylint: disable=E0401
 
