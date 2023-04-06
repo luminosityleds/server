@@ -1,15 +1,20 @@
-import requests # type: ignore pylint: disable=E0401
-try:
-        from src.secrets import MONGO_URL, MONGO_API_KEY # type: ignore pylint: disable=E0401,E0611
-except ModuleNotFoundError:
-        MONGO_URL = "no URL"
-        MONGO_API_KEY = "no API key"
+try: # to import uPy version of requests
+        import urequests # type: ignore pylint: disable=E0401
+except ModuleNotFoundError: # import cPy version of requests
+        import requests # type: ignore pylint: disable=E0401
+
+try: # to import secrets from secrets.py
+        from src.secrets import MONGO_DAPI_KEY # type: ignore pylint: disable=E0401,E0611
+except ModuleNotFoundError: # import from environment instead (GH workflow)
+        MONGO_DAPI_KEY = f'{os.environ["MONGO_DAPI_KEY"]}'
         print("Missing mongodb base url and API key!")
+
+BASE_URL = "https://data.mongodb-api.com/app/data-nobwt/endpoint/data/v1"
 
 def getBrightness(uuid: str):
         """ Getter for brightness state in the DB.  Stdout when method is instantiated and the values."""
         headers = {
-        "api-key": f"{MONGO_API_KEY}",
+        "api-key": f"{MONGO_DAPI_KEY}",
         "Content-Type": "application/json"
         }
 
@@ -21,7 +26,7 @@ def getBrightness(uuid: str):
                 "projection": {"brightness": 1}
         }
 
-        response = requests.post(MONGO_URL + "/action/findOne", headers=headers, json=body)
+        response = requests.post(BASE_URL + "/action/findOne", headers=headers, json=body)
         print(response)
         brightness = response.json()["document"]["brightness"]
 
@@ -34,7 +39,7 @@ def setBrightness(uuid: str, value: int):
                 print(f"INFO | SET | BRIGHTNESS: {value}")
 
                 headers = {
-                "api-key": f"{MONGO_API_KEY}",
+                "api-key": f"{MONGO_DAPI_KEY}",
                 "Content-Type": "application/json"
                 }
 
@@ -46,7 +51,7 @@ def setBrightness(uuid: str, value: int):
                         "update": {"$set": {'brightness': value}}
                 }
 
-                response = requests.post(MONGO_URL+ "/action/updateOne", headers=headers, json=body)
+                response = requests.post(BASE_URL+ "/action/updateOne", headers=headers, json=body)
         else:
                 print(f"ERROR | SET | BRIGHTNESS: {value} is not a valid brightness value!")
                 raise Exception
