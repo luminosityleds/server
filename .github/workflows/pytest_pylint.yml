@@ -14,7 +14,8 @@ jobs:
   pytest-pylint-code:
     runs-on: ubuntu-latest
     env:
-      MONGO_URL: ${{ secrets.MONGO_DAPI_KEY }}
+      MONGO_DAPI_KEY: ${{ secrets.MONGO_DAPI_KEY }}
+      MONGO_URL: ${{ secrets.MONGO_URL }}
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v3
