@@ -1,6 +1,7 @@
 from . import lumongo
 
 def getBrightness(uuid: str):
+    """Getter for brightness state in the DB.  Stdout when method is instantiated and the values."""
     response = lumongo.findOne({"uuid": uuid}, {"brightness": 1})
     brightness = response["brightness"]
 

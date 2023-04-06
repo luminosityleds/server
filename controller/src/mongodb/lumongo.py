@@ -30,7 +30,7 @@ HEADERS = {
 
 
 def findOne(filter : dict, projection : dict = None) -> dict:
-    body = findOneRequestBody(filter, projection)
+    body = _findOneRequestBody(filter, projection)
     response = requests.post(
         BASE_URL + "/action/findOne", 
         headers=HEADERS,
@@ -40,7 +40,7 @@ def findOne(filter : dict, projection : dict = None) -> dict:
     return response.json()["document"]
 
 def updateOne(filter : dict, update : dict) -> dict:
-    body = updateOneRequestBody(filter, update)
+    body = _updateOneRequestBody(filter, update)
     response = requests.post(
         BASE_URL + "/action/updateOne", 
         headers=HEADERS,
@@ -51,7 +51,7 @@ def updateOne(filter : dict, update : dict) -> dict:
 
 
 # Request body generators
-def findOneRequestBody(filter : dict, projection : dict = None) -> dict:
+def _findOneRequestBody(filter : dict, projection : dict = None) -> dict:
     if projection is None:
         body = {
             "dataSource": DATA_SOURCE,
@@ -70,7 +70,7 @@ def findOneRequestBody(filter : dict, projection : dict = None) -> dict:
 
     return body
 
-def updateOneRequestBody(filter : dict, update : dict) -> dict:
+def _updateOneRequestBody(filter : dict, update : dict) -> dict:
     body = {
         "dataSource": DATA_SOURCE,
         "database": DATABASE,

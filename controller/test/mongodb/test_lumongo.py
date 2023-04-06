@@ -1,7 +1,7 @@
 # test_lumongo.py
 
 import pytest 
-from src.mongodb.lumongo import findOneRequestBody,updateOneRequestBody, findOne, updateOne
+from src.mongodb.lumongo import _findOneRequestBody,_updateOneRequestBody, findOne, updateOne
 
 
 def test_findOneRequestBody_noProjection():
@@ -11,7 +11,7 @@ def test_findOneRequestBody_noProjection():
         "collection": "devices",
         "filter": {"uuid": "testtest"}
     }
-    assert(findOneRequestBody({"uuid": "testtest"}) == body)
+    assert(_findOneRequestBody({"uuid": "testtest"}) == body)
 
 def test_findOneRequestBody_WithProjection():
     body = {
@@ -21,7 +21,7 @@ def test_findOneRequestBody_WithProjection():
         "filter": {"uuid": "testtest"},
         "projection": {"brightness": 1}
     }
-    assert(findOneRequestBody({"uuid": "testtest"}, {"brightness": 1}) == body)
+    assert(_findOneRequestBody({"uuid": "testtest"}, {"brightness": 1}) == body)
 
 def test_updateOneRequestBody():
     body = {
@@ -31,7 +31,7 @@ def test_updateOneRequestBody():
         "filter": {"uuid": "testtest"},
         "update": {"$set": {'brightness': 10}}
     }
-    assert(updateOneRequestBody(
+    assert(_updateOneRequestBody(
         {"uuid": "testtest"},
         {"$set": {'brightness': 10}}
         ))
