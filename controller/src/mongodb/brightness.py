@@ -6,9 +6,11 @@ except ImportError: # import cPy version of requests
 try: # to import secrets from secrets.py
         from src.secrets import MONGO_DAPI_KEY # type: ignore pylint: disable=E0401,E0611
 except ImportError: # import from environment instead (GH workflow)
-        import os
-        MONGO_DAPI_KEY = f'{os.environ["MONGO_DAPI_KEY"]}'
-
+        try:
+                import os
+                MONGO_DAPI_KEY = f'{os.environ["MONGO_DAPI_KEY"]}'
+        except AttributeError:
+                pass
 
 BASE_URL = "https://data.mongodb-api.com/app/data-nobwt/endpoint/data/v1"
 
