@@ -30,6 +30,7 @@ jobs:
         cd ./controller
         pip install -r requirements.txt
         python -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
+        python -m pytest test/mongodb/test_lumongo.py
         python -m pytest test/mongodb/test_color.py
         python -m pytest test/mongodb/test_brightness.py
         python -m pytest test/mongodb/test_connected.py
