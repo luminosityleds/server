@@ -1,6 +1,6 @@
 # lumongo.py
 
-'''A simple library for querying the LL database.'''
+"""A simple library for querying the LL database."""
 
 # Imports based on environment (dev or embedded)
 try: # to import uPy version of requests
