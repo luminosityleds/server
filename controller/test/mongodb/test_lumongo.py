@@ -30,12 +30,14 @@ def test_updateOneRequestBody():
         "collection": "devices",
         "filter": {"uuid": "testtest"},
         "update": {"$set": {'brightness': 10}}
-                }
+    }
     assert(updateOneRequestBody(
         {"uuid": "testtest"},
         {"$set": {'brightness': 10}}
         ))
 
+# The following simply test if mongodb accepts the queries. Actual data mutation
+# tests are left to the individual mutation methods.
 def test_findOne_noProjection():
     response = findOne({"uuid": "testtest"})
 
@@ -45,5 +47,4 @@ def test_findOne_withProjection():
 def test_updateOne():
     originalValue = findOne({"uuid": "testtest"}, {"connected": 1})
     # set the attribute to its original value to maintain state for other tests
-    response = updateOne({"uuid": "testtest"}, {"connected": originalValue})
-
+    response = updateOne({"uuid": "testtest"}, {'$set': {'connected': originalValue}})
