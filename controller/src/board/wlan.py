@@ -43,10 +43,6 @@ _wlan.active(True) # activate the network interface
 rp2.country(_COUNTRY) # set the MCU's country code for the connection
 
 # public methods
-def connect(ssid: str, password: str) -> WLANCredentials:
-    credentials = WLANCredentials(ssid, password)
-    return connect(credentials)
-
 def connect(ssid: str = None,
             password: str = None,
             credentials: WLANCredentials = 0) -> WLANCredentials:
