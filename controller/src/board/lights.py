@@ -35,7 +35,11 @@ def getColor(hex : str = True) -> list:
     Returns list of the current color of LED's
 
     '''
-    return (list(_neopixel[0]))
+    if hex:
+        convertedHex = hex(list(_neopixel[0]))
+        return(convertedHex)
+    else:
+        return (list(_neopixel[0]))
 
 def setBrightness(_brightness:int):
     '''
