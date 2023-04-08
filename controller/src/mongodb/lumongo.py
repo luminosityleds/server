@@ -3,12 +3,18 @@
 """A simple library for querying the LL database."""
 
 # Imports based on environment (dev or embedded)
-try: # to import uPy version of requests
+try: # to import uPy versions
         import urequests as requests # type: ignore pylint: disable=E0401
-except ImportError: # import cPy version of requests
+        import ucollections as collections # type: ignore pylint: disable=E0401
+        import ujson as json # type: ignore pylint: disable=E0401
+except ImportError: # import cPy version of requests 
         import requests # type: ignore pylint: disable=E0401
+        import collections
+        import json
 
-try: # to import secrets from secrets.py
+try:
+      from secrets import MONGO_DAPI_KEY # type: ignore pylint: disable=E0401,E0611
+except ImportError: # to import secrets from secrets.py
         from src.secrets import MONGO_DAPI_KEY # type: ignore pylint: disable=E0401,E0611
 except ImportError: # import from environment instead (GH workflow)
         try:
@@ -28,25 +34,29 @@ HEADERS = {
     "Content-Type": "application/json"
     }
 
+DEFAULT_BODY = {
+    'dataSource': DATA_SOURCE,
+    'database': DATABASE,
+    'collection': COLLECTION
+}
 
-def findOne(filter : dict, projection : dict = None) -> dict:
+def findOne(filter : dict, projection : dict = None) -> requests.Request:
     """Queries the LL database and returns the result."""
     body = _findOneRequestBody(filter, projection)
     response = requests.post(
-        BASE_URL + "/action/findOne", 
+        BASE_URL + "/action/findOne",
         headers=HEADERS,
-        json=body
+        data=json.dumps(body)
         )
+    return response
 
-    return response.json()["document"]
-
-def updateOne(filter : dict, update : dict) -> dict:
+def updateOne(filter : dict, update : dict) -> requests.Request:
     """Updates the LL database."""
     body = _updateOneRequestBody(filter, update)
     response = requests.post(
-        BASE_URL + "/action/updateOne", 
+        BASE_URL + "/action/updateOne",
         headers=HEADERS,
-        json=body
+        data=json.dumps(body)
         )
 
     return response
@@ -54,31 +64,18 @@ def updateOne(filter : dict, update : dict) -> dict:
 
 # Request body generators
 def _findOneRequestBody(filter : dict, projection : dict = None) -> dict:
-    if projection is None:
-        body = {
-            "dataSource": DATA_SOURCE,
-            "database": DATABASE,
-            "collection": COLLECTION,
-            "filter": filter
-        }
-    else:
-        body = {
-            "dataSource": DATA_SOURCE,
-            "database": DATABASE,
-            "collection": COLLECTION,
-            "filter": filter,
-            "projection": projection
-        }
+    # uPy dict doesn't preserve order
+    body = DEFAULT_BODY.copy()
+    body["filter"] = filter
+    
+    if projection is not None:
+          body['projection'] = projection
 
     return body
 
 def _updateOneRequestBody(filter : dict, update : dict) -> dict:
-    body = {
-        "dataSource": DATA_SOURCE,
-        "database": DATABASE,
-        "collection": COLLECTION,
-        "filter": filter,
-        "update": update
-    }
+    body = DEFAULT_BODY.copy()
+    body["filter"] = filter
+    body["update"] = update
 
     return body

@@ -43,8 +43,10 @@ def test_findOne_noProjection():
 
 def test_findOne_withProjection():
     response = findOne({"uuid": "testtest"}, {"connected": 1})
+    assert response.status_code == 200
 
 def test_updateOne():
-    originalValue = findOne({"uuid": "testtest"}, {"connected": 1})
+    originalValue = findOne({"uuid": "testtest"}, {"connected": 1}).json()["document"]["connected"]
     # set the attribute to its original value to maintain state for other tests
     response = updateOne({"uuid": "testtest"}, {'$set': {'connected': originalValue}})
+    assert response.status_code == 200
