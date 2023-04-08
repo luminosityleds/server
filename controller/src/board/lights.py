@@ -30,7 +30,7 @@ def setColor(color:list):
         _neopixel[i] = (_color)
     _neopixel.write()
 
-def getColor() -> list:
+def getColor(hex : str = True) -> list:
     '''
     Returns list of the current color of LED's
 
