@@ -13,19 +13,20 @@ except ImportError: # import cPy version of requests
         import json
 
 try:
-      from secrets import MONGO_DAPI_KEY # type: ignore pylint: disable=E0401,E0611
+      from secrets import MONGO_DAPI_KEY, MONGO_DAPI_URL # type: ignore pylint: disable=E0401,E0611
 except ImportError: # to import secrets from secrets.py
         try:
-            from src.secrets import MONGO_DAPI_KEY # type: ignore pylint: disable=E0401,E0611
+            from src.secrets import MONGO_DAPI_KEY, MONGO_DAPI_URL # type: ignore pylint: disable=E0401,E0611
         except ImportError: # import from environment instead (GH workflow)
             try:
                 import os
                 MONGO_DAPI_KEY = f'{os.environ["MONGO_DAPI_KEY"]}'
+                MONGO_DAPI_URL = f'{os.environ["MONGO_DAPI_URL"]}'
             except AttributeError:
                     pass
 
 # Constants
-BASE_URL = "https://data.mongodb-api.com/app/data-nobwt/endpoint/data/v1"
+BASE_URL = MONGO_DAPI_URL
 API_KEY = MONGO_DAPI_KEY
 DATA_SOURCE = "LuminosityCluster-0"
 DATABASE = "Luminosity"
