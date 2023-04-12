@@ -16,6 +16,7 @@ jobs:
     env:
       MONGO_DAPI_KEY: ${{ secrets.MONGO_DAPI_KEY }}
       MONGO_DAPI_URL: ${{ secrets.MONGO_DAPI_URL }}
+      MONGO_URL: ${{ secrets.MONGO_URL }}
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v3
