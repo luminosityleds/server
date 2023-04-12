@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MONGO_DAPI_KEY: ${{ secrets.MONGO_DAPI_KEY }}
-      MONGO_URL: ${{ secrets.MONGO_URL }}
+      MONGO_DAPI_URL: ${{ secrets.MONGO_DAPI_URL }}
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v3
