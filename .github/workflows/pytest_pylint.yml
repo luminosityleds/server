@@ -28,21 +28,19 @@ jobs:
       run: |
         cd ./controller
         pip install -r requirements.txt
-        coverage run --append -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
-        coverage run --append -m pytest test/mongodb/test_color.py
-        coverage run --append -m pytest test/mongodb/test_brightness.py
-        coverage run --append -m pytest test/mongodb/test_connected.py
-        coverage run --append -m pytest test/mongodb/test_powered.py
+        coverage run --a -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
+        coverage run --a -m pytest test/mongodb/test_color.py
+        coverage run --a -m pytest test/mongodb/test_brightness.py
+        coverage run --a -m pytest test/mongodb/test_connected.py
+        coverage run --a -m pytest test/mongodb/test_powered.py
         cd ..
     # Default score to pass is 10, 0 on fatal error
-    - name: Install Scripts dependencies and Run Pylint on Scripts Files
+    - name: Install Scripts dependencies, Run Pylint on Scripts Files, and Generate Coverage report
       run: |
         cd ./scripts
         pip install -r requirements.txt
-        coverage run --append -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
-        cd ..
-    - name: Generate code coverage report
-      run: |
+        coverage run --a -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
         coverage report -m
         coverage erase
+        cd ..
 
