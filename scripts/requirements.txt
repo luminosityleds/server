@@ -1,2 +1,3 @@
 jira==3.4.1
 pylint==2.15.7
+coverage==7.2.2
