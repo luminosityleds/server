@@ -29,6 +29,7 @@ jobs:
         cd ./controller
         pip install -r requirements.txt
         python -m tox -e py
+        cd .. 
 
     - name: Install Controller dependencies and Run Pytest and Pylint on Controller Files
       run: |
