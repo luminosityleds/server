@@ -24,22 +24,17 @@ jobs:
         python-version: '3.10'
     
     # Default score to pass is 10, 0 on fatal error
-    - name: Install and configure tests with Tox
-      run: |
-        cd ./controller
-        pip install -r requirements.txt
-        python -m tox -e py
-        cd .. 
-
     - name: Install Controller dependencies and Run Pytest and Pylint on Controller Files
       run: |
         cd ./controller
         pip install -r requirements.txt
+        coverage erase
+        coverage run -m pytest test
         python -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
-        coverage run -m pytest test/mongodb/test_color.py
-        coverage run -m pytest test/mongodb/test_brightness.py
-        coverage run -m pytest test/mongodb/test_connected.py
-        coverage run -m pytest test/mongodb/test_powered.py
+        python -m pytest test/mongodb/test_color.py
+        python -m pytest test/mongodb/test_brightness.py
+        python -m pytest test/mongodb/test_connected.py
+        python -m pytest test/mongodb/test_powered.py
         coverage report
         cd ..
     # Default score to pass is 10, 0 on fatal error
@@ -49,4 +44,3 @@ jobs:
         pip install -r requirements.txt
         python -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
         cd ..
-    
