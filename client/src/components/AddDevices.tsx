@@ -27,10 +27,10 @@ const AddDeviceButton: FC = () => {
     setUuid('');
     setPHTxt("Added!");
     setButtonStatus(faCheck);
-    setButtonClass("faCheck");
+    setButtonClass("addDev-faCheck");
     setTimeout(() => {
       setButtonStatus(faPlus);
-      setButtonClass("faPlus");
+      setButtonClass("addDev-faPlus");
       setPHTxt("Device UUID");
     }, 2000);
   }
@@ -38,10 +38,10 @@ const AddDeviceButton: FC = () => {
     setUuid('');
     setPHTxt("ID Not Found!");
     setButtonStatus(faXmark);
-    setButtonClass("faXmark");
+    setButtonClass("addDev-faXmark");
     setTimeout(() => {
       setButtonStatus(faPlus);
-      setButtonClass("faPlus");
+      setButtonClass("addDev-faPlus");
       setPHTxt("Device UUID");
     }, 2000);
   }

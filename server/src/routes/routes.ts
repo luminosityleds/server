@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/UserSchema")
+const DeletedUser = require("../models/DeletedUserSchema")
 const Device = require("../models/DeviceSchema")
 
 export const router = express.Router()

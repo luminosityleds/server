@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-const UserSchema = new mongoose.Schema({
+const DeletedUserSchema = new mongoose.Schema({
     creationDate:{
         type: Date,
         default: Date.now()
@@ -23,6 +23,6 @@ const UserSchema = new mongoose.Schema({
     }]
 })
 
-const User = mongoose.model("Account", UserSchema)
+const DeletedAccount = mongoose.model("DeletedAccount", DeletedUserSchema)
 
-module.exports = User;
+module.exports = DeletedAccount;

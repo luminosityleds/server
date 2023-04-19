@@ -1,8 +1,8 @@
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: "Trebuchet MS";
+  padding: 0;
+  margin: 0;
 }
 
 @font-face {
@@ -11,17 +11,17 @@
 }
 
 .page-container {
-  min-height: 100vh;
-  width: 100%;
+  align-items: center;
+  background-color: #F7B267;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
-  background-color: #F7B267;
   margin: 0;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .content-wrap {
@@ -33,14 +33,14 @@
 /* Login */
 
 .login-btn {
-  height: 2em;
-  width: 35%;
-  float: left;
-  background-color: #F4845F;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  background-color: #F4845F;
   border-radius: 0.5em;
+  display: flex;
+  float: left;
+  height: 2em;
+  justify-content: center;
+  width: 35%;
 }
 
 .login-btn:hover {
@@ -53,16 +53,16 @@
 }
 
 .login-cover {
+  align-items: center;
   background-color: #F79D65;
-  height: 30em;
-  width: 30em;
-  position: relative;
   border-radius: 2em;
   box-shadow: #061826;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 30em;
   justify-content: space-around;
+  position: relative;
+  width: 30em;
 }
 
 /* Register Button */
@@ -310,7 +310,6 @@ text-align: center;
   margin-top: 1px;
   align-items: center;
 }
-
 .uuid-prompt input {
   border: none;
   border-bottom: 1px solid orange;
@@ -319,12 +318,90 @@ text-align: center;
   width: 100%;
 }
 
-.faPlus{
-  color: rgb(0, 0, 0)
+.addDev-faPlus{
+  color: rgb(0, 0, 0);
+  cursor: pointer;
 }
-.faCheck{
+.addDev-faCheck{
   color: green
 }
-.faXmark{
+.addDev-faXmark{
   color: red
+}
+
+
+
+
+/* Deleting an Account */
+.deleteAccount-button {
+  background-color: #f14a4a;
+  color: #000000;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+}
+
+.deleteAccount-confirmButton {
+  align-items: center;
+  display: flex;
+  margin-left: 10px;
+  width: 200px;
+}
+
+.deleteAccount-prompt {
+  align-items: center;
+  background-color: #F4845F;
+  border: 1px solid orange;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px orange;
+  display: flex;
+  height: 270px;
+  margin-top: -39px;
+  padding: 10px;
+  position: absolute;
+  width: 500px;
+}
+
+.deleteAccount-prompt-text {
+  align-items: left;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  position: absolute;
+  top: 0px;
+}
+.deleteAccount-prompt-text p{
+  margin-top: 20px;
+}
+
+.deleteAccount-prompt-input-box {
+  align-items: center;
+  border-radius: 10px;
+  bottom: 25px;
+  display: flex;
+  margin-right: 5px;
+  margin-top: 100px;
+  padding: 10px;
+  position: absolute;
+  width: 400px;
+}
+
+.deleteAccount-prompt input {
+  border: none;
+  border-bottom: 1px solid orange;
+  margin-right: 0px;
+  padding: 5px;
+  width: 100%;
+}
+
+.delAcc-faXmark{
+  cursor: pointer;
+  display: flex;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 1;
 }
