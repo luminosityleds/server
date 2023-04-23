@@ -74,3 +74,27 @@ To query the Wifi connection state, simply use the following method on the netwo
 `wlan.isconnected()`
 
 This returns true if the interface is connected, otherwise false.
+
+### Querying the LL database
+To query the LL database from the Pico, use `mongodb.lumongo`. Here are some
+examples to get you started:
+
+#### Geting a device's entire entry:
+```python
+from . import lumongo
+response = findOne({"uuid": "testtest"}) # returns a dictionary of fields
+print(response)
+```
+
+You can use projection to request only a single entry. For more information, see the MongoDB Data API endpoints in the documentation.
+#### Getting a just the brightness entry from a device:
+```python
+response = lumongo.findOne({"uuid": uuid}, {"brightness": 1}) # the 1 includes "brightness" and excludes everything else
+brightness = response["brightness"]
+print(brightness)
+```
+
+#### Setting the brightness:
+```python
+response = lumongo.updateOne({"uuid": uuid}, {'$set': {'brightness': value}})
+```

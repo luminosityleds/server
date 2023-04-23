@@ -43,17 +43,19 @@ _wlan.active(True) # activate the network interface
 rp2.country(_COUNTRY) # set the MCU's country code for the connection
 
 # public methods
-def connect(credentials: WLANCredentials) -> WLANCredentials:
+def connect(ssid: str = None,
+            password: str = None,
+            credentials: WLANCredentials = 0) -> WLANCredentials:
     """
     Attempts to connect to the WLAN network specified by the given credentials.
     Raises an WLANConnectionError exception if unable to connect
 
     :return: the given WLANCredentials upon successful connection
     """
-    # check argument type
-    if isinstance(credentials, WLANCredentials) == False:
-        raise TypeError("credentials must be of type WLANCredentials")
-    
+
+    if ssid and password:
+        credentials = WLANCredentials(ssid, password)
+
     # check for already established connection
     if _wlan.isconnected():
         raise WLANConnectionActiveError(
