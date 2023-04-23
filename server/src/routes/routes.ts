@@ -25,7 +25,7 @@ router.post('/register', (req: any, res: any) => {
 
 // Get one method
 router.get('/account', (req: any, res: any) => {
-    User.findOne({email: req.header.email}, function(err: any, result: any) {
+    User.findOne({email: req.headers.email}, function(err: any, result: any) {
         if (err) {
             res.json({success: false, message: 'Invalid credentials'})
             console.log(err)
@@ -35,7 +35,7 @@ router.get('/account', (req: any, res: any) => {
             console.log("The result is: ", result, " no ", req.header.email)
         }
         else {
-            res.json({success: true, message: "Successful login"})
+            res.json({success: true, message: "Successful", result: result})
             console.log("The result is: ", result)
         }
     });
@@ -44,6 +44,17 @@ router.get('/account', (req: any, res: any) => {
 // Update one
 
 // Delete one
+
+router.delete('/deleteAccount/:email', (req:any, res:any) => {
+    console.log(req.params.email);
+    User.deleteOne({email: req.params.email},  (err:any, res:any) => {
+        if (err) {
+            console.log(err);
+        }else{
+            console.log("Account deleted");
+        }
+    });
+});
 
 // Delete all
 
@@ -67,6 +78,26 @@ router.patch('/accounts/:email/add-device', (req:any, res:any) => {
     });
 });
 
+
+// Delete account
+router.post('/transferDeletedAccount', (req: any, res: any) => {
+    const deletedUser = new DeletedUser({
+        _id: req.body._id,
+        creationDate: req.body.creationDate,
+        lastUpdated: new Date(), 
+        email:req.body.email,
+        name:req.body.name,
+        devicesLinked: req.body.devicesLinked
+    })
+    deletedUser.save(function (err: any, res: any) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(res)
+        }
+    })
+})
 
 module.exports = router
 

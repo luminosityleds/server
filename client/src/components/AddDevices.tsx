@@ -1,7 +1,6 @@
 import React, { FC, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faXmark, faCheck} from "@fortawesome/free-solid-svg-icons";
-import { Users } from "../Interfaces"
 import axios from 'axios';
 
 const AddDeviceButton: FC = () => {
@@ -48,7 +47,7 @@ const AddDeviceButton: FC = () => {
 
   const addDeviceClick = () => {
     //axios.get('http://localhost:4000/app/account'); will return an account's data on email inputted
-    let email = "jchhan17@gmail.com"; //hardcoded email for showing it works
+    let email = ""; //email of account logged in or the account to add the device to
     //finds the device
     axios.get(`http://localhost:4000/app/devices/search/${uuid}`)
           .then(response => {
