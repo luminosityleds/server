@@ -137,7 +137,7 @@ use('Luminosity');
 // } )
 
 //Get Collections Info
-db.getCollectionInfos()
+// db.getCollectionInfos()
 // db.devices.getIndexes()
 
 //Delete everything in devices
