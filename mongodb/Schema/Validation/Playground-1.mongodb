@@ -111,9 +111,6 @@ use('Luminosity');
 //                 },
 //                 color: {
 //                     bsonType: "string",
-//                     pattern: "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-//                     minLength: 4,
-//                     maxLength: 7
 //                 },
 //                 colorTimestamp:{
 //                     bsonType: "date"
@@ -140,7 +137,7 @@ use('Luminosity');
 // } )
 
 //Get Collections Info
-// db.getCollectionInfos()
+db.getCollectionInfos()
 // db.devices.getIndexes()
 
 //Delete everything in devices
