@@ -1,5 +1,5 @@
-from board import lights, wlan
-from mongodb import powered, color, brightness, lightState
+from board import lights, wlan # type: ignore pylint: disable=E0401
+from mongodb import powered, color, brightness, lightState # type: ignore pylint: disable=E0611
 import secrets, time
 
 def updateColorState():
@@ -24,9 +24,9 @@ def updateLightStateSlow():
     updatePoweredState()
 
 def updateLightStateFast():
-    start = time.ticks_ms()
+    start = time.ticks_ms() # type: ignore pylint: disable=E0611
     dbLightState = lightState.getLightState('testtest')
-    end = time.ticks_ms()
+    end = time.ticks_ms() # type: ignore pylint: disable=E0611
     if dbLightState != lights.getState():
         lights.setState(dbLightState)
     elapsed = time.ticks_diff(end, start)/1000
