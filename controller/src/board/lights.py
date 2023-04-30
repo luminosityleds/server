@@ -14,22 +14,42 @@ _powered = False
 _neopixel = NeoPixel(_pinOut, _PIXEL_COUNT)
 
 # Public Methods
+def setState(state : dict):
+    global _powered, _color, _brightness
+    _powered = state["powered"]
+    _color = _colorHEXtoRGB(state["color"])
+    _brightness = state["brightness"]
+    _updateUnit()
+
+def getState() -> dict:
+    state = {
+        "powered": _powered,
+        "color": _colorRGBtoHEX(_color),
+        "brightness": _brightness
+    }
+    return state
+
 def setColor(color : "tuple[int, int, int]"):
     """
     Sets the color of the LEDs
 
     :param color: RGB representation of unit's color, 0-255 for each
     """
-    print("here")
     global _color
     _color = color
     _updateUnit()
 
-def getColor() -> "tuple[int, int, int]":
+def getColorRGB() -> "tuple[int, int, int]":
     """
-    Returns current LED color value
+    Returns current LED color value as RGB tuple
     """
     return _color
+
+def getColorHEX() -> str:
+    """
+    Returns current LED color value as hex string
+    """
+    return _colorRGBtoHEX(_color)
 
 def setBrightness(brightness : int):
     """
@@ -67,6 +87,15 @@ def getPowered() -> bool:
     return _powered
 
 #Private Methods
+def _colorHEXtoRGB(color : str):
+    color = color.lstrip("#")
+    rgb = tuple(int(color[i:i+2], 16) for i in (0, 2, 4))
+    return rgb
+
+def _colorRGBtoHEX(color : "tuple[int, int, int]"):
+    hex = '#{:02x}{:02x}{:02x}'.format(_color[0], _color[1], _color[2])
+    return hex
+
 def _scaleColorByBrightness() -> "tuple[int, int, int]":
     """
     Returns the unit's color tuple scaled to the unit's brightness.
