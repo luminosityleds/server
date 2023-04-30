@@ -14,3 +14,8 @@ def updateBrightnessState():
     dbBrightnessState = mongodb.brightness.getBrightness()
     if dbBrightnessState != lights.getBrightness():
         lights.setBrightness(dbBrightnessState)
+
+def updatePoweredState():
+    dbPoweredState = mongodb.powered.getPowered()
+    if dbPoweredState != lights.getPowered():
+        lights.setPowered(dbPoweredState)
