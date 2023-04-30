@@ -24,9 +24,9 @@ def updateLightStateSlow():
     updatePoweredState()
 
 def updateLightStateFast():
-    start = time.ticks_ms() # type: ignore pylint: disable=E0611
+    start = time.ticks_ms() # type: ignore pylint: disable=E1101
     dbLightState = lightState.getLightState('testtest')
-    end = time.ticks_ms() # type: ignore pylint: disable=E0611
+    end = time.ticks_ms() # type: ignore pylint: disable=E1101
     if dbLightState != lights.getState():
         lights.setState(dbLightState)
     elapsed = time.ticks_diff(end, start)/1000
