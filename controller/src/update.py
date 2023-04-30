@@ -29,7 +29,7 @@ def updateLightStateFast():
     end = time.ticks_ms() # type: ignore pylint: disable=E1101
     if dbLightState != lights.getState():
         lights.setState(dbLightState)
-    elapsed = time.ticks_diff(end, start)/1000
+    elapsed = time.ticks_diff(end, start)/1000 # type: ignore pylint: disable=E1101
     return elapsed
 
 def demonstrate(delay):
