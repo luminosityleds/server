@@ -19,3 +19,9 @@ def updatePoweredState():
     dbPoweredState = mongodb.powered.getPowered()
     if dbPoweredState != lights.getPowered():
         lights.setPowered(dbPoweredState)
+
+def updateLightState():
+    updateColorState()
+    updateBrightnessState()
+    updatePoweredState()
+    
