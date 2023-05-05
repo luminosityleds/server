@@ -36,6 +36,9 @@ def setColor(color : "tuple[int, int, int]"):
     :param color: RGB representation of unit's color, 0-255 for each
     """
     global _color
+    if isinstance(_color, str):
+        _color = _colorHEXtoRGB(_color)
+
     _color = color
     _updateUnit()
 

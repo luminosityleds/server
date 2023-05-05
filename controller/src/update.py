@@ -5,7 +5,7 @@ import secrets, time
 def updateColorState():
     dbColorStateHEX = color.getColor('testtest')
     dbColorStateRGB = tuple(int(dbColorStateHEX.lstrip("#")[i:i+2], 16) for i in (0, 2, 4))
-    if dbColorStateRGB != lights.getColor():
+    if dbColorStateRGB != lights.getColorHEX():
         lights.setColor(dbColorStateRGB)
 
 def updateBrightnessState():
@@ -19,9 +19,13 @@ def updatePoweredState():
         lights.setPowered(dbPoweredState)
 
 def updateLightStateSlow():
+    start = time.ticks_ms() # type: ignore pylint: disable=E1101
     updateColorState()
     updateBrightnessState()
     updatePoweredState()
+    end = time.ticks_ms() # type: ignore pylint: disable=E1101
+    elapsed = time.ticks_diff(end, start)/1000 # type: ignore pylint: disable=E1101
+    print(f"elapsed time: {elapsed}")
 
 def updateLightStateFast():
     start = time.ticks_ms() # type: ignore pylint: disable=E1101
