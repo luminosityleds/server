@@ -1,0 +1,14 @@
+# https://github.com/marketplace/actions/jest-coverage-report
+# By default, uses npm for package manager
+name: 'coverage'
+on:
+    pull_request_target:
+        branches:
+            - master
+            - main
+jobs:
+    coverage:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ArtiomTr/jest-coverage-report-action@v2
