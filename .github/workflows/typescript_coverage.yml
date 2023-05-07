@@ -15,4 +15,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: ArtiomTr/jest-coverage-report-action@v2
+            # Setup nodejs on runner
+            - uses: actions/setup-node@v3
+              with: 
+                node-version: 16
+
+            # Install the npm dependencies & build the react website
+            - name: Install dependencies and run code coverage 
+              run: |
+                npm install && npm run ts-coverage
