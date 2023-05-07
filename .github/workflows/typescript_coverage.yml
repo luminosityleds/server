@@ -20,7 +20,13 @@ jobs:
               with: 
                 node-version: 16
 
-            # Install the npm dependencies & build the react website
+            # Install the npm dependencies & run Typescript code coverage report
             - name: Install dependencies and run code coverage 
               run: |
                 npm install && npm run ts-coverage
+
+            # Upload HTML report of code coverage
+            - uses: actions/upload-artifact@v3
+              with:
+                name: Typescript Code Coverage
+                path: /home/runner/work/luminosityleds/luminosityleds/coverage-ts/index.html
