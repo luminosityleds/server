@@ -270,3 +270,19 @@ align-items: center;
 border-radius: 0.5em;
 grid-gap: 25%;
 }
+
+
+.team-page-cover {
+  padding: 10px 50px 20px;
+  align-items: center;
+
+}
+
+.member-layout {
+padding: 50px;
+display: block;
+text-align: center;
+/* justify-content: space-around; */
+
+}
+

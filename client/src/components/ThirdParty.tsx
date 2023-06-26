@@ -6,6 +6,7 @@ import { faGoogle, faMicrosoft, faGithub} from "@fortawesome/free-brands-svg-ico
 import { useGoogleLogin } from "@react-oauth/google"
 import { PublicClientApplication } from "@azure/msal-browser"
 import axios from "axios"
+import queryString from "querystring"
 
 // Microsoft config
 export const MicrosoftConfig = {
@@ -20,6 +21,9 @@ export const MicrosoftConfig = {
 }
 
 const msalInstance = new PublicClientApplication(MicrosoftConfig)
+
+// Github Client ID
+const CLIENT_ID = process.env.REACT_APP_GH_ID;
 
 // Login components
 export const GoogleLogin = () => {
@@ -98,9 +102,13 @@ export const MicrosoftLogin = () => {
 };
 
 export const GitHubLogin = () => {
+  function login() {
+    // Default scopes 
+    window.location.href = "https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID;
+  }
   return (
   <div>
-    <button className="third-party-btn">
+    <button className="third-party-btn" onClick={login}>
       <FontAwesomeIcon className="third-party-icon" icon={faGithub} size="2x" fixedWidth/>Login with GitHub
     </button>
   </div>
@@ -177,9 +185,13 @@ export const MicrosoftRegister = () => {
 };
 
 export const GitHubRegister = () => {
+  function register() {
+    // Default scopes 
+    window.location.href = "https://github.com/login/oauth/authorize?client_id=" + CLIENT_ID;
+  }  
 return (
 <div>
-  <button className="third-party-btn">
+  <button className="third-party-btn" onClick = {register}>
     <FontAwesomeIcon className="third-party-icon" icon={faGithub} size="2x" fixedWidth/>Register with GitHub
   </button>
 </div>

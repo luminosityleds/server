@@ -1,0 +1,9 @@
+{
+    "dependencies": {
+      "typescript-coverage-report": "^0.7.0"
+    },
+    "scripts": {
+      "ts-coverage": "typescript-coverage-report"
+    }
+  }
+  

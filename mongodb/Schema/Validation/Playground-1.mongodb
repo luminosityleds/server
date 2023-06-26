@@ -7,178 +7,146 @@
 use('Luminosity');
 
 //---------------ACCOUNTS----------------
-// db.createCollection("Accounts", {
-//    validator: {
-//       $jsonSchema: {
-//          bsonType: "object",
-//          title: "Accounts",
-//          required: [ "_id", "username", "password", "devices" ],
-//          properties: {
-//             _id: {
-//                bsonType: "objectId",
-//             },
-//             username: {
-//                bsonType: "string",
-//             },
-//             password: {
-//                bsonType: "string",
-//             },
-//             devices: {
-//                bsonType: [ "array" ],
-//                uniqueItems: true,
-//                items:{
-//                   bsonType: "objectId",
-//                   additionalProperties: false
-//                }
+// db.runCommand( { collMod: "accounts",
+//     validator: {
+//         $jsonSchema: {
+//             bsonType: "object",
+//             title: "accounts",
+//             required: ["lastUpdated"],
+//             properties: {
+//                 creationDate: {
+//                     bsonType: "date"
+//                 },
+//                 deletionDate: {
+//                     bsonType: ["date", "null"]
+//                 },
+//                 lastUpdated: {
+//                     bsonType: "date"
+//                 },
+//                 email: {
+//                     bsonType: "string",
+//                     pattern: "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+//                 },
+//                 name: {
+//                     bsonType: "string"
+//                 },
+//                 devicesLinked: {
+//                     bsonType: [ "array" ],
+//                     uniqueItems: true,
+//                     items: {
+//                         bsonType: "objectId"
+//                     }
+//                 }
 //             }
-//          }
 //       }
-//    }
+//    },
+//    validationLevel: "strict"
 // } )
 
-// db.Accounts.insertOne( {
-//    _id: ObjectId('6360f5b9c2da459f35c3ad31'),
-//    username: "Xoikz",
-//    password: "1800helpme",
-//    devices:[]
-// } )
-//PASS
 
-// db.Accounts.insertOne( {
-//    _id: ObjectId('6360f5b9c2da459035c3ad31'),
-//    username: "X34kz",
-//    password: "deerlord",
-//    devices:[ObjectId('6360f5b9c2da454f35c3ad31'), ObjectId('636345b9c2da454f35c3ad31')]
+// db.accounts.insertOne( {
+//    _id: ObjectId('6360f5b9c2da459f35c3ad33'),
+//    creationDate: new Date(),
+//    deletionDate: null,
+//    lastUpdated: new Date(),
+//    email: "jchhan.17@gmail.com",
+//    name: "Xoikz",
+//    devicesLinked:[]
 // } )
 //PASS
 
-//Test Query
-//db.Accounts.find({_id: ObjectId("6360f5b9c2da459035c3ad31")})
-
-// db.Accounts.insertOne( {
-//    _id: ObjectId('6360f5b9c2da779035c3ad31'),
-//    username: "1222",
-//    password: "deerlord",
-//    devices:[ObjectId('6360f5b9c2d9994f35c3ad31'), ObjectId('6360f5b9c2d9994f35c3ad31')]
+// db.accounts.insertOne( {
+//    _id: ObjectId('6360f5b9c2da459f35c3ad33'),
+//    creationDate: new Date(),
+//    deletionDate: new Date(),
+//    lastUpdated: new Date(),
+//    email: "test.test@gmail.com",
+//    name: "Test",
+//    devicesLinked:[ObjectId("6360f5b9c2d6669035c3ad31")]
 // } )
-//FAIL - identical entries in devices[]
+//PASS
 
-// db.Accounts.insertOne( {
-//    _id: ObjectId('6360f5b9c2da779035c3ad31'),
-//    username: "1222",
-//    password: "deerlord",
-//    devices:["anystring?", "yesorno"]
+
+// db.accounts.insertOne( {
+//    _id: ObjectId('6360f5b9c2da459f35c3ad33'),
+//    creationDate: new Date(),
+//    deletionDate: null,
+//    lastUpdated: new Date(),
+//    email: "jchhan17gmail@.com",
+//    name: "Xoikz",
+//    devicesLinked:[ObjectId("6360f5b9c2d6669035c3ad31")]
 // } )
-//FAIL - devices does not contain objectIds
+//FAIL: invalid email
+
+//db.accounts.find({_id: ObjectId("6360f5b9c2da459f35c3ad33")})
 
 
 
 
 //-----------------DEVICES----------------
-
-
-// db.createCollection("Devices", {
-//    validator: {
-//       $jsonSchema: {
-//          bsonType: "object",
-//          title: "Devices",
-//          required: [ "_id", "connected", "color", "brightness" ],
-//          properties: {
-//             _id: {
-//                bsonType: "objectId",
-//             },
-//             connected: {
-//                bsonType: "bool",
-//             },
-//             color: {
-//                bsonType: "string",
-//                pattern: "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-//                minLength: 4,
-//                maxLength: 7,
-//             },
-//             brightness: {
-//                bsonType: "int",
-//                minimum: 0,
-//                maximum: 100,
-//                exclusiveMaximum: false
-//             }
-//          }
-//       }
-//    }
-// } )
-
-// db.Devices.insertOne( {
-//    _id: ObjectId('6360f5b9c2d6669035c3ad31'),
-//    connected: true,
-//    color: "#ffffff",
-//    brightness: 42
-// } )
-//PASS
-
-// db.Devices.insertOne( {
-//    _id: ObjectId('6363y5b9c2d6669035c3ad31'),
-//    connected: true,
-//    color: "#ff939",
-//    brightness: 43
-// } )
-//FAIL - does not meet regex requirements for a valid hex color string
-
-// db.Devices.insertOne( {
-//    _id: ObjectId('636335b9c2d6669035c3ad31'),
-//    connected: true,
-//    color: "#ffffff3",
-//    brightness: 42
-// } )
-//FAIL - color length is not between 4 and 7 characters and does not meet the regex for a valid hex color string
-
-// db.Devices.insertOne( {
-//    _id: ObjectId('636335b9c2d66690p5c3ad31'),
-//    connected: "true",
-//    color: "#ff9339",
-//    brightness: 44
-// } )
-//FAIL - connected is not a boolean
-
-
-
-//-----------------Change Validator----------------
-
-// db.runCommand( { collMod: "Devices",
+// db.runCommand( { collMod: "devices",
 //     validator: {
 //         $jsonSchema: {
 //             bsonType: "object",
-//             title: "Devices",
-//             required: [ "_id","powered", "powered_timestamp", "connected", "color", "brightness" ],
+//             title: "devices",
+//             required: ["lastUpdated"],
 //             properties: {
-//                 _id: {
-//                     bsonType: "objectId",
+//                 uuid: {
+//                     bsonType: "string"
+//                 },
+//                 lastUpdated: {
+//                     bsonType: "date"
 //                 },
 //                 powered:{
 //                     bsonType: "bool"
 //                 },
-//                 powered_timestamp:{
+//                 poweredTimestamp:{
 //                     bsonType: "date"
 //                 },
 //                 connected: {
-//                     bsonType: "bool",
+//                     bsonType: "bool"
+//                 },
+//                 connectedTimestamp:{
+//                     bsonType: "date"
 //                 },
 //                 color: {
 //                     bsonType: "string",
 //                     pattern: "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
 //                     minLength: 4,
-//                     maxLength: 7,
+//                     maxLength: 7
+//                 },
+//                 colorTimestamp:{
+//                     bsonType: "date"
 //                 },
 //                 brightness: {
 //                     bsonType: "int",
 //                     minimum: 0,
 //                     maximum: 100,
 //                     exclusiveMaximum: false
+//                 },
+//                 brightnessTimestamp:{
+//                     bsonType: "date"
 //                 }
 //             }
 //       }
-//    }
+//    },
+//    validationLevel: "strict"
 // } )
 
+//Remove Validator
+// db.runCommand( { collMod: "devices",
+//     validator: {},
+//     validationLevel: "off"
+// } )
+
+//Get Collections Info
+// db.getCollectionInfos()
+// db.devices.getIndexes()
+
+//Delete everything in devices
+//  db.devices.deleteMany(({ }))
+
+//Deletes a Device with specific _id
 // db.runCommand(
 //     {
 //     delete: "Devices",
@@ -186,23 +154,72 @@ use('Luminosity');
 //     }
 // )
 
-// db.Devices.insertOne( {
-//    _id: ObjectId('6360f5b9c2d6669035c3ad31'),
-//    powered: true,
-//    powered_timestamp: new Date(),
-//    connected: true,
-//    color: "#ffffff",
-//    brightness: 42
+// db.devices.insertOne( {
+//     _id: ObjectId("6360f5b9c2d6669035c3ad31"),
+//     uuid: "md0LI556",
+//     lastUpdated: new Date(),
+//     powered: true,
+//     poweredTimestamp: new Date(),
+//     connected: true,
+//     connectedTimestamp: new Date(),
+//     color: "#ffffff",
+//     colorTimestamp: new Date(),
+//     brightness: 100,
+//     brightnessTimestamp: new Date(),
 // } )
-//PASS
+// PASS :: Can also pass if things other than lastUpdated are missing 
 
+// db.devices.insertOne( {
+//     _id: ObjectId("6360f5b9c2d6669035c3ad32"),
+//     uuid: "md0LI556",
+//     lastUpdated: new Date(),
 
-// db.Devices.insertOne( {
-//    _id: ObjectId('6360f5b9c2d6669035c3ad32'),
-//    powered: true,
-//    powered_timestamp: Date(),
-//    connected: true,
-//    color: "#ffffff",
-//    brightness: 42
+//     powered: true,
+//     poweredTimestamp: new Date(),
+//     connected: true,
+//     connectedTimestamp: new Date(),
+//     color: "#ffffff",
+//     colorTimestamp: new Date(),
+//     brightness: 100,
+//     brightnessTimestamp: new Date(),
 // } )
-//FAIL - powered_timestamp is a string
+// FAIL: Dupe uuid
+
+// db.devices.insertOne( {
+//     uuid: "LLD34F57",
+//     lastUpdated: undefined,
+
+//     powered: true,
+//     poweredTimestamp: new Date(),
+//     connected: true,
+//     connectedTimestamp: new Date(),
+//     color: "#ffffff",
+//     colorTimestamp: new Date(),
+//     brightness: 100,
+//     brightnessTimestamp: new Date(),
+// } )
+//FAIL: lastUpdated must be a Date
+
+// db.devices.insertOne( {
+//     uuid: "LLD34F57",
+//     lastUpdated: undefined,
+
+//     powered: true,
+//     poweredTimestamp: new Date(),
+//     connected: true,
+//     connectedTimestamp: new Date(),
+//     color: "#ffffff",
+//     colorTimestamp: new Date(),
+//     brightness: -100,
+//     brightnessTimestamp: new Date(),
+// } )
+//FAIL: brightness is out of range(0,100)
+
+//Update One
+// db.devices.updateOne(
+//    { uuid: "7LD34F56" },
+//    {
+//      $set: { connected: false},
+//      $currentDate: { lastUpdated: true, connectedTimestamp: true }
+//    }
+// )

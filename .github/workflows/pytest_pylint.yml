@@ -1,0 +1,48 @@
+# Workflow to lint the python codebase with pylint on pushes to any branch
+
+name: Pytest and Pylint
+
+# Runs on push to any branch
+on:
+  push:
+    # ** means all branches and tags
+    branches: ["**"]
+  # Workflow can be triggered manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  pytest-pylint-code:
+    runs-on: ubuntu-latest
+    env:
+      MONGO_DAPI_KEY: ${{ secrets.MONGO_DAPI_KEY }}
+      MONGO_DAPI_URL: ${{ secrets.MONGO_DAPI_URL }}
+      MONGO_URL: ${{ secrets.MONGO_URL }}
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    
+    # Default score to pass is 10, 0 on fatal error
+    - name: Install Controller dependencies, Run Pytest and Pylint on Controller Files, and Generate Coverage report
+      run: |
+        cd ./controller
+        pip install -r requirements.txt
+        python -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
+        coverage erase
+        coverage run --a -m pytest test/mongodb/test_color.py
+        coverage run --a -m pytest test/mongodb/test_brightness.py
+        coverage run --a -m pytest test/mongodb/test_connected.py
+        coverage run --a -m pytest test/mongodb/test_powered.py
+        coverage report -m
+        cd ..
+    # Default score to pass is 10, 0 on fatal error
+    - name: Install Scripts dependencies and Run Pylint on Scripts Files
+      run: |
+        cd ./scripts
+        pip install -r requirements.txt
+        python -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
+        cd ..
+
