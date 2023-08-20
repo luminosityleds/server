@@ -41,17 +41,10 @@ export const GoogleLogin = () => {
           email: google_response.data.email,
           name: google_response.data.name
         }
-
-        console.log(google_response)
-
-        const login_response = axios.get('http://localhost:4000/app/account',
-        {
-          headers: {
-            email: google_data.email,
-            name: google_data.name
-          }
-        }).then(response => {
-          console.log(response)
+        
+        const login_response = axios.post('http://localhost:4000/app/account',
+        google_data
+        ).then(response => {
           if (response.data.success === true) {
             // Set that the user is now logged in
             window.localStorage.setItem("isLoggedIn", "true")
@@ -59,6 +52,11 @@ export const GoogleLogin = () => {
 
             // Go back to the homepage
             window.location.href = "/"
+          }
+
+          else if (response.data.success === true) {
+            // Go to the registration page
+            window.location.href = "/register"
           }
         });
       }
