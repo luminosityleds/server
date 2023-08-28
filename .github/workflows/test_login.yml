@@ -19,10 +19,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '16.x'
-      - name: Test mongoDB connection
+      - name: Test google login
         run: |
           cd client
           npm install
-          npm run build
-          npm run test
+          npm run test -- client/src/tests
         timeout-minutes: 1
