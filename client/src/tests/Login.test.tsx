@@ -28,7 +28,7 @@ describe('Login', () => {
             </Router>
         );
         const register_page = "/register"
-        user.click(screen.getByText(/Reister/i));
+        user.click(screen.getByText(/Register/i));
         
         windowSpy.mockImplementation(() => ({
             location: {
