@@ -54,7 +54,7 @@ export const GoogleLogin = () => {
             window.location.href = "/"
           }
 
-          else if (response.data.success === true) {
+          else if (response.data.success === false) {
             // Go to the registration page
             window.location.href = "/register"
           }
