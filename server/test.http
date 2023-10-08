@@ -1,7 +1,6 @@
-GET http://localhost:4000/app/get/
+POST http://localhost:4000/app/account
 Content-Type: application/json
 
 {
-    "email": "test@gmail.com",
-    "name": "test"
+    "email": "test@test.com"
 }

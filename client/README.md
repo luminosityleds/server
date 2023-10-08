@@ -62,3 +62,8 @@ The `public` directory contains
 3. The `manifest.json` which lists metadata about the website
 4. The `index.html` which defines how the index.html will be built during `npm run build`
 5. The `images` directory which are images used by the website after being built
+
+## `tests` Directory
+The `tests` directory contains tests for the frontend code
+
+Run tests with `npm test`
