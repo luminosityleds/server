@@ -1,5 +1,5 @@
-const express = require("express");
-const User = require("../models/UserSchema")
+import express from "express";
+import { User } from "../models/UserSchema";
 
 export const router = express.Router()
 
