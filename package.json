@@ -1,9 +1,12 @@
 {
     "dependencies": {
-      "typescript-coverage-report": "^0.7.0"
+        "amqplib": "^0.10.3",
+        "typescript-coverage-report": "^0.7.0"
     },
     "scripts": {
-      "ts-coverage": "typescript-coverage-report"
+        "ts-coverage": "typescript-coverage-report"
+    },
+    "devDependencies": {
+        "@types/amqplib": "^0.10.3"
     }
-  }
-  
+}

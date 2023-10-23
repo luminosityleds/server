@@ -5,10 +5,12 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	// Uses Debian 11 for Dev environment
 	// https://github.com/microsoft/vscode-dev-containers/tree/main/containers/debian#using-this-definition
-	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	"image": "rabbitmq",
 
-	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+	"features": 
+	{
+		"ghcr.io/devcontainers/features/docker-in-docker:2": 
+		{
 			"version": "latest",
 			"enableNonRootDocker": "true",
 			"moby": "true"
@@ -25,9 +27,12 @@
 	// "postCreateCommand": "docker --version",
 
 	// Configure tool-specific properties.
-	"customizations": {
-		"vscode": {
-		  "extensions": [
+	"customizations": 
+	{
+		"vscode": 
+		{
+		  "extensions": 
+		  [
 			"eamodio.gitlens",
 			"esbenp.prettier-vscode",
 			"TabNine.tabnine-vscode",
