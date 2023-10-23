@@ -1,12 +1,19 @@
 {
-    "dependencies": {
+    "dependencies": 
+    {
         "amqplib": "^0.10.3",
         "typescript-coverage-report": "^0.7.0"
     },
-    "scripts": {
+    "scripts": 
+    {
         "ts-coverage": "typescript-coverage-report"
     },
-    "devDependencies": {
+
+    "devDependencies": 
+    {
         "@types/amqplib": "^0.10.3"
     }
+    
+    ,"http.proxySupport": "off"
+    
 }
