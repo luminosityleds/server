@@ -1,7 +1,19 @@
 import express from "express";
 import { User } from "../models/UserSchema";
 
+// Account microservice port
+export const PORT = 5000;
+
+// Creates an Express application
+export const app = express();
+
+// Single Routing
 export const router = express.Router()
+
+// Defines the structure of the error Object
+interface ErrorWithMessage {
+    message: string
+}
 
 // Register method
 router.post('/register', (req: any, res: any) => {
@@ -35,6 +47,13 @@ router.post('/account', async (req: any, res: any) => {
         
         res.send({'success' : loginIn});
     });
+})
+
+// Use routes provided by the router
+app.use(router)
+
+app.listen(PORT, () => {
+    console.log("Account microservice listening on port: " + PORT)
 })
 
 // Update one
