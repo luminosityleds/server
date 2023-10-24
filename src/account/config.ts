@@ -6,11 +6,11 @@
 
 export let config = {
     mongodb: {
-        username: process.env.USR ?? "username",
-        password: process.env.PSW ?? "password",
-        clustername: process.env.CLUS ?? "cluster",
-        database: process.env.DB ?? "test",
-        collection: process.env.COL ?? "collection"
+        username: process.env.USR ?? process.env.DEV_USR,
+        password: process.env.PSW ?? process.env.DEV_PSW,
+        clustername: process.env.CLUS ?? process.env.DEV_CLUS,
+        database: process.env.DB ?? process.env.DEV_DB,
+        collection: process.env.COL ?? process.env.DEV_COL
     },
     microservice: {
         account: "account",
