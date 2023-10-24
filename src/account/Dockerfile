@@ -1,6 +1,11 @@
-FROM node:16-bullseye
+FROM amd64/node:16-bullseye
 WORKDIR /
-RUN npm install -g express
 COPY account.ts /
-RUN ["node", "account.ts"]
-EXPOSE 3001
+COPY config.ts /
+COPY IUserSchema.ts /
+COPY package.json /
+
+RUN npm install
+
+EXPOSE 5000
+CMD ["npm", "run", "account"]
