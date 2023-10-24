@@ -9,6 +9,11 @@ export let config = {
         username: process.env.USR ?? "username",
         password: process.env.PSW ?? "password",
         clustername: process.env.CLUS ?? "cluster",
-        database: process.env.DB ?? "test"
+        database: process.env.DB ?? "test",
+        collection: process.env.COL ?? "collection"
+    },
+    microservice: {
+        account: "account",
+        port: 5000
     }
 };
