@@ -4,6 +4,7 @@
   "description": "Account microservice",
   "main": "account.ts",
   "scripts": {
+    "devAccount": "nodemon account.ts",
     "account": "npx ts-node account.ts"
   },
   "author": "",
@@ -16,5 +17,9 @@
     "mongodb": "^6.2.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "install": "^0.13.0",
+    "nodemon": "^3.0.1"
   }
 }
