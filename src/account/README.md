@@ -11,7 +11,7 @@ This route will register a new user in the MongoDB database.
 This file defines the environment variables and initalized variables with blank values for the account microservice.
 
 ## IUserSchema.ts
-This interface defines the structure of any object that uses the interface.  It corresponds the data that will get entered into the MongoDB database.
+This interface defines the structure of any object that uses the interface.  It corresponds to the data that will get entered into the MongoDB database.
 
 ## package.json
 This file defines the name, version, description, scripts, and dependencies of the account microservice.
@@ -40,8 +40,10 @@ VERSION = the version of the account microservice
 **Run the above command from the root of the src/account directory.**
 ### How to Run Docker Container
 ```bash
-docker run --rm -t -e USR=USR -e PSW=PSW -e CLUS=CLUS -e DB=DB -e COL=COL --network="host" --dns=8.8.8.8 account
+docker run --rm -t -e USR=USR -e PSW=PSW -e CLUS=CLUS -e DB=DB -e COL=COL --network="host" --dns=8.8.8.8 account:VERSION
 ```
+**Run the above command from anywhere.**
+
 USR = username for MongoDB
 
 PSW = password for MongoDB
@@ -52,8 +54,8 @@ DB = database for MongoDB
 
 COL = collection for MongoDB
 
+VERSION = the version of the account microservice
+
 network means tell docker container to use localhost
 
 dns means tell docker container to use google's public DNS
-
-**Run the above command from anywhere.**
