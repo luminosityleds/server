@@ -8,7 +8,7 @@ This program defines the account microservice.  The microservice uses an isolate
 This route will register a new user in the MongoDB database.
 
 ## config.ts
-This file defines the development and environment variables for the account microservice.
+This file defines the environment variables and initalized variables with blank values for the account microservice.
 
 ## IUserSchema.ts
 This interface defines the structure of any object that uses the interface.  It corresponds the data that will get entered into the MongoDB database.
