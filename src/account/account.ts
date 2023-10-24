@@ -1,5 +1,5 @@
 import express from "express";
-import { UserSchema } from "./IUserSchema";
+import { IUserSchema } from "./IUserSchema";
 import cors from "cors";
 import { MongoClient } from "mongodb";
 import { config } from "./config";
@@ -43,7 +43,7 @@ router.get("/register", (req: any, res: any) => {
   async function registerAccount() {
     try {
       // Create a new document
-      let accountDocument: UserSchema = {
+      let accountDocument: IUserSchema = {
         creationDate: {
           value: Date.now()
         },

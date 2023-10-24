@@ -1,4 +1,4 @@
-export interface UserSchema {
+export interface IUserSchema {
   creationDate: {
     value: number;
   };
