@@ -36,51 +36,55 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// Import the necessary modules
 var amqplib = require("amqplib");
 function connectToRabbitMQ() {
     return __awaiter(this, void 0, void 0, function () {
-        var connection, channel_1, queueName, message, error_1;
+        var connection, channel, queueName, message, sendMessages, consumer, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 7, , 8]);
+                    _a.trys.push([0, 6, , 7]);
                     return [4 /*yield*/, amqplib.connect('amqp://luminosityleds:Lumi-123@localhost:5672')];
                 case 1:
                     connection = _a.sent();
                     return [4 /*yield*/, connection.createChannel()];
                 case 2:
-                    channel_1 = _a.sent();
+                    channel = _a.sent();
                     queueName = 'myQueue';
-                    return [4 /*yield*/, channel_1.assertQueue(queueName)];
+                    return [4 /*yield*/, channel.assertQueue(queueName)];
                 case 3:
                     _a.sent();
                     message = 'Hello, RabbitMQ!';
-                    channel_1.sendToQueue(queueName, Buffer.from(message));
-                    // Consume messages from a queue
-                    return [4 /*yield*/, channel_1.consume(queueName, function (msg) {
-                            if (msg !== null) {
-                                console.log('Received message:', msg.content.toString());
-                                // Acknowledge the message
-                                channel_1.ack(msg);
-                            }
-                        })];
-                case 4:
-                    // Consume messages from a queue
-                    _a.sent();
+                    channel.sendToQueue(queueName, Buffer.from(message));
+                    sendMessages = function (channel) {
+                        for (var i = 0; i < 10; i++) {
+                            channel.sendToQueue('myQueue', Buffer.from("message ".concat(i)));
+                        }
+                    };
+                    // Send some messages to the queue
+                    sendMessages(channel);
+                    consumer = function (channel) { return function (msg) {
+                        if (msg !== null) {
+                            console.log('Received message:', msg.content.toString());
+                            // Acknowledge the message
+                            channel.ack(msg);
+                        }
+                    }; };
                     // Close the channel and the connection when done
-                    return [4 /*yield*/, channel_1.close()];
-                case 5:
+                    return [4 /*yield*/, channel.close()];
+                case 4:
                     // Close the channel and the connection when done
                     _a.sent();
                     return [4 /*yield*/, connection.close()];
-                case 6:
+                case 5:
                     _a.sent();
-                    return [3 /*break*/, 8];
-                case 7:
+                    return [3 /*break*/, 7];
+                case 6:
                     error_1 = _a.sent();
                     console.error('Error connecting to RabbitMQ:', error_1);
-                    return [3 /*break*/, 8];
-                case 8: return [2 /*return*/];
+                    return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
             }
         });
     });
