@@ -2,9 +2,9 @@ const express = require('express')
 const app = express()
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const mongoose = require('mongoose')
-const routeURLs = require('./routes/routes')
+const routeURLs = require('../account/account')
 const cors = require('cors')
-const User = require("./models/UserSchema")
+const User = require("../models/UserSchema")
 
 const USR = process.env.MONGO_INITDB_ROOT_USERNAME;
 const PSW = process.env.MONGO_INITDB_ROOT_PASSWORD;

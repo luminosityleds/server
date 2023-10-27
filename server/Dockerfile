@@ -1,8 +1,0 @@
-FROM node:latest
-WORKDIR /server
-COPY ["package.json", "package-lock.json*", "tsconfig.json*", "/server"]
-COPY ["src", "/server/src"]
-RUN ["/bin/bash", "-c", "npm install"]
-
-# Server port, Cors-anywhere port
-EXPOSE 4000 8000
