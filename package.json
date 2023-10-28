@@ -1,19 +1,6 @@
 {
-  "name": "luminosityleds",
-  "version": "0.1.0",
-  "description": "Illuminate individual expression and creativity",
-  "scripts": {
-    "build": "tsc -p ./src",
-    "account": "nodemon ./src/account/account.ts",
-    "device": "nodemon ./src/device/device.ts",
-    "server": "nodemon ./src/server/server.ts",
-    "notification": "nodemon ./src/notification/notification.ts",
-    "search": "nodemon ./src/search/search.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "@types/express": "^4.17.14",
     "amqplib": "^0.10.3",
     "axios": "^1.2.6",
@@ -29,5 +16,11 @@
   "devDependencies": {
     "@types/amqplib": "^0.10.3",
     "@types/node": "^20.8.9"
+=======
+    "typescript-coverage-report": "^0.7.0"
+  },
+  "scripts": {
+    "ts-coverage": "typescript-coverage-report"
+>>>>>>> master
   }
 }

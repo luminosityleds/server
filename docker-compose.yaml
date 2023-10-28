@@ -1,19 +1,20 @@
 version: "3.8"
 
 services:
-  server:
-    build: "server/"
-    command: "npx ts-node src/routes/github.ts"
+  account:
+    build: "src/account/"
+    command: "npm run account"
     ports: 
-      - "4000:4000" 
-      - "8000:8000"
-    env_file: ".env"
-  client:
-    build: "client/"
-    command: "npm start"
-    ports:
-      - "3000:3000"
-    env_file: ".env"
-# Requires server services to run before running client servers
-    depends_on:
-      - "server"
+      - "5000:5000" 
+    env_file: "src/account/.env"
+    dns:
+      - "8.8.8.8"
+#   client:
+#     build: "client/"
+#     command: "npm start"
+#     ports:
+#       - "3000:3000"
+#     env_file: ".env"
+# # Requires server services to run before running client servers
+#     depends_on:
+#       - "server"
