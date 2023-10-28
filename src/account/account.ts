@@ -29,63 +29,64 @@ export const router = express.Router();
 export const MONGO_CLIENT = new MongoClient(URL);
 
 // Connect to the Atlas cluster
-async function connect() {
+export async function connect(): Promise<boolean> {
   try {
     await MONGO_CLIENT.connect();
     console.log("Successfully connected to MongoDB.");
+    return true;
   } catch (err) {
     console.error("Error connecting to MongoDB " + err);
+    return false;
   }
 }
 
-// Register method
-router.get("/register", (req: any, res: any) => {
-  async function registerAccount() {
-    try {
-      // Create a new document
-      let accountDocument: IUserSchema = {
-        creationDate: {
-          value: Date.now()
-        },
-        deletionDate: {
-          value: Date.now()
-        },
-        lastUpdated: {
-          value: Date.now()
-        }, 
-        email: {
-          value: req.body.email,
-        },
-        name: {
-          value: req.body.name,
-        }, 
-        devicesLinked: {
-          value: {}
-        } 
-      };
+export async function registerAccount(req: any, res: any): Promise<void> {
+  try {
+    // Create a new document
+    let accountDocument: IUserSchema = {
+      creationDate: {
+        value: Date.now()
+      },
+      deletionDate: {
+        value: Date.now()
+      },
+      lastUpdated: {
+        value: Date.now()
+      }, 
+      email: {
+        value: req.body.email,
+      },
+      name: {
+        value: req.body.name,
+      }, 
+      devicesLinked: {
+        value: {}
+      } 
+    };
 
-      // Pick database to connect to with mongo client
-      const mongo_db = MONGO_CLIENT.db(DB);
+    // Pick database to connect to with mongo client
+    const mongo_db = MONGO_CLIENT.db(DB);
 
-      // Reference the "accounts" collection in the specified database
-      const col = mongo_db.collection(COL);
+    // Reference the "accounts" collection in the specified database
+    const col = mongo_db.collection(COL);
 
-      // Insert the document into the specified collection
-      await col.insertOne(accountDocument);
-      console.log("Account registered successfully");
+    // Insert the document into the specified collection
+    await col.insertOne(accountDocument);
+    console.log("Account registered successfully");
 
-      // TODO: Use this code for unit tests
-      // // Find and return the document
-      // const filter = { "name.last": "Turing" };
-      // const document = await col.findOne(filter);
-      // console.log("Document found:\n" + JSON.stringify(document));
-    } catch (err: any) {
-      console.log("Error " + err.stack);
-      console.log("Response " + res);
-    }
+    // TODO: Use this code for unit tests
+    // // Find and return the document
+    // const filter = { "name.last": "Turing" };
+    // const document = await col.findOne(filter);
+    // console.log("Document found:\n" + JSON.stringify(document));
+  } catch (err: any) {
+    console.log("Error " + err.stack);
+    console.log("Response " + res);
   }
-  registerAccount().catch(console.dir);
-});
+}
+
+// Register route
+router.post("/register", registerAccount);
 
 // Get all method
 
