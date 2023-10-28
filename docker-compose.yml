@@ -3,6 +3,12 @@ version: '2.21'
 services:
   es01:
     image: "docker.elastic.co/elasticsearch/elasticsearch:8.10.2"
+    deploy:
+      resources:
+        limits:
+          memory: 10g  
+        reservations:
+          memory: 8g  
     ports:
       - "9200:9200"
     environment:
