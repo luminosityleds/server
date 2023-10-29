@@ -6,7 +6,10 @@ async function connectToRabbitMQ() {
 
     // Replace 'username' and 'password' with your RabbitMQ credentials
     const connection: amqplib.Connection = await amqplib.connect(
-      'amqp://luminosityleds:Lumi-123@localhost:5672'
+      'amqp://luminosityleds:Lumi-123@localhost:5672',
+      {
+        heartbeat: 10,
+      }
     );
 
     // Channel for communication

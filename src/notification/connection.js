@@ -45,7 +45,9 @@ function connectToRabbitMQ() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 6, , 7]);
-                    return [4 /*yield*/, amqplib.connect('amqp://luminosityleds:Lumi-123@localhost:5672')];
+                    return [4 /*yield*/, amqplib.connect('amqp://luminosityleds:Lumi-123@localhost:5672', {
+                            heartbeat: 10,
+                        })];
                 case 1:
                     connection = _a.sent();
                     return [4 /*yield*/, connection.createChannel()];
