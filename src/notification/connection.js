@@ -38,6 +38,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Import the necessary modules
 var amqplib = require("amqplib");
+var dotenv = require("dotenv");
+// Load environment variables from the .env file
+dotenv.config();
+// Access the environment variables
+var rabbitMqUsername = process.env.RABBITMQ_USERNAME;
+var rabbitMqPassword = process.env.RABBITMQ_PASSWORD;
 function connectToRabbitMQ() {
     return __awaiter(this, void 0, void 0, function () {
         var connection, channel, queueName, message, sendMessages, consumer, error_1;
@@ -45,7 +51,7 @@ function connectToRabbitMQ() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 6, , 7]);
-                    return [4 /*yield*/, amqplib.connect('amqp://luminosityleds:Lumi-123@localhost:5672', {
+                    return [4 /*yield*/, amqplib.connect("amqp://".concat(rabbitMqUsername, ":").concat(rabbitMqPassword, "@localhost:5672"), {
                             heartbeat: 10,
                         })];
                 case 1:

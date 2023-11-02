@@ -1,12 +1,20 @@
 // Import the necessary modules
 import * as amqplib from 'amqplib';
+import * as dotenv from 'dotenv';
+
+// Load environment variables from the .env file
+dotenv.config();
+
+// Access the environment variables
+const rabbitMqUsername = process.env.RABBITMQ_USERNAME;
+const rabbitMqPassword = process.env.RABBITMQ_PASSWORD;
 
 async function connectToRabbitMQ() {
   try {
 
     // Replace 'username' and 'password' with your RabbitMQ credentials
     const connection: amqplib.Connection = await amqplib.connect(
-      'amqp://luminosityleds:Lumi-123@localhost:5672',
+      `amqp://${rabbitMqUsername}:${rabbitMqPassword}@localhost:5672`,
       {
         heartbeat: 10,
       }
