@@ -12,7 +12,6 @@ const rabbitMqPassword = process.env.RABBITMQ_PASSWORD;
 async function connectToRabbitMQ() {
   try {
 
-    // Replace 'username' and 'password' with your RabbitMQ credentials
     const connection: amqplib.Connection = await amqplib.connect(
       `amqp://${rabbitMqUsername}:${rabbitMqPassword}@localhost:5672`,
       {
