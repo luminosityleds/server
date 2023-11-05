@@ -6,7 +6,8 @@
     },
     "scripts": {
         "ts-coverage": "typescript-coverage-report",
-        "start": "nodemon connection.js"
+        "devNotification": "nodemon account.ts",
+        "notification": "npx ts-node account.ts"
     },
     "devDependencies": {
         "@types/amqplib": "^0.10.3",

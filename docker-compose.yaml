@@ -4,17 +4,26 @@ services:
   account:
     build: "src/account/"
     command: "npm run account"
-    ports: 
-      - "5000:5000" 
+    ports:
+      - "5000:5000"
     env_file: "src/account/.env"
+    networks:
+      - rabbitmq_go_net
     dns:
       - "8.8.8.8"
-#   client:
-#     build: "client/"
-#     command: "npm start"
-#     ports:
-#       - "3000:3000"
-#     env_file: ".env"
-# # Requires server services to run before running client servers
-#     depends_on:
-#       - "server"
+
+  rabbitmq:
+    image: rabbitmq:3.9.13-management-alpine
+    container_name: 'rabbitmq'
+    restart: always
+    env_file: "src/notification/.env"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - rabbitmq_go_net
+    volumes:
+      - ./rabbitmq-data:/var/lib/rabbitmq
+
+networks:
+  rabbitmq_go_net:

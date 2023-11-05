@@ -1,0 +1,20 @@
+# Use an official RabbitMQ image as the base image
+FROM rabbitmq:3.9.13-management
+
+# Specifies root of file structure as working directory in docker image
+WORKDIR /
+
+# Copy files to root of file structure in docker image
+COPY connection.ts /
+COPY config.ts /
+COPY NotiInterface.ts /
+COPY package.json /
+
+# Expose RabbitMQ ports (5672 for AMQP, 15672 for the management web UI)
+EXPOSE 5672 15672
+
+# Install all dependencies to run account microservice
+RUN npm install
+
+# Start RabbitMQ when the container starts
+CMD ["npm", "run", "rabbitmq-server"]

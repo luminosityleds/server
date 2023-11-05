@@ -1,23 +1,22 @@
 // Import the necessary modules
 import * as amqplib from 'amqplib';
-import * as dotenv from 'dotenv';
+import config from './config'; // Import the RabbitMQ configuration
 
-// Load environment variables from the .env file
-dotenv.config();
+// Access the RabbitMQ configuration values
+const rabbitmqConfig = config.rabbitmq;
 
-// Access the environment variables
-const rabbitMqUsername = process.env.RABBITMQ_USERNAME;
-const rabbitMqPassword = process.env.RABBITMQ_PASSWORD;
 
 async function connectToRabbitMQ() {
   try {
 
-    const connection: amqplib.Connection = await amqplib.connect(
-      `amqp://${rabbitMqUsername}:${rabbitMqPassword}@localhost:5672`,
-      {
-        heartbeat: 10,
-      }
-    );
+    const connection: amqplib.Connection = await amqplib.connect({
+      hostname: rabbitmqConfig.hostname,
+      port: rabbitmqConfig.port,
+      username: rabbitmqConfig.username,
+      password: rabbitmqConfig.password,
+      vhost: rabbitmqConfig.vhost,
+      heartbeat: rabbitmqConfig.heartbeat,
+    });
 
     // Channel for communication
     const channel: amqplib.Channel = await connection.createChannel();
