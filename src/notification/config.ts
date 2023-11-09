@@ -8,8 +8,8 @@ export default {
     rabbitmq: {
       hostname: 'localhost', // RabbitMQ server hostname
       port: 5672, // Default RabbitMQ port
-      username: process.env.RABBITMQ_USERNAME ?? "", // RabbitMQ username
-      password: process.env.RABBITMQ_PASSWORD ?? "", // RabbitMQ password
+      username: process.env.RABBITMQ_USERNAME, // RabbitMQ username
+      password: process.env.RABBITMQ_PASSWORD, // RabbitMQ password
       vhost: '/', // Virtual host (default is '/')
       heartbeat: 10, // Heartbeat interval in seconds
     },

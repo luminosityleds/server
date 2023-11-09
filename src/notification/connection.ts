@@ -5,10 +5,8 @@ import config from './config'; // Import the RabbitMQ configuration
 // Access the RabbitMQ configuration values
 const rabbitmqConfig = config.rabbitmq;
 
-
 async function connectToRabbitMQ() {
   try {
-
     const connection: amqplib.Connection = await amqplib.connect({
       hostname: rabbitmqConfig.hostname,
       port: rabbitmqConfig.port,
@@ -21,16 +19,17 @@ async function connectToRabbitMQ() {
     // Channel for communication
     const channel: amqplib.Channel = await connection.createChannel();
 
-    // Publish a message to a queue
+    // Declare a durable queue
     const queueName = 'myQueue';
-    await channel.assertQueue(queueName);
-    const message = 'Hello, RabbitMQ!';
-    channel.sendToQueue(queueName, Buffer.from(message));
+    await channel.assertQueue(queueName, { durable: true });
+
+    // Purge the queue (clear existing messages)
+    await channel.purgeQueue(queueName);
 
     // Function to send some messages before consuming the queue
     const sendMessages = (channel: amqplib.Channel) => {
       for (let i = 0; i < 10; i++) {
-        channel.sendToQueue('myQueue', Buffer.from(`message ${i}`));
+        channel.sendToQueue(queueName, Buffer.from(`message ${i}`));
       }
     }
 

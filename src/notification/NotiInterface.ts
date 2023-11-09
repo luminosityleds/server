@@ -3,8 +3,8 @@
 export interface RabbitMQServiceConfig {
     host: string; // RabbitMQ server host
     port: number; // RabbitMQ server port
-    username: string; // RabbitMQ username
-    password: string; // RabbitMQ password
+    username: "luminosityleds"; // RabbitMQ username
+    password: "Lumi-123"; // RabbitMQ password
     exchange: string; // RabbitMQ exchange
     queue: string; // RabbitMQ queue
     routingKey: string; // RabbitMQ routing key
