@@ -1,8 +1,21 @@
 {
-  "dependencies": {
-    "typescript-coverage-report": "^0.7.0"
+  "name": "src",
+  "version": "1.0.0",
+  "description": "backend",
+  "main": "index.ts",
+  "directories": {
+    "test": "tests"
   },
   "scripts": {
-    "ts-coverage": "typescript-coverage-report"
+    "test": "react-scripts test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0",
+    "react-scripts": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.6"
   }
 }
