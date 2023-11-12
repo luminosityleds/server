@@ -2,31 +2,17 @@
 # By default, uses npm for package manager
 name: Typescript Coverage
 
-# Runs on push to any branch
 on:
   push:
-    # ** means all branches and tags
     branches: ["**"]
-  # Workflow can be triggered manually from the Actions tab
-  workflow_dispatch:
-  
+
 jobs:
-    coverage:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            # Setup nodejs on runner
-            - uses: actions/setup-node@v3
-              with: 
-                node-version: 16
-
-            # Install the npm dependencies & run Typescript code coverage report
-            - name: Install dependencies and run code coverage 
-              run: |
-                npm install && npm run ts-coverage
-
-            # Upload HTML report of code coverage
-            - uses: actions/upload-artifact@v3
-              with:
-                name: Typescript Code Coverage
-                path: /home/runner/work/luminosityleds/luminosityleds/coverage-ts/index.html
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies and run code coverage
+        run: npm ci && npm run coverage

@@ -5,7 +5,8 @@
   "main": "account.ts",
   "scripts": {
     "devAccount": "nodemon account.ts",
-    "account": "npx ts-node account.ts"
+    "account": "npx ts-node account.ts",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
