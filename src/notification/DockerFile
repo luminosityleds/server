@@ -1,20 +1,28 @@
-# Use an official RabbitMQ image as the base image
-FROM rabbitmq:3.9.13-management
+# Use the official ActiveMQ image as the base image
+FROM webcenter/activemq:latest
 
-# Specifies root of file structure as working directory in docker image
-WORKDIR /
+# Specifies /app as working directory in docker image
+WORKDIR /app
 
-# Copy files to root of file structure in docker image
-COPY connection.ts /
-COPY config.ts /
-COPY NotiInterface.ts /
-COPY package.json /
+# Copy only package.json to leverage Docker caching
+COPY package.json /app/package.json
+COPY .env /app/.env
 
-# Expose RabbitMQ ports (5672 for AMQP, 15672 for the management web UI)
-EXPOSE 5672 15672
-
-# Install all dependencies to run account microservice
+# Install any necessary dependencies
 RUN npm install
 
-# Start RabbitMQ when the container starts
-CMD ["npm", "run", "rabbitmq-server"]
+# Copy the rest of the files to the working directory
+COPY config.ts /app/config.ts
+COPY NotiInterfaceinterface.ts /app/NotiInterface.ts
+COPY docker-compose.yaml /app/docker-compose.yaml
+
+COPY MessageConsumer.js /app/MessageConsumer.js
+COPY MessageDeleter.js /app/MessageDeleter.js
+COPY MessageProducer.js /app/MessageProducer.js
+COPY MessageScheduler.js /app/MessageScheduler.js
+
+# Expose ActiveMQ ports (61613 for STOMP, 8161 for the management web UI)
+EXPOSE 61613 8161
+
+# Start your ActiveMQ service when the container starts
+CMD ["npm", "start"]

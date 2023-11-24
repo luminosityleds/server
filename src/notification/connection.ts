@@ -1,4 +1,4 @@
-// Import the necessary modules
+/*// Import the necessary modules
 import * as amqplib from 'amqplib';
 import config from './config'; // Import the RabbitMQ configuration
 
@@ -54,4 +54,4 @@ async function connectToRabbitMQ() {
 }
 
 // Call the function to connect to RabbitMQ
-connectToRabbitMQ();
+connectToRabbitMQ();*/
