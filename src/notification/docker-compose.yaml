@@ -1,10 +1,50 @@
-version: '3'
+version: "3"
 services:
-  activemq:
-    image: webcenter/activemq:latest
-    container_name: my-activemq-container
+  publish-service:
+    container_name: "publish-service"
+    build: 
+      context: './publish'
+    environment:
+      - ACTIVE_MQ_ENDPOINT=http://activemq:1883
+      - ACTIVE_MQ_USERNAME=admin
+      - ACTIVE_MQ_PASWORD=admin
+      - ACTIVE_MQ_TOPIC=test
+    volumes:
+      - ./publish:/app
+      - /app/node_modules
     ports:
-      - "61613:61613"
+      - 3000:3000
+    networks:
+      - microservice
+    depends_on:
+      - activemq
+    
+  subscribe-service:
+    container_name: subscribe-service
+    build: 
+      context: './subscribe'
+    environment: 
+      - ACTIVE_MQ_ENDPOINT=http://activemq:1883
+      - ACTIVE_MQ_USERNAME=admin
+      - ACTIVE_MQ_PASWORD=admin
+      - ACTIVE_MQ_TOPIC=test
+    volumes:
+      - ./subscribe:/app
+      - /app/node_modules
+    networks:
+      - microservice
+    depends_on:
+      - activemq
+    
+  
+  activemq: 
+    image: rmohr/activemq
+    container_name: activemq
+    networks:
+      - microservice
+    ports: 
       - "8161:8161"
-    env_file:
-      - .env
+      - "1883:1883"
+
+networks:
+  microservice:
