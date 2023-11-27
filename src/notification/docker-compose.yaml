@@ -2,13 +2,10 @@ version: "3"
 services:
   publish-service:
     container_name: "publish-service"
-    build: 
+    build:
       context: './publish'
-    environment:
-      - ACTIVE_MQ_ENDPOINT=http://activemq:1883
-      - ACTIVE_MQ_USERNAME=admin
-      - ACTIVE_MQ_PASWORD=admin
-      - ACTIVE_MQ_TOPIC=test
+    env_file:
+      - ./.env
     volumes:
       - ./publish:/app
       - /app/node_modules
@@ -21,13 +18,10 @@ services:
     
   subscribe-service:
     container_name: subscribe-service
-    build: 
+    build:
       context: './subscribe'
-    environment: 
-      - ACTIVE_MQ_ENDPOINT=http://activemq:1883
-      - ACTIVE_MQ_USERNAME=admin
-      - ACTIVE_MQ_PASWORD=admin
-      - ACTIVE_MQ_TOPIC=test
+    env_file:
+      - ./.env
     volumes:
       - ./subscribe:/app
       - /app/node_modules
@@ -36,7 +30,6 @@ services:
     depends_on:
       - activemq
     
-  
   activemq: 
     image: rmohr/activemq
     container_name: activemq
