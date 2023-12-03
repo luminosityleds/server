@@ -1,12 +1,14 @@
 FROM node:latest
 
 WORKDIR /
-COPY github.ts/
-COPY routes.ts/
-RUN npm install
+
+# Copies files from the routes directory
+COPY ["github.ts", "routes.ts", "/routes"]
+
+# Runs npm install using bash shell
+RUN ["/bin/bash", "-c", "npm install"]
 
 # Port 4000 is the server port, 8080 is the cors-anywhere port
 EXPOSE 4000 8080
 
-# Runs the 
-CMD ["npx", "ts-node", "routes.ts"]
+CMD ["npx", "ts-node", "github.ts"]
