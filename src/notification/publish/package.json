@@ -2,11 +2,10 @@
   "name": "publish",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
-  "type": "module",
+  "main": "publish.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/notification/publish/index.ts"
+    "publish": "npx ts-node publish.ts"
   },
   "keywords": [],
   "author": "",

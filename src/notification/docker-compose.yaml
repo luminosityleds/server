@@ -10,7 +10,7 @@ services:
       - ./publish:/app
       - /app/node_modules
     ports:
-      - 3000:3000
+      - 4000:4000
     networks:
       - microservice
     depends_on:

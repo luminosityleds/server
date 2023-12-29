@@ -2,11 +2,10 @@
   "name": "subscribe",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
-  "type": "module",
+  "main": "subscribe.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/notification/subscribe/index.ts"
+    "subscribe": "npx ts-node subscribe.ts"
   },
   "keywords": [],
   "author": "",
