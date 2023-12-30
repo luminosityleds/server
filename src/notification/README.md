@@ -20,7 +20,7 @@ Records the exact version of every installed dependency, including its sub-depen
 Ensures that certain files not tracked by Git remain untracked.
 
 ### Development/Production Scripts
-Uses `npx ts-node` which precompiles `publish.ts` and `subscribe.ts` TypeScript code that can be then be run.
+Uses `npx ts-node` which precompiles `publish.ts` and `subscribe.ts` TypeScript code that can then be run.
 
 ## Dockerfile
 Defines how the docker images for the notification service will be created.
