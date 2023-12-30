@@ -1,4 +1,4 @@
-version: '2.21'
+version: '3.0'
 
 services:
   es01:
@@ -6,14 +6,15 @@ services:
     deploy:
       resources:
         limits:
-          memory: 10g  
+          memory: 2g
         reservations:
-          memory: 8g  
+          memory: 1g
     ports:
       - "9200:9200"
     environment:
       - discovery.type=single-node
-      - xpack.security.enrollment.enabled=true
+      - xpack.security.enabled=true
+      - ES_JAVA_OPTS=-Xms256m -Xmx256m
     ulimits:
       memlock:
         soft: -1
