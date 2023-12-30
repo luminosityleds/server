@@ -1,5 +1,5 @@
 # Notification Service
-The scope of this microservice is defined in the following [epic]().
+The scope of this microservice is defined in the following [epic](https://luminosity-led.atlassian.net/jira/software/projects/LL/boards/1?selectedIssue=LL-238).
 
 ## publish.ts
 This program defines the publish notification service.
