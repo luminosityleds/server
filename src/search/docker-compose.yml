@@ -1,23 +1,10 @@
-version: '3.0'
-
+version: '3'
 services:
-  es01:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:8.10.2"
-    deploy:
-      resources:
-        limits:
-          memory: 2g
-        reservations:
-          memory: 1g
+  elasticsearch:
+    image: elasticsearch:8.11.0
     ports:
-      - "9200:9200"
+      - 9200:9200
+      - 9300:9300
     environment:
       - discovery.type=single-node
-      - xpack.security.enabled=true
-      - ES_JAVA_OPTS=-Xms256m -Xmx256m
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - ./data/node1:/usr/share/elasticsearch/data
+      - xpack.security.enabled=false
