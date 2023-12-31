@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-const UserSchema = new mongoose.Schema({
+export const UserSchema = new mongoose.Schema({
     
     creationDate:{
         type: Date,
@@ -28,6 +28,6 @@ const UserSchema = new mongoose.Schema({
     }]
 })
 
-const User = mongoose.model("Account", UserSchema)
+export const User = mongoose.model("Account", UserSchema)
 
 module.exports = User;

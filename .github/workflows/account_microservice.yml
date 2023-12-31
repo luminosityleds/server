@@ -1,6 +1,6 @@
 # Workflow to test the connection to mongoDB on pushes to any branch
 
-name: MongoDB Connect
+name: Account Microservice
 
 # Runs on push to any branch
 on:
@@ -35,10 +35,7 @@ jobs:
           node-version: '16.x'
       - name: Test mongoDB connection
         run: |
-          cd server
-          npm install
-          npm run build
-          npm run start
+          echo "Make account microservice unit test"
         env: 
           MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
           MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}

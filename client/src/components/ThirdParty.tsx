@@ -35,7 +35,30 @@ export const GoogleLogin = () => {
           headers: {
             "Authorization": `Bearer ${response.access_token}` 
           }
-        }) 
+        })
+        
+        const google_data = {
+          email: google_response.data.email,
+          name: google_response.data.name
+        }
+        
+        const login_response = axios.post('http://localhost:4000/app/account',
+        google_data
+        ).then(response => {
+          if (response.data.success === true) {
+            // Set that the user is now logged in
+            window.localStorage.setItem("isLoggedIn", "true")
+            window.localStorage.setItem("userName", google_data.name)
+
+            // Go back to the homepage
+            window.location.href = "/"
+          }
+
+          else if (response.data.success === false) {
+            // Go to the registration page
+            window.location.href = "/register"
+          }
+        });
       }
       catch (err) {
         console.log(err);

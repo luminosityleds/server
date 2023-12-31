@@ -1,0 +1,27 @@
+# Workflow to test the connection to mongoDB on pushes to any branch
+
+name: Test Google Login
+
+# Runs on push to any branch
+on:
+  push:
+    # ** means all branches and tags
+    branches: ["**"]
+  # Workflow can be triggered manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # Run tests
+  test_login:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+      - name: Test google login
+        run: |
+          cd client
+          npm install
+          npm run test -- client/src/tests
+        timeout-minutes: 1
