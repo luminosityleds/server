@@ -40,3 +40,5 @@ server.get("/publish/:id", async (req, res) => {
 server.listen(4000, () => {
   console.log("Server connected");
 });
+
+export default server;
