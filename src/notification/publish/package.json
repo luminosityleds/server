@@ -4,10 +4,11 @@
   "description": "",
   "main": "publish.ts",
   "scripts": {
-    "test": "jest publish.test.ts",
+    "test": "jest publish.test.ts --watchAll --no-cache --runInBand --detectOpenHandles --forceExit",
     "publish": "npx ts-node publish.ts"
   },
   "jest": {
+
     "transform": {
         "^.+\\.(ts|tsx)$": "ts-jest"
     }
