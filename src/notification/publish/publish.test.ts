@@ -1,5 +1,5 @@
 import request from 'supertest';
-import server from '/workspaces/luminosityleds/src/notification/publish/publish'; // Import your Express app
+import server from './publish' // Import your Express app
 
 describe('Publish Service', () => {
   it('should return the expected response for /publish/:id', async () => {
