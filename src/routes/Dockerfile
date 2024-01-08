@@ -1,9 +1,10 @@
 FROM node:latest
 
-WORKDIR /
+WORKDIR /routes
 
 # Copies files from the routes directory
 COPY ["github.ts", "routes.ts", "/routes"]
+COPY ["package.json", "/routes"]
 
 # Runs npm install using bash shell
 RUN ["/bin/bash", "-c", "npm install"]

@@ -1,8 +1,12 @@
 {
   "dependencies": {
+    "express": "^4.18.2",
     "typescript-coverage-report": "^0.7.0"
   },
   "scripts": {
     "ts-coverage": "typescript-coverage-report"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0"
   }
 }
