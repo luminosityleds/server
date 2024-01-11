@@ -1,24 +1,25 @@
 {
-    "name": "src",
-    "version": "1.0.0",
-    "description": "backend",
-    "main": "index.ts",
-    "directories": {
-        "test": "tests"
-    },
-    "scripts": {
-        "test": "react-scripts test"
-    },
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "react-scripts": "^5.0.1"
-    },
-    "devDependencies": {
-        "@types/jest": "^29.5.11",
-        "jest": "^29.7.0",
-        "supertest": "^6.3.3",
-        "ts-jest": "^29.1.1",
-        "ts-node": "^10.9.2"
-    }
+  "name": "src",
+  "version": "1.0.0",
+  "description": "backend",
+  "main": "index.ts",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "react-scripts test",
+    "ts-coverage": "typescript-coverage-report"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0",
+    "react-scripts": "^5.0.1",
+    "express": "^4.18.2",
+    "typescript-coverage-report": "^0.7.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.6",
+    "@types/node": "^20.10.0"
+  }
 }
