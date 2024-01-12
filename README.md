@@ -1,6 +1,8 @@
 # luminosity-led
 Control brightness and color of LEDs
 
+[![codecov](https://codecov.io/gh/luminosityleds/server/graph/badge.svg?token=BCWGXLOXNC)](https://codecov.io/gh/luminosityleds/server)
+
 # Install Recommended/Required VSCode Extensions
 https://code.visualstudio.com/docs/editor/extension-marketplace#_recommended-extensions
 Install all of the VSCode extensions 
