@@ -1,0 +1,43 @@
+version: "3"
+services:
+  publish-service:
+    container_name: "publish-service"
+    build:
+      context: './publish'
+    env_file:
+      - ./.env
+    volumes:
+      - ./publish:/app
+      - /app/node_modules
+    ports:
+      - 4000:4000
+    networks:
+      - microservice
+    depends_on:
+      - activemq
+    
+  subscribe-service:
+    container_name: subscribe-service
+    build:
+      context: './subscribe'
+    env_file:
+      - ./.env
+    volumes:
+      - ./subscribe:/app
+      - /app/node_modules
+    networks:
+      - microservice
+    depends_on:
+      - activemq
+    
+  activemq: 
+    image: rmohr/activemq
+    container_name: activemq
+    networks:
+      - microservice
+    ports: 
+      - "8161:8161"
+      - "1883:1883"
+
+networks:
+  microservice:

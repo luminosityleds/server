@@ -9,6 +9,13 @@ services:
     env_file: "src/account/.env"
     dns:
       - "8.8.8.8"
+  routes:
+    build: "src/routes/"
+    command: "npx ts-node github.ts"
+    ports:
+      - "4000:4000"
+      - "8080:8080"
+    env_file: "src/routes/.env"
 #   client:
 #     build: "client/"
 #     command: "npm start"
