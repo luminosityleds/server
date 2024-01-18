@@ -22,3 +22,5 @@ client.on('message', (receivedTopic, res) => {
   message = res.toString();
   console.log(`message received: ${message}`);
 });
+
+export { options, topic, client, message };
