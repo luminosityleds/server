@@ -14,7 +14,7 @@ services:
     command: "npx ts-node github.ts"
     ports:
       - "4000:4000"
-      - "8080:8080"s
+      - "8080:8080"
     env_file: "src/routes/.env"
   client:
     build: "client/"
