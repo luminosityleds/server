@@ -25,4 +25,5 @@ services:
     env_file: ".env"
 # Requires server services to run before running client servers
     depends_on:
-      - "server"
+      - "account"
+      - "routes"
