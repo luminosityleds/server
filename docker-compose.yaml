@@ -14,14 +14,14 @@ services:
     command: "npx ts-node github.ts"
     ports:
       - "4000:4000"
-      - "8080:8080"
+      - "8080:8080"s
     env_file: "src/routes/.env"
-#   client:
-#     build: "client/"
-#     command: "npm start"
-#     ports:
-#       - "3000:3000"
-#     env_file: ".env"
-# # Requires server services to run before running client servers
-#     depends_on:
-#       - "server"
+  client:
+    build: "client/"
+    command: "npm start"
+    ports:
+      - "3000:3000"
+    env_file: ".env"
+# Requires server services to run before running client servers
+    depends_on:
+      - "server"
