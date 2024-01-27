@@ -1,6 +1,8 @@
 import express from 'express';
 import mqtt, { MqttClient } from 'mqtt';
 import { v1 as uuidv1 } from 'uuid';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const server = express();
 const options = {
