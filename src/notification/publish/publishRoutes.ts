@@ -1,7 +1,7 @@
 // publishRoutes.ts
 import express from 'express';
 import mqtt, { MqttClient } from 'mqtt';
-import db from '/workspaces/server/src/notification/db';  // Assuming your MongoDB connection file is in the same directory
+import db from '/workspaces/server/src/notification/db';
 import { v1 as uuidv1 } from 'uuid';
 import mongoose, { Schema, Document } from 'mongoose';
 import dotenv from 'dotenv';
@@ -16,66 +16,40 @@ const options = {
 };
 const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
 
-router.get("/publish/:id", async (req, res) => {
-  const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options); // Type assertion
-  const event = {
-    id: req.params.id,
-    message: "From Publish Service",
-  };
-
-  client.on('connect', () => {
-    console.log("Broker connected");
-    client.publish(topic, JSON.stringify(event), {}, async (err) => {
-      if (err) {
-        console.error(`Error publishing message: ${err}`);
-        res.status(500).json({ error: 'Internal Server Error' });
-      } else {
-        try {
-          // Example MongoDB logic for saving the event
-          interface Event extends Document {
-            id: string;
-            message: string;
-          }
-          
-          const eventSchema = new Schema<Event>({
-            id: String,
-            message: String,
-          });
-          
-          const EventModel = mongoose.model<Event>('Event', eventSchema);
-          await EventModel.create(event);
-
-          res.json(event);
-        } catch (error) {
-          console.error(error);
-          res.status(500).json({ error: 'Internal Server Error' });
-        } finally {
-          client.end();
-        }
-      }
-    });
-  });
-
-  client.on('error', (error) => {
-    console.log(error);
+// GET all events
+router.get("/publish/events", async (_req, res) => {
+  try {
+    const EventModel = mongoose.model<Event>('Event');
+    const events = await EventModel.find();
+    res.json(events);
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
-  });
+  }
 });
 
-router.post("/publish", async (req, res) => {
+// GET a specific event by ID
+router.get("/publish/events/:id", async (req, res) => {
   try {
-    // Example MongoDB logic for handling POST request
-    interface Event extends Document {
-        id: string;
-        message: string;
-      }
-      
-      const eventSchema = new Schema<Event>({
-        id: String,
-        message: String,
-      });
-      
-    const EventModel = mongoose.model<Event>('Event', eventSchema);
+    const EventModel = mongoose.model<Event>('Event');
+    const event = await EventModel.findById(req.params.id);
+
+    if (!event) {
+      res.status(404).json({ error: 'Event not found' });
+      return;
+    }
+
+    res.json(event);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// POST a new event
+router.post("/publish/events", async (req, res) => {
+  try {
+    const EventModel = mongoose.model<Event>('Event');
     const event = {
       id: uuidv1(),
       message: req.body.message,
@@ -90,21 +64,16 @@ router.post("/publish", async (req, res) => {
   }
 });
 
-router.delete("/publish/:id", async (req, res) => {
+// DELETE a specific event by ID
+router.delete("/publish/events/:id", async (req, res) => {
   try {
-    // Example MongoDB logic for handling DELETE request
-    interface Event extends Document {
-        id: string;
-        message: string;
-      }
-      
-      const eventSchema = new Schema<Event>({
-        id: String,
-        message: String,
-      });
-      
-    const EventModel = mongoose.model<Event>('Event', eventSchema);
-    await EventModel.deleteOne({ id: req.params.id });
+    const EventModel = mongoose.model<Event>('Event');
+    const deletedEvent = await EventModel.findByIdAndDelete(req.params.id);
+
+    if (!deletedEvent) {
+      res.status(404).json({ error: 'Event not found' });
+      return;
+    }
 
     res.json({ message: 'Event deleted successfully' });
   } catch (error) {
