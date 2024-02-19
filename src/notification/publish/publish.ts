@@ -4,6 +4,7 @@ import { v1 as uuidv1 } from 'uuid';
 import mongoose, { Schema, Document } from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
+import db from '/workspaces/server/src/notification/db'; // Import the db.ts file to access the dbURI variable
 
 const server = express();
 const options = {
@@ -25,101 +26,112 @@ const eventSchema = new Schema<Event>({
   message: String,
 });
 
+// Establish Mongoose connection
+mongoose.connect(db.dbURI)
+.then(() => {
+  console.log('MongoDB connected');
 
-const EventModel = mongoose.model<Event>('Event', eventSchema);
+  // Define Mongoose model after connection is established
+  const EventModel = mongoose.model<Event>('Event', eventSchema);
 
-server.get("/publish/events", async (_req, res) => {
-  try {
-    const events = await EventModel.find();
-    res.json(events);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-server.get("/publish/events/:id", async (req, res) => {
-  try {
-    const event = await EventModel.findById(req.params.id);
-
-    if (!event) {
-      res.status(404).json({ error: 'Event not found' });
-      return;
+  // Define routes and other server logic after the connection is established
+  // Example:
+  server.get("/publish/events", async (_req, res) => {
+    try {
+      const events = await EventModel.find();
+      res.json(events);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
+  });
 
-    if (!req.params.id) {
-      res.status(400).json({ error: 'Bad Request' });
-      return;
+  server.get("/publish/events/:id", async (req, res) => {
+    try {
+      const event = await EventModel.findById(req.params.id);
+
+      if (!event) {
+        res.status(404).json({ error: 'Event not found' });
+        return;
+      }
+
+      if (!req.params.id) {
+        res.status(400).json({ error: 'Bad Request' });
+        return;
+      }
+
+      res.json(event);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
+  });
 
-    res.json(event);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+  server.post("/publish/events", async (req, res) => {
+    try {
+      const event = {
+        id: uuidv1(),
+        message: req.body.message,
+      };
 
-server.post("/publish/events", async (req, res) => {
-  try {
+      await EventModel.create(event);
+
+      res.json(event);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  server.delete("/publish/events/:id", async (req, res) => {
+    try {
+      const deletedEvent = await EventModel.findByIdAndDelete(req.params.id);
+
+      if (!deletedEvent) {
+        res.status(404).json({ error: 'Event not found' });
+        return;
+      }
+
+      res.json({ message: 'Event deleted successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  server.get("/publish/:id", async (req, res) => {
+    const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options);
+
     const event = {
-      id: uuidv1(),
-      message: req.body.message,
+      id: req.params.id,
+      message: "From Publish Service",
     };
 
-    await EventModel.create(event);
+    client.on('connect', () => {
+      console.log("Broker connected");
+      client.publish(topic, JSON.stringify(event), {}, (err) => {
+        if (err) {
+          console.error(`Error publishing message: ${err}`);
+          res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+          client.end();
+          res.json(event);
+        }
+      });
+    });
 
-    res.json(event);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-server.delete("/publish/events/:id", async (req, res) => {
-  try {
-    const deletedEvent = await EventModel.findByIdAndDelete(req.params.id);
-
-    if (!deletedEvent) {
-      res.status(404).json({ error: 'Event not found' });
-      return;
-    }
-
-    res.json({ message: 'Event deleted successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-server.get("/publish/:id", async (req, res) => {
-  const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options);
-
-  const event = {
-    id: req.params.id,
-    message: "From Publish Service",
-  };
-
-  client.on('connect', () => {
-    console.log("Broker connected");
-    client.publish(topic, JSON.stringify(event), {}, (err) => {
-      if (err) {
-        console.error(`Error publishing message: ${err}`);
-        res.status(500).json({ error: 'Internal Server Error' });
-      } else {
-        client.end();
-        res.json(event);
-      }
+    client.on('error', (error) => {
+      console.log(error);
+      res.status(500).json({ error: 'Internal Server Error' });
     });
   });
 
-  client.on('error', (error) => {
-    console.log(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+  server.listen(4000, () => {
+    console.log("Server connected");
   });
-});
-
-server.listen(4000, () => {
-  console.log("Server connected");
+})
+.catch((error) => {
+  console.error('MongoDB connection error:', error);
 });
 
 export default server;
