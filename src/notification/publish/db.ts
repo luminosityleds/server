@@ -4,7 +4,7 @@ dotenv.config();
 
 const dbURI = `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASS}@luminositycluster-0.cgornhw.mongodb.net/?retryWrites=true&w=majority`; //MongoDb Connection String
 
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true } as any);
+mongoose.connect(dbURI);
 
 const db = mongoose.connection;
 

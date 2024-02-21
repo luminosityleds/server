@@ -1,7 +1,7 @@
 // publishRoutes.ts
 import express from 'express';
 import mqtt, { MqttClient } from 'mqtt';
-import db from '/workspaces/server/src/notification/db';
+import db from './db';
 import { v1 as uuidv1 } from 'uuid';
 import mongoose, { Schema, Document } from 'mongoose';
 import dotenv from 'dotenv';

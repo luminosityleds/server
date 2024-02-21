@@ -4,7 +4,7 @@ import { v1 as uuidv1 } from 'uuid';
 import mongoose, { Schema, Document } from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
-import db from '/workspaces/server/src/notification/db'; // Import the db.ts file to access the dbURI variable
+import db from './db'; // Import the db.ts file to access the dbURI variable
 
 const server = express();
 const options = {
