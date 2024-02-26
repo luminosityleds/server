@@ -69,12 +69,13 @@ mongoose.connect(db.dbURI)
 
   server.post("/publish/accounts/new", async (req, res) => {
     try {
-      const eventData = {
+      const eventData = new EventModel({
         email: req.body.email,
         name: req.body.name,
-      };
+      });
   
-      const newEvent = await EventModel.create(eventData);
+      const newEvent = await eventData.save(); // Save the new document to the database
+      res.json(newEvent);
   
       res.status(201).json(newEvent); // HTTP 201 Created status code for successful creation
     } catch (error) {
@@ -82,22 +83,27 @@ mongoose.connect(db.dbURI)
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+  
 
   server.delete("/publish/accounts/:id/delete", async (req, res) => {
     try {
-      const deletedEvent = await EventModel.findByIdAndDelete(req.params.id);
-
-      if (!deletedEvent) {
+      const events = await EventModel.findByIdAndDelete(req.params.id);
+  
+      if (!events) {
+        // If the document doesn't exist, return a 404 Not Found response
         res.status(404).json({ error: 'Event not found' });
         return;
       }
-
+  
+      // If the document is successfully deleted, return a success message
       res.json({ message: 'Event deleted successfully' });
     } catch (error) {
+      // If an error occurs during deletion, return a 500 Internal Server Error response
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+  
 
   server.get("/publish/:id", async (req, res) => {
     const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options);

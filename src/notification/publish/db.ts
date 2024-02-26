@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const dbURI = `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASS}@luminositycluster-0.cgornhw.mongodb.net/Luminosity`; //MongoDb Connection String
+const dbURI = `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASS}@luminositycluster-0.cgornhw.mongodb.net/test`; //MongoDb Connection String
 
 mongoose.connect(dbURI);
 
