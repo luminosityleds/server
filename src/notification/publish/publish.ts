@@ -16,14 +16,14 @@ const options = {
 const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
 
 // MongoDB event schema and model
-interface Event extends Document {
-  id: string;
-  message: string;
+interface accounts extends Document {
+  email: string;
+  name: string;
 }
 
-const eventSchema = new Schema<Event>({
-  id: String,
-  message: String,
+const accountSchema = new Schema<accounts>({
+  email: String,
+  name: String,
 });
 
 // Establish Mongoose connection
@@ -32,11 +32,11 @@ mongoose.connect(db.dbURI)
   console.log('MongoDB connected');
 
   // Define Mongoose model after connection is established
-  const EventModel = mongoose.model<Event>('Event', eventSchema);
+  const EventModel = mongoose.model<accounts>('accounts', accountSchema);
 
   // Define routes and other server logic after the connection is established
-  // Example:
-  server.get("/publish/events", async (_req, res) => {
+
+  server.get("/publish/accounts/all", async (_req, res) => {
     try {
       const events = await EventModel.find();
       res.json(events);
@@ -46,7 +46,7 @@ mongoose.connect(db.dbURI)
     }
   });
 
-  server.get("/publish/events/:id", async (req, res) => {
+  server.get("/publish/accounts/:id", async (req, res) => {
     try {
       const event = await EventModel.findById(req.params.id);
 
@@ -67,23 +67,23 @@ mongoose.connect(db.dbURI)
     }
   });
 
-  server.post("/publish/events", async (req, res) => {
+  server.post("/publish/accounts/new", async (req, res) => {
     try {
-      const event = {
-        id: uuidv1(),
-        message: req.body.message,
+      const eventData = {
+        email: req.body.email,
+        name: req.body.name,
       };
-
-      await EventModel.create(event);
-
-      res.json(event);
+  
+      const newEvent = await EventModel.create(eventData);
+  
+      res.status(201).json(newEvent); // HTTP 201 Created status code for successful creation
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
 
-  server.delete("/publish/events/:id", async (req, res) => {
+  server.delete("/publish/accounts/:id/delete", async (req, res) => {
     try {
       const deletedEvent = await EventModel.findByIdAndDelete(req.params.id);
 
