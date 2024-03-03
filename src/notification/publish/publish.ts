@@ -1,10 +1,11 @@
 import express from 'express';
 import mqtt, { MqttClient } from 'mqtt';
 import { v1 as uuidv1 } from 'uuid';
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, ConnectOptions } from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 import db from './db'; // Import the db.ts file to access the dbURI variable
+
 
 const server = express();
 const options = {
@@ -14,7 +15,7 @@ const options = {
   port: 1883,
 };
 const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
-
+server.use(express.json());
 // MongoDB event schema and model
 interface accounts extends Document {
   email: string;
@@ -27,7 +28,10 @@ const accountSchema = new Schema<accounts>({
 });
 
 // Establish Mongoose connection
-mongoose.connect(db.dbURI)
+mongoose.connect(db.dbURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+} as ConnectOptions)
 .then(() => {
   console.log('MongoDB connected');
 
@@ -77,7 +81,6 @@ mongoose.connect(db.dbURI)
       const newEvent = await eventData.save(); // Save the new document to the database
       res.json(newEvent);
   
-      res.status(201).json(newEvent); // HTTP 201 Created status code for successful creation
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
