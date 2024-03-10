@@ -17,22 +17,64 @@ const options = {
 const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
 server.use(express.json());
 // MongoDB event schema and model
+
+// Define Device schema
+interface Device extends Document {
+  uuid: string;
+  lastUpdated: Date;
+  powered?: boolean;
+  poweredTimestamp?: Date;
+  connected?: boolean;
+  connectedTimestamp?: Date;
+  color?: string;
+  colorTimestamp?: Date;
+  brightness?: number;
+  brightnessTimestamp?: Date;
+}
+
+const deviceSchema = new Schema<Device>({
+  uuid: {
+    type: String,
+    unique: true,
+  },
+  lastUpdated: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  },
+  powered: Boolean,
+  poweredTimestamp: Date,
+  connected: Boolean,
+  connectedTimestamp: Date,
+  color: String,
+  colorTimestamp: Date,
+  brightness: Number,
+  brightnessTimestamp: Date,
+});
+
+const DeviceModel = mongoose.model<Device>('Device', deviceSchema);
+
+// MongoDB event schema and model
+interface DeviceLinked extends Document {
+  device: typeof DeviceModel;
+}
+
 interface accounts extends Document {
   creationDate: Date;
   deletionDate?: Date;
-  lastUpdated: Date; // Making lastUpdated required
+  lastUpdated: Date;
   email: string;
   name: string;
-  devicesLinked?: {};
+  devicesLinked?: DeviceLinked[];
 }
 
 const accountSchema = new Schema<accounts>({
   creationDate: { type: Date, required: true },
   deletionDate: { type: Date },
-  lastUpdated: { type: Date, required: true }, // Making lastUpdated required
+  lastUpdated: { type: Date, required: true },
   email: { type: String, required: true },
   name: { type: String, required: true },
-  devicesLinked: { type: Schema.Types.Mixed }
+  devicesLinked: [{ type: Schema.Types.ObjectId, ref: 'Device' }],
 });
 
 // Establish Mongoose connection
@@ -83,25 +125,31 @@ mongoose.connect(db.dbURI, {
     try {
       const { email, name, deletionDate, devicesLinked } = req.body;
       const currentDate = new Date(); // Set current timestamp
-      const newUserData = {
+      const newAccountData = {
         email,
         name,
         creationDate: currentDate,
         lastUpdated: currentDate,
         deletionDate: deletionDate ? new Date(deletionDate) : null,
-        devicesLinked: devicesLinked ? devicesLinked : []
       };
   
-      const newUser = new EventModel(newUserData);
+      const newAccount = new EventModel(newAccountData);
+      
+      // Handle devicesLinked
+      if (devicesLinked && devicesLinked.length > 0) {
+        const devices = await DeviceModel.insertMany(devicesLinked);
+        newAccount.devicesLinked = devices.map(device => device._id);
+      } else {
+        newAccount.devicesLinked = []; // Set devicesLinked to null if not received
+      }
   
-      const savedUser = await newUser.save(); // Save the new user to the database
-      res.status(201).json(savedUser); // HTTP 201 Created status code for successful creation
+      const savedAccount = await newAccount.save(); // Save the new account to the database
+      res.status(201).json(savedAccount); // HTTP 201 Created status code for successful creation
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
-  });
-  
+  });  
 
   server.delete("/publish/accounts/:id/delete", async (req, res) => {
     try {
