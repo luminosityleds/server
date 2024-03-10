@@ -18,13 +18,21 @@ const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
 server.use(express.json());
 // MongoDB event schema and model
 interface accounts extends Document {
+  creationDate: Date;
+  deletionDate?: Date;
+  lastUpdated: Date; // Making lastUpdated required
   email: string;
   name: string;
+  devicesLinked?: {};
 }
 
 const accountSchema = new Schema<accounts>({
-  email: String,
-  name: String,
+  creationDate: { type: Date, required: true },
+  deletionDate: { type: Date },
+  lastUpdated: { type: Date, required: true }, // Making lastUpdated required
+  email: { type: String, required: true },
+  name: { type: String, required: true },
+  devicesLinked: { type: Schema.Types.Mixed }
 });
 
 // Establish Mongoose connection
@@ -73,14 +81,21 @@ mongoose.connect(db.dbURI, {
 
   server.post("/publish/accounts/new", async (req, res) => {
     try {
-      const eventData = new EventModel({
-        email: req.body.email,
-        name: req.body.name,
-      });
+      const { email, name, deletionDate, devicesLinked } = req.body;
+      const currentDate = new Date(); // Set current timestamp
+      const newUserData = {
+        email,
+        name,
+        creationDate: currentDate,
+        lastUpdated: currentDate,
+        deletionDate: deletionDate ? new Date(deletionDate) : null,
+        devicesLinked: devicesLinked ? devicesLinked : []
+      };
   
-      const newEvent = await eventData.save(); // Save the new document to the database
-      res.json(newEvent);
+      const newUser = new EventModel(newUserData);
   
+      const savedUser = await newUser.save(); // Save the new user to the database
+      res.status(201).json(savedUser); // HTTP 201 Created status code for successful creation
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
