@@ -15,7 +15,7 @@
   "dependencies": {
     "jest": "^29.7.0",
     "react-scripts": "^5.0.1",
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "typescript-coverage-report": "^0.7.0"
   },
   "devDependencies": {
