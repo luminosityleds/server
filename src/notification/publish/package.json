@@ -5,12 +5,12 @@
   "main": "publish.ts",
   "scripts": {
     "test": "jest publish.test.ts --watchAll --no-cache --runInBand --detectOpenHandles --forceExit",
-    "publish": "npx ts-node publish.ts"
+    "publish": "npx ts-node publish.ts",
+    "publishRoutes": "npx ts-node publishRoutes.ts"
   },
   "jest": {
-
     "transform": {
-        "^.+\\.(ts|tsx)$": "ts-jest"
+      "^.+\\.(ts|tsx)$": "ts-jest"
     }
   },
   "keywords": [],
@@ -19,12 +19,15 @@
   "dependencies": {
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "mongoose": "^8.1.1",
     "mqtt": "^5.3.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.11",
+    "@types/mongoose": "^5.11.97",
     "@types/supertest": "^6.0.2",
     "@types/uuid": "^9.0.7",
     "jest": "^29.7.0",
