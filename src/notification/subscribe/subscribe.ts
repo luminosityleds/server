@@ -66,3 +66,5 @@ client.on('message', async (receivedTopic, msg) => {
     console.error(error);
   }
 });
+
+export default client;
