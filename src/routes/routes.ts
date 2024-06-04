@@ -1,28 +1,28 @@
-const express = require("express");
+import express from "express";
 const User = require("../models/UserSchema");
-import publishToQueue from '../notification/publish/publish';
-import client from '../notification/subscribe/subscribe';
+import publishRouter from '../notification/publish/publish';
+import subscribeRouter from '../notification/subscribe/subscribe';
 
-export const router = express.Router()
+const router = express.Router();
 
 // Register method
 router.post('/register', (req: any, res: any) => {
     const user = new User({
-        email:req.body.email,
-        name:req.body.name
-    })
-    user.save(function (err: any, res: any) {
+        email: req.body.email,
+        name: req.body.name
+    });
+    user.save(function (err: any) {
         if (err) {
-            console.log(err)
+            console.log(err);
+            res.status(500).json({ error: 'Failed to register user' });
+        } else {
+            res.status(201).json({ message: 'User registered successfully' });
         }
-        else {
-            console.log(res)
-        }
-    })
-})
+    });
+});
 
 // Get all method
-router.get('/users', async (err: any, res: any) => {
+router.get('/users', async (req: any, res: any) => {
     try {
         const users = await User.find();
         res.status(200).json(users);
@@ -33,19 +33,14 @@ router.get('/users', async (err: any, res: any) => {
 
 // Get one method
 router.post('/account', async (req: any, res: any) => {
-    User.find({}, function(err: any, users: any) {
-        let loginIn = false
-        
-        // Check if one of the users in the db is already present
-        // If so set that equal to flag, if not then indicate the user isn't registered
-        users.forEach(function(user: any) {
-          if (req.body.email === user.email)
-            loginIn = true
-        });
-        
-        res.send({'success' : loginIn});
-    });
-})
+    try {
+        const users = await User.find();
+        const loginIn = users.some((user: any) => req.body.email === user.email);
+        res.status(200).json({ success: loginIn });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to check account' });
+    }
+});
 
 // Update one user method
 router.put('/users/:id', async (req: any, res: any) => {
@@ -83,34 +78,8 @@ router.delete('/users', async (req: any, res: any) => {
     }
 });
 
-// Route to publish a message to a queue
-router.post('/publish', (req: any, res: any) => {
-    const { queueName, message } = req.body;
-    try {
-        publishToQueue(queueName, message);
-        res.status(200).json({ message: 'Message published' });
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to publish message' });
-    }
-});
-
-// Route to subscribe to a queue
-router.post('/subscribe', async (req: any, res: any) => {
-    const { queueName } = req.body;
-    try {
-        // Subscribe to the specified topic
-        client.subscribe(queueName, (error) => {
-            if (error) {
-                console.error("Failed to subscribe:", error);
-                res.status(500).json({ error: 'Failed to subscribe to queue' });
-            } else {
-                res.status(200).json({ message: `Subscribed to queue ${queueName}` });
-            }
-        });
-    } catch (error) {
-        console.error("Failed to subscribe:", error);
-        res.status(500).json({ error: 'Failed to subscribe to queue' });
-    }
-});
+// Mount the publish and subscribe routers
+router.use('/publish', publishRouter);
+router.use('/subscribe', subscribeRouter);
 
 module.exports = router;

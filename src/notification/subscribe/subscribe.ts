@@ -67,4 +67,4 @@ client.on('message', async (receivedTopic, msg) => {
   }
 });
 
-export default client;
+export default router;
