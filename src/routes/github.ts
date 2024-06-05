@@ -66,8 +66,7 @@ router.get("/github/callback", async (req: any, res: any) => {
 
   const user = await getUser({ code });
 
-  console.log(user);
-  res.redirect("http://localhost:3000")
+  res.send(user);
 })
 
 export {};
