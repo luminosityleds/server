@@ -1,5 +1,5 @@
-import express from "express";
-const User = require("../models/UserSchema");
+import express from 'express';
+const User = require('../models/UserSchema');
 import publishRouter from '../notification/publish/publish';
 import subscribeRouter from '../notification/subscribe/subscribe';
 
@@ -7,21 +7,33 @@ const router = express.Router();
 
 // Register method
 router.post('/register', (req: any, res: any) => {
+    const { email, name, creationDate, lastUpdated, deletionDate, devicesLinked } = req.body;
+
+    // Validate required fields
+    if (!email || !name || !creationDate || !lastUpdated) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+
     const user = new User({
-        email: req.body.email,
-        name: req.body.name
+        email,
+        name,
+        creationDate: new Date(creationDate),
+        lastUpdated: new Date(lastUpdated),
+        deletionDate: deletionDate ? new Date(deletionDate) : undefined,
+        devicesLinked: devicesLinked || [],
     });
-    user.save(function (err: any) {
+
+    user.save((err: any) => {
         if (err) {
             console.log(err);
-            res.status(500).json({ error: 'Failed to register user' });
+            return res.status(500).json({ error: 'Failed to register user' });
         } else {
-            res.status(201).json({ message: 'User registered successfully' });
+            return res.status(201).json({ message: 'User registered successfully' });
         }
     });
 });
 
-// Get all method
+// Get all users method
 router.get('/users', async (req: any, res: any) => {
     try {
         const users = await User.find();
@@ -31,14 +43,16 @@ router.get('/users', async (req: any, res: any) => {
     }
 });
 
-// Get one method
-router.post('/account', async (req: any, res: any) => {
+// Get one user by ID method
+router.get('/users/:id', async (req: any, res: any) => {
     try {
-        const users = await User.find();
-        const loginIn = users.some((user: any) => req.body.email === user.email);
-        res.status(200).json({ success: loginIn });
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.status(200).json(user);
     } catch (err) {
-        res.status(500).json({ error: 'Failed to check account' });
+        res.status(500).json({ error: 'Failed to fetch user' });
     }
 });
 
@@ -82,4 +96,4 @@ router.delete('/users', async (req: any, res: any) => {
 router.use('/publish', publishRouter);
 router.use('/subscribe', subscribeRouter);
 
-module.exports = router;
+export default router;

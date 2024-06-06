@@ -5,6 +5,8 @@ import mongoose, { Schema, Document } from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
+const router = express.Router();
+
 const options = {
   username: process.env.ACTIVE_MQ_USERNAME,
   password: process.env.ACTIVE_MQ_PASSWORD,
@@ -65,6 +67,11 @@ client.on('message', async (receivedTopic, msg) => {
     
     console.error(error);
   }
+});
+
+// Define a route to check subscription status (example)
+router.get('/status', (req: any, res: any) => {
+  res.status(200).json({ message: 'Subscriber is running' });
 });
 
 export default router;
