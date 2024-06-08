@@ -8,7 +8,6 @@ services:
       - ./.env
     volumes:
       - ./publish:/app
-      - /app/node_modules
     ports:
       - 4000:4000
     networks:
@@ -24,7 +23,6 @@ services:
       - ./.env
     volumes:
       - ./subscribe:/app
-      - /app/node_modules
     networks:
       - microservice
     depends_on:
