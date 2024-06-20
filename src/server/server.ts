@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const mongoose = require('mongoose')
-const routeURLs = require('../account/account')
+const routeURLs = require('../src/routes/routes')
 const cors = require('cors')
 const User = require("../models/UserSchema")
 
