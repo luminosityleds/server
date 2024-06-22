@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import mqtt, { MqttClient } from 'mqtt';
-import { v1 as uuidv1 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import mongoose, { Schema, Document } from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -8,7 +8,7 @@ dotenv.config();
 const options = {
   username: process.env.ACTIVE_MQ_USERNAME,
   password: process.env.ACTIVE_MQ_PASSWORD,
-  clientId: `subscribe_${uuidv1()}`,
+  clientId: `subscribe_${uuidv4()}`,
   port: 1883,
 };
 
@@ -41,7 +41,7 @@ client.on('message', async (receivedTopic, msg) => {
     const SubscriptionModel = mongoose.model<Subscription>('Subscription', subscriptionSchema);
 
     const subscription = {
-      id: uuidv1(),
+      id: uuidv4(),
       message: message,
     };
 
