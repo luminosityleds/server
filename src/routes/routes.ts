@@ -1,7 +1,7 @@
 import express from 'express';
 const User = require('../models/UserSchema');
-import publishRouter from '../notification/publish/publish';
-import subscribeRouter from '../notification/subscribe/subscribe';
+import { publishRouter } from '../notification/publish/publish';
+import { subscribeRouter } from '../notification/subscribe/subscribe';
 
 const router = express.Router();
 
