@@ -1,14 +1,18 @@
+
 version: "3.8"
 
 services:
-  account:
-    build: "src/account/"
-    command: "npm run account"
-    ports: 
-      - "5000:5000" 
-    env_file: "src/account/.env"
-    dns:
-      - "8.8.8.8"
+  # account:
+  #   build: "src/account/"
+  #   command: "npm run account"
+  #   ports: 
+  #     - "5000:5000" 
+  #   env_file: "src/account/.env"
+  #   dns:
+  #     - "8.8.8.8"
+  models:
+    build: "src/models/"
+    command: "echo Models Container Working"
   routes:
     build: "src/routes/"
     command: "npx ts-node github.ts"
@@ -16,12 +20,15 @@ services:
       - "4000:4000"
       - "8080:8080"
     env_file: "src/routes/.env"
-#   client:
-#     build: "client/"
-#     command: "npm start"
-#     ports:
-#       - "3000:3000"
-#     env_file: ".env"
-# # Requires server services to run before running client servers
-#     depends_on:
-#       - "server"
+    depends_on:
+      - "models"
+  client:
+    build: "client/"
+    command: "npm start"
+    ports:
+      - "3000:3000"
+    env_file: "src/routes/.env"
+# Requires server services to run before running client servers
+    depends_on:
+      # - "account"
+      - "routes"
