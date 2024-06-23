@@ -2,8 +2,13 @@ import mqtt, { MqttClient } from 'mqtt';
 import { v1 as uuidv1 } from 'uuid';
 import dotenv from 'dotenv';
 import express from 'express';
+import mongoose, { ConnectOptions } from 'mongoose'; // Import mongoose for MongoDB connection
+import dbConfig from './db'; // Import MongoDB configuration from db.ts
 
 dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 4000;
 
 const options = {
   username: process.env.ACTIVE_MQ_USERNAME,
@@ -21,6 +26,16 @@ client.on('connect', () => {
 
 client.on('error', (error) => {
   console.error(error);
+});
+
+mongoose.connect(dbConfig.dbURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+} as ConnectOptions).then(() => {
+  console.log('MongoDB connected');
+}).catch((err) => {
+  console.error('MongoDB connection error:', err);
+  process.exit(1); // Exit process on connection error
 });
 
 const publishRouter = express.Router();
@@ -42,4 +57,8 @@ publishRouter.post('/publish', (req, res) => {
   });
 });
 
-export { publishRouter };
+app.use('/publish', publishRouter);
+
+app.listen(port, () => {
+  console.log(`Publish service is running on port ${port}`);
+});

@@ -8,6 +8,7 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     const { email, name, deletionDate, devicesLinked } = req.body;
     const currentDate = new Date();
 
+    // Create a new user instance
     const newUser: UserInterface = new User({
       email,
       name,
@@ -17,12 +18,27 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
       devicesLinked: [], // Initialize as an empty array
     });
 
+    // Check if devicesLinked is provided and not empty
     if (devicesLinked && devicesLinked.length > 0) {
-      // Assuming devicesLinked is an array of objects that match DeviceInterface
-      const devices: any[] = await Device.insertMany(devicesLinked); // Cast to any[] temporarily
-      newUser.devicesLinked = devices.map((device: any) => device._id); // Map to _id
+      const savedDevices: DeviceInterface[] = [];
+
+      // Iterate through devicesLinked array to create and save devices
+      for (const deviceData of devicesLinked) {
+        const newDeviceData: DeviceInterface = {
+          ...deviceData,
+          lastUpdated: currentDate,
+        };
+
+        const newDevice = new Device(newDeviceData);
+        const savedDevice = await newDevice.save();
+        savedDevices.push(savedDevice);
+      }
+
+      // Map the saved device IDs to newUser.devicesLinked
+      newUser.devicesLinked = savedDevices.map((device: DeviceInterface) => device._id);
     }
 
+    // Save the user with linked devices
     const savedUser: UserInterface = await newUser.save();
     res.status(201).json(savedUser);
   } catch (error) {

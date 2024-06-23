@@ -65,7 +65,7 @@ app.use(cors());
 
 // app.use("/app", routeURLs); // Existing routes <- DEPRECATED
 
-app.use("/user", userRouter); // Account service routes
+app.use("/users", userRouter); // User service routes
 app.use("/publish", publishRouter); // Publish service routes
 app.use("/subscribe", subscribeRouter); // Subscribe service routes
 

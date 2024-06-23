@@ -4,8 +4,6 @@ import { v1 as uuidv1 } from 'uuid';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
-import db from '../notification/publish/db'; // Import the db.ts file to access the dbURI variable
-
 
 const options = {
   username: process.env.ACTIVE_MQ_USERNAME,
