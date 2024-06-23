@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import routeURLs from "../routes/routes";
-import accountRouter from "../routes/accountRoutes";
+// import routeURLs from "../routes/routes"; <- DEPRECATED
+import userRouter from "../routes/userRoutes";
 import publishRouter from "../routes/publishRoutes";
 import subscribeRouter from "../routes/subscribeRoutes";
 
@@ -62,8 +62,10 @@ app.use(express.json());
 app.use(cors());
 
 // Route setup
-app.use("/app", routeURLs); // Existing routes
-app.use("/account", accountRouter); // Account service routes
+
+// app.use("/app", routeURLs); // Existing routes <- DEPRECATED
+
+app.use("/user", userRouter); // Account service routes
 app.use("/publish", publishRouter); // Publish service routes
 app.use("/subscribe", subscribeRouter); // Subscribe service routes
 

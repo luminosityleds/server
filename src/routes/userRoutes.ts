@@ -3,7 +3,7 @@ import * as userController from '../controllers/userController';
 
 const router = express.Router();
 
-// Define routes
+// Define routes for users (formerly both user and account routes)
 router.post('/users/register', userController.registerUser);
 router.get('/users/all', userController.getAllUsers);
 router.get('/users/:id', userController.getUserById);

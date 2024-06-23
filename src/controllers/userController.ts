@@ -31,6 +31,7 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
   }
 };
 
+// Get all users
 export const getAllUsers = async (_req: Request, res: Response): Promise<void> => {
   try {
     const users: UserInterface[] = await User.find().populate('devicesLinked');
@@ -41,6 +42,7 @@ export const getAllUsers = async (_req: Request, res: Response): Promise<void> =
   }
 };
 
+// Get user by ID
 export const getUserById = async (req: Request, res: Response): Promise<void> => {
   try {
     const user: UserInterface | null = await User.findById(req.params.id).populate('devicesLinked');
@@ -57,6 +59,7 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
   }
 };
 
+// Delete user by ID
 export const deleteUserById = async (req: Request, res: Response): Promise<void> => {
   try {
     const deletedUser: UserInterface | null = await User.findByIdAndDelete(req.params.id);
