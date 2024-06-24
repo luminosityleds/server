@@ -4,8 +4,8 @@ FROM node:18-bullseye
 # Specifies app directory as working directory in docker image
 WORKDIR /app
 
-# Exposes port 4000 which is the same port specified in the express app in publish.ts
-EXPOSE 4000
+# Exposes port 6000 which is the same port specified in the express app in publish.ts
+EXPOSE 6000
 
 # Copy config files to app directory in docker image
 COPY package.json /app/

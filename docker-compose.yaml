@@ -11,16 +11,16 @@ services:
       - "1883:1883"
     env_file: ".env"
 
-  # server:
-  #   build: "."
-  #   command: "npm run server"
-  #   ports:
-  #     - "4000:4000"
-  #   networks:
-  #     - backend
-  #   env_file: ".env"
-  #   depends_on:
-  #     - "activemq"
+  server:
+    build: "."
+    command: "npm run server"
+    ports:
+      - "4000:4000"
+    networks:
+      - backend
+    env_file: ".env"
+    depends_on:
+      - "activemq"
   account:
     container_name: "account"
     build: "src/account/"
@@ -40,7 +40,7 @@ services:
     volumes:
       - ./src/notification/publish:/app
     ports:
-      - 4000:4000
+      - 6000:6000
     networks:
       - backend
     depends_on:

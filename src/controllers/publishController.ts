@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import mqtt, { MqttClient } from 'mqtt';
 import { v1 as uuidv1 } from 'uuid';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -12,22 +11,6 @@ const options = {
   port: 1883,
 };
 const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
-
-// Establish Mongoose connection
-// MongoDB URL
-const URL = process.env.MONGO_DB_URL;
-
-// Verify that URL is defined
-if (URL) {
-  const mongo_connect = mongoose.createConnection(URL);
-  mongo_connect.on(`error`, console.error.bind(console, `connection error:`));
-  mongo_connect.once(`open`, () => {
-    // Successful connection!
-    console.log("MongoDB database connection established successfully");
-  });
-} else {
-  console.error("MongoDB URL is not defined in .env file.");
-}
 
 // Publish message to MQTT
 export const publishMessage = async (req: Request, res: Response) => {

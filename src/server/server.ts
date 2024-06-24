@@ -1,5 +1,5 @@
 import express from "express";
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
@@ -7,6 +7,8 @@ import cors from "cors";
 import userRouter from "../routes/userRoutes";
 import publishRouter from "../routes/publishRoutes";
 import subscribeRouter from "../routes/subscribeRoutes";
+
+import dbConfig from '../notification/publish/db'; // Import MongoDB configuration from db.ts
 
 // TODO: Remove, deprecate, or archive unused commented out code
 // dotenv.config();
@@ -42,20 +44,25 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
-// MongoDB URL
-const URL = process.env.MONGO_DB_URL;
-
-// Verify that URL is defined
-if (URL) {
-  const mongo_connect = mongoose.createConnection(URL);
-  mongo_connect.on(`error`, console.error.bind(console, `connection error:`));
-  mongo_connect.once(`open`, () => {
-    // Successful connection!
-    console.log("MongoDB database connection established successfully");
-  });
-} else {
-  console.error("MongoDB URL is not defined in .env file.");
+// MongoDB connection setup
+async function connectToMongoDB() {
+  try {
+    await mongoose.connect(dbConfig.dbURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    } as ConnectOptions);
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error(`Error connecting to MongoDB: ${error}`);
+    process.exit(1); // Exit process on connection error
+  }
 }
+
+// Connect to MongoDB and start the server
+connectToMongoDB().catch(error => {
+  console.error(`Error starting Publish service: ${error}`);
+  process.exit(1); // Exit process if MongoDB connection or server startup fails
+});
 
 // Middleware setup
 app.use(express.json());

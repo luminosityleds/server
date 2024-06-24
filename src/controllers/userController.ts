@@ -39,10 +39,18 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     }
 
     // Save the user with linked devices
-    const savedUser: UserInterface = await newUser.save();
+    let savedUser: UserInterface | null = await newUser.save();
+
+    // Populate the devicesLinked field
+    savedUser = await User.findById(savedUser._id).populate('devicesLinked').exec();
+
+    if (!savedUser) {
+      throw new Error('User not found after saving');
+    }
+
     res.status(201).json(savedUser);
   } catch (error) {
-    console.error(error);
+    console.error('Error saving user:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };

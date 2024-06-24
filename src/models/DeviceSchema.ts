@@ -8,7 +8,7 @@ export interface DeviceInterface extends Document {
   connected?: boolean;
   connectedTimestamp?: Date | null;
   color?: string;
-  colorTimestamp?: string;
+  colorTimestamp?: Date | null; // Corrected to Date
   brightness?: number;
   brightnessTimestamp?: Date | null;
 }
@@ -21,7 +21,7 @@ const DeviceSchema: Schema = new mongoose.Schema({
   },
   lastUpdated: {
     type: Date,
-    default: new Date(),
+    default: Date.now, // Corrected to use Date.now
     required: true,
   },
   powered: {
@@ -40,7 +40,7 @@ const DeviceSchema: Schema = new mongoose.Schema({
     type: String,
   },
   colorTimestamp: {
-    type: String,
+    type: Date, // Corrected to Date
   },
   brightness: {
     type: Number,
