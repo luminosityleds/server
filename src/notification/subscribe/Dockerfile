@@ -1,5 +1,5 @@
 # Base image for subscribe notification microservice.  This image uses amd64 as the architecture 
-FROM amd64/node:18-bullseye
+FROM node:18-bullseye
 
 # Specifies app directory as working directory in docker image
 WORKDIR /app

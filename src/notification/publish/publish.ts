@@ -18,46 +18,31 @@ const options = {
 };
 const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
 
-const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options);
-
-client.on('connect', () => {
-  console.log("Broker connected");
-});
-
-client.on('error', (error) => {
-  console.error(error);
-});
-
-mongoose.connect(dbConfig.dbURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-} as ConnectOptions).then(() => {
-  console.log('MongoDB connected');
-}).catch((err) => {
-  console.error('MongoDB connection error:', err);
-  process.exit(1); // Exit process on connection error
-});
-
-const publishRouter = express.Router();
-
-publishRouter.post('/publish', (req, res) => {
+app.get("/publish/:id", async (req, res) => {
+  const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options); // Type assertion
   const event = {
-    id: uuidv1(),
-    message: "Hello from Publish Service",
+    id: req.params.id,
+    message: "From Publish Service",
   };
 
-  client.publish(topic, JSON.stringify(event), {}, (err) => {
-    if (err) {
-      console.error(`Error publishing message: ${err}`);
-      res.status(500).json({ error: 'Failed to publish message' });
-    } else {
-      console.log(`Published message: ${JSON.stringify(event)} to topic ${topic}`);
-      res.status(200).json({ message: 'Message published successfully' });
-    }
+  client.on('connect', () => {
+    console.log("Broker connected");
+    client.publish(topic, JSON.stringify(event), {}, (err) => {
+      if (err) {
+        console.error(`Error publishing message: ${err}`);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+        client.end();
+        res.json(event);
+      }
+    });
+  });
+
+  client.on('error', (error) => {
+    console.log(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   });
 });
-
-app.use('/publish', publishRouter);
 
 app.listen(port, () => {
   console.log(`Publish service is running on port ${port}`);
