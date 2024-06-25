@@ -1,6 +1,7 @@
 import mqtt, { MqttClient } from 'mqtt';
 import dotenv from 'dotenv';
 import express from 'express';
+import { Request, Response } from 'express';
 import mongoose, { ConnectOptions } from "mongoose";
 import dbConfig from './db'; // Import MongoDB configuration from db.ts
 
@@ -61,11 +62,12 @@ client.on('error', (error) => {
 
 const subscribeRouter = express.Router();
 
-// Define subscription routes if needed
-// Example:
-// subscribeRouter.get('/subscribe', (req, res) => {
-//   res.send('Subscribe endpoint');
-// });
+// Check subscription status
+subscribeRouter.get('/status', (req: Request, res: Response) => {
+  res.status(200).json({ message: 'Subscriber is running' });
+});
+
+app.use('/subscribe', subscribeRouter);
 
 app.listen(port, () => {
   console.log(`Subscribe service is running on port ${port}`);
