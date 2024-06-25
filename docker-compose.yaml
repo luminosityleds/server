@@ -47,12 +47,14 @@ services:
       - activemq
     
   subscribe:
-    container_name: subscribe
+    container_name: "subscribe"
     build:
       context: 'src/notification/subscribe'
     env_file: ".env"
     volumes:
       - ./src/notification/subscribe:/app
+    ports:
+      - 7000:7000
     networks:
       - backend
     depends_on:

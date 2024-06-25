@@ -86,14 +86,24 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
 // Delete user by ID
 export const deleteUserById = async (req: Request, res: Response): Promise<void> => {
   try {
-    const deletedUser: UserInterface | null = await User.findByIdAndDelete(req.params.id);
+    // Find the user by ID
+    const user: UserInterface | null = await User.findById(req.params.id);
 
-    if (!deletedUser) {
+    if (!user) {
       res.status(404).json({ error: 'User not found' });
       return;
     }
 
-    res.json({ message: 'User deleted successfully' });
+    // Delete associated devices
+    const deviceIds = user.devicesLinked;
+    if (deviceIds.length > 0) {
+      await Device.deleteMany({ _id: { $in: deviceIds } });
+    }
+
+    // Delete the user
+    const deletedUser: UserInterface | null = await User.findByIdAndDelete(req.params.id);
+
+    res.json({ message: 'User and associated devices deleted successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

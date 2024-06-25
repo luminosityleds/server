@@ -1,8 +1,13 @@
 import mqtt, { MqttClient } from 'mqtt';
 import dotenv from 'dotenv';
 import express from 'express';
+import mongoose, { ConnectOptions } from "mongoose";
+import dbConfig from './db'; // Import MongoDB configuration from db.ts
 
 dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 7000;
 
 const options = {
   username: process.env.ACTIVE_MQ_USERNAME,
@@ -13,6 +18,26 @@ const options = {
 const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
 
 const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options);
+
+// MongoDB connection setup
+async function connectToMongoDB() {
+  try {
+    await mongoose.connect(dbConfig.dbURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    } as ConnectOptions);
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error(`Error connecting to MongoDB: ${error}`);
+    process.exit(1); // Exit process on connection error
+  }
+}
+
+// Connect to MongoDB and start the server
+connectToMongoDB().catch(error => {
+  console.error(`Error starting Subscribe service: ${error}`);
+  process.exit(1); // Exit process if MongoDB connection or server startup fails
+});
 
 client.on('connect', () => {
   console.log("Broker connected");
@@ -42,4 +67,6 @@ const subscribeRouter = express.Router();
 //   res.send('Subscribe endpoint');
 // });
 
-export { subscribeRouter };
+app.listen(port, () => {
+  console.log(`Subscribe service is running on port ${port}`);
+});

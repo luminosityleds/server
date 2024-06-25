@@ -60,7 +60,7 @@ async function connectToMongoDB() {
 
 // Connect to MongoDB and start the server
 connectToMongoDB().catch(error => {
-  console.error(`Error starting Publish service: ${error}`);
+  console.error(`Error starting Server service: ${error}`);
   process.exit(1); // Exit process if MongoDB connection or server startup fails
 });
 

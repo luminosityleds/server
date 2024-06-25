@@ -27,26 +27,27 @@ client.on('message', async (receivedTopic, msg) => {
   console.log(`Message received: ${message}`);
 
   // MongoDB logic for handling received message
-  try {
-    interface Subscription extends Document {
-      id: string;
-      message: string;
-    }
+ try {
+  interface SubscriptionInterface extends Document {
+    id: string;
+    message: string;
+  }
 
-    const subscriptionSchema = new Schema<Subscription>({
-      id: String,
-      message: String,
-    });
+  const subscriptionSchema = new Schema<SubscriptionInterface>({
+    id: String,
+    message: String,
+  });
 
-    const SubscriptionModel = mongoose.model<Subscription>('Subscription', subscriptionSchema);
+  // Check if the model already exists before defining it
+  const SubscriptionModel = mongoose.models.Subscription || mongoose.model<SubscriptionInterface>('Subscription', subscriptionSchema);
 
-    const subscription = {
-      id: uuidv4(),
-      message: message,
-    };
+  const subscription = {
+    id: uuidv4(),
+    message: message,
+  };
 
-    await SubscriptionModel.create(subscription);
-  } catch (error) {
+  await SubscriptionModel.create(subscription);
+} catch (error) {
 
     // Simulate a 404 error
     if (!message) {
