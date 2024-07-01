@@ -1,74 +1,76 @@
-import { Request, Response } from 'express';
-import mqtt, { MqttClient } from 'mqtt';
-import { v4 as uuidv4 } from 'uuid';
-import mongoose, { Schema, Document } from 'mongoose';
-import dotenv from 'dotenv';
-dotenv.config();
+// // TODO: Remove, deprecate, or archive unused commented out code
 
-const options = {
-  username: process.env.ACTIVE_MQ_USERNAME,
-  password: process.env.ACTIVE_MQ_PASSWORD,
-  clientId: `subscribe_${uuidv4()}`,
-  port: 1883,
-};
+// import { Request, Response } from 'express';
+// import mqtt, { MqttClient } from 'mqtt';
+// import { v4 as uuidv4 } from 'uuid';
+// import mongoose, { Schema, Document } from 'mongoose';
+// import dotenv from 'dotenv';
+// dotenv.config();
 
-const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
-const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options); // Type assertion
+// const options = {
+//   username: process.env.ACTIVE_MQ_USERNAME,
+//   password: process.env.ACTIVE_MQ_PASSWORD,
+//   clientId: `subscribe_${uuidv4()}`,
+//   port: 1883,
+// };
 
-client.on('connect', () => {
-  client.subscribe(topic);
-});
+// const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
+// const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options); // Type assertion
 
-let message: string | null = null;
+// client.on('connect', () => {
+//   client.subscribe(topic);
+// });
 
-client.on('message', async (receivedTopic, msg) => {
-  console.log(`Message received on topic ${receivedTopic}`);
-  message = msg.toString();
-  console.log(`Message received: ${message}`);
+// let message: string | null = null;
 
-  // MongoDB logic for handling received message
- try {
-  interface SubscriptionInterface extends Document {
-    id: string;
-    message: string;
-  }
+// client.on('message', async (receivedTopic, msg) => {
+//   console.log(`Message received on topic ${receivedTopic}`);
+//   message = msg.toString();
+//   console.log(`Message received: ${message}`);
 
-  const subscriptionSchema = new Schema<SubscriptionInterface>({
-    id: String,
-    message: String,
-  });
+//   // MongoDB logic for handling received message
+//  try {
+//   interface SubscriptionInterface extends Document {
+//     id: string;
+//     message: string;
+//   }
 
-  // Check if the model already exists before defining it
-  const SubscriptionModel = mongoose.models.Subscription || mongoose.model<SubscriptionInterface>('Subscription', subscriptionSchema);
+//   const subscriptionSchema = new Schema<SubscriptionInterface>({
+//     id: String,
+//     message: String,
+//   });
 
-  const subscription = {
-    id: uuidv4(),
-    message: message,
-  };
+//   // Check if the model already exists before defining it
+//   const SubscriptionModel = mongoose.models.Subscription || mongoose.model<SubscriptionInterface>('Subscription', subscriptionSchema);
 
-  await SubscriptionModel.create(subscription);
-} catch (error) {
+//   const subscription = {
+//     id: uuidv4(),
+//     message: message,
+//   };
 
-    // Simulate a 404 error
-    if (!message) {
-      throw { status: 404, message: 'Not Found' };
-    }
+//   await SubscriptionModel.create(subscription);
+// } catch (error) {
 
-    // Simulate a 403 error
-    if (message === 'Forbidden') {
-      throw { status: 403, message: 'Forbidden' };
-    }
+//     // Simulate a 404 error
+//     if (!message) {
+//       throw { status: 404, message: 'Not Found' };
+//     }
 
-    // Simulate a 401 error
-    if (message === 'Unauthorized') {
-      throw { status: 401, message: 'Unauthorized' };
-    }
+//     // Simulate a 403 error
+//     if (message === 'Forbidden') {
+//       throw { status: 403, message: 'Forbidden' };
+//     }
+
+//     // Simulate a 401 error
+//     if (message === 'Unauthorized') {
+//       throw { status: 401, message: 'Unauthorized' };
+//     }
     
-    console.error(error);
-  }
-});
+//     console.error(error);
+//   }
+// });
 
-// Check subscription status
-export const checkSubscriptionStatus = (req: Request, res: Response) => {
-  res.status(200).json({ message: 'Subscriber is running' });
-};
+// // Check subscription status
+// export const checkSubscriptionStatus = (req: Request, res: Response) => {
+//   res.status(200).json({ message: 'Subscriber is running' });
+// };

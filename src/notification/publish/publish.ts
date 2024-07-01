@@ -2,8 +2,7 @@ import mqtt, { MqttClient } from 'mqtt';
 import { v1 as uuidv1 } from 'uuid';
 import dotenv from 'dotenv';
 import express from 'express';
-import mongoose, { ConnectOptions } from "mongoose";
-import dbConfig from './db'; // Import MongoDB configuration from db.t
+import { connectToMongoDB } from './db'; // Import the singleton connection function
 
 dotenv.config();
 
@@ -16,21 +15,7 @@ const options = {
   clientId: `publish_${uuidv1()}`,
   port: 1883,
 };
-const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
-
-// MongoDB connection setup
-async function connectToMongoDB() {
-  try {
-    await mongoose.connect(dbConfig.dbURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    } as ConnectOptions);
-    console.log('Connected to MongoDB');
-  } catch (error) {
-    console.error(`Error connecting to MongoDB: ${error}`);
-    process.exit(1); // Exit process on connection error
-  }
-}
+const topic = process.env.ACTIVE_MQ_TOPIC as string;
 
 // Connect to MongoDB and start the server
 connectToMongoDB().catch(error => {
@@ -39,7 +24,7 @@ connectToMongoDB().catch(error => {
 });
 
 app.get("/publish/:id", async (req, res) => {
-  const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options); // Type assertion
+  const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options);
   const event = {
     id: req.params.id,
     message: "From Publish Service",
@@ -58,7 +43,7 @@ app.get("/publish/:id", async (req, res) => {
     });
   });
 
-  client.on('error', (error) => {
+  client.on('error', (error: Error) => {
     console.log(error);
     res.status(500).json({ error: 'Internal Server Error' });
   });

@@ -2,8 +2,7 @@ import mqtt, { MqttClient } from 'mqtt';
 import dotenv from 'dotenv';
 import express from 'express';
 import { Request, Response } from 'express';
-import mongoose, { ConnectOptions } from "mongoose";
-import dbConfig from './db'; // Import MongoDB configuration from db.ts
+import { connectToMongoDB } from './db'; // Import the singleton connection function
 
 dotenv.config();
 
@@ -13,26 +12,12 @@ const port = process.env.PORT || 7000;
 const options = {
   username: process.env.ACTIVE_MQ_USERNAME,
   password: process.env.ACTIVE_MQ_PASSWORD,
-  clientId: `subscribe_${Math.random().toString(16).substr(2, 8)}`, // Generate random client ID
+  clientId: `subscribe_${Math.random().toString(16).substr(2, 8)}`,
   port: 1883,
 };
-const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
+const topic = process.env.ACTIVE_MQ_TOPIC as string;
 
 const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options);
-
-// MongoDB connection setup
-async function connectToMongoDB() {
-  try {
-    await mongoose.connect(dbConfig.dbURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    } as ConnectOptions);
-    console.log('Connected to MongoDB');
-  } catch (error) {
-    console.error(`Error connecting to MongoDB: ${error}`);
-    process.exit(1); // Exit process on connection error
-  }
-}
 
 // Connect to MongoDB and start the server
 connectToMongoDB().catch(error => {
@@ -53,16 +38,14 @@ client.on('connect', () => {
 
 client.on('message', (topic, message) => {
   console.log(`Received message from topic ${topic}: ${message.toString()}`);
-  // Process the received message as needed
 });
 
-client.on('error', (error) => {
+client.on('error', (error: Error) => {
   console.error(error);
 });
 
 const subscribeRouter = express.Router();
 
-// Check subscription status
 subscribeRouter.get('/status', (req: Request, res: Response) => {
   res.status(200).json({ message: 'Subscriber is running' });
 });

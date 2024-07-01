@@ -1,14 +1,13 @@
 import express from "express";
-import mongoose, { ConnectOptions } from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
 // import routeURLs from "../routes/routes"; <- DEPRECATED
 import userRouter from "../routes/userRoutes";
-import publishRouter from "../routes/publishRoutes";
-import subscribeRouter from "../routes/subscribeRoutes";
+// import publishRouter from "../routes/publishRoutes"; <- DEPRECATED
+// import subscribeRouter from "../routes/subscribeRoutes"; <- DEPRECATED
 
-import dbConfig from '../notification/publish/db'; // Import MongoDB configuration from db.ts
+import { connectToMongoDB } from '../db'; // Import the singleton connection function
 
 // TODO: Remove, deprecate, or archive unused commented out code
 // dotenv.config();
@@ -44,20 +43,6 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
-// MongoDB connection setup
-async function connectToMongoDB() {
-  try {
-    await mongoose.connect(dbConfig.dbURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    } as ConnectOptions);
-    console.log('Connected to MongoDB');
-  } catch (error) {
-    console.error(`Error connecting to MongoDB: ${error}`);
-    process.exit(1); // Exit process on connection error
-  }
-}
-
 // Connect to MongoDB and start the server
 connectToMongoDB().catch(error => {
   console.error(`Error starting Server service: ${error}`);
@@ -73,8 +58,8 @@ app.use(cors());
 // app.use("/app", routeURLs); // Existing routes <- DEPRECATED
 
 app.use("/users", userRouter); // User service routes
-app.use("/publish", publishRouter); // Publish service routes
-app.use("/subscribe", subscribeRouter); // Subscribe service routes
+// app.use("/publish", publishRouter); // Publish service routes <- DEPRECATED
+// app.use("/subscribe", subscribeRouter); // Subscribe service routes <- DEPRECATED
 
 // Start the server
 app.listen(port, () => {

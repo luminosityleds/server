@@ -1,8 +1,10 @@
-import express from 'express';
-import { checkSubscriptionStatus } from '../controllers/subscribeController';
+// TODO: Remove, deprecate, or archive unused commented out code
 
-const router = express.Router();
+// import express from 'express';
+// import { checkSubscriptionStatus } from '../controllers/subscribeController';
 
-router.get('/status', checkSubscriptionStatus);
+// const router = express.Router();
 
-export default router;
+// router.get('/status', checkSubscriptionStatus);
+
+// export default router;

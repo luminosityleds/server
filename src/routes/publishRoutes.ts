@@ -1,8 +1,10 @@
-import express from 'express';
-import { publishMessage } from '../controllers/publishController';
+// TODO: Remove, deprecate, or archive unused commented out code
 
-const router = express.Router();
+// import express from 'express';
+// import { publishMessage } from '../controllers/publishController';
 
-router.get('/:id', publishMessage);
+// const router = express.Router();
 
-export default router;
+// router.get('/:id', publishMessage);
+
+// export default router;
