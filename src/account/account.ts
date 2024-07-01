@@ -17,7 +17,7 @@ export const MICROSERVICE = config.microservice.account;
 export const PORT = config.microservice.port;
 
 // URL to mongoDB cluster
-export const URL = `mongodb+srv://${USR}:${PSW}@${CLUS}.cgornhw.mongodb.net/Luminosity`;
+export const URL = process.env.MONGO_DB_URL ?? "";
 
 // Creates an Express application
 export const app = express();

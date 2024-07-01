@@ -1,68 +1,57 @@
-import express from 'express';
 import mqtt, { MqttClient } from 'mqtt';
-import { v1 as uuidv1 } from 'uuid';
-import mongoose, { Schema, Document } from 'mongoose';
 import dotenv from 'dotenv';
+import express from 'express';
+import { Request, Response } from 'express';
+import { connectToMongoDB } from './db'; // Import the singleton connection function
+
 dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 7000;
 
 const options = {
   username: process.env.ACTIVE_MQ_USERNAME,
   password: process.env.ACTIVE_MQ_PASSWORD,
-  clientId: `subscribe_${uuidv1()}`,
+  clientId: `subscribe_${Math.random().toString(16).substr(2, 8)}`,
   port: 1883,
 };
+const topic = process.env.ACTIVE_MQ_TOPIC as string;
 
-const topic = process.env.ACTIVE_MQ_TOPIC as string; // Type assertion
-const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options); // Type assertion
+const client: MqttClient = mqtt.connect(process.env.ACTIVE_MQ_ENDPOINT as string, options);
 
-client.on('connect', () => {
-  client.subscribe(topic);
+// Connect to MongoDB and start the server
+connectToMongoDB().catch(error => {
+  console.error(`Error starting Subscribe service: ${error}`);
+  process.exit(1); // Exit process if MongoDB connection or server startup fails
 });
 
-let message: string | null = null;
-
-client.on('message', async (receivedTopic, msg) => {
-  console.log(`Message received on topic ${receivedTopic}`);
-  message = msg.toString();
-  console.log(`Message received: ${message}`);
-
-  // MongoDB logic for handling received message
-  try {
-    interface Subscription extends Document {
-      id: string;
-      message: string;
+client.on('connect', () => {
+  console.log("Broker connected");
+  client.subscribe(topic, (err) => {
+    if (err) {
+      console.error(`Error subscribing to topic: ${err}`);
+    } else {
+      console.log(`Subscribed to topic: ${topic}`);
     }
+  });
+});
 
-    const subscriptionSchema = new Schema<Subscription>({
-      id: String,
-      message: String,
-    });
+client.on('message', (topic, message) => {
+  console.log(`Received message from topic ${topic}: ${message.toString()}`);
+});
 
-    const SubscriptionModel = mongoose.model<Subscription>('Subscription', subscriptionSchema);
+client.on('error', (error: Error) => {
+  console.error(error);
+});
 
-    const subscription = {
-      id: uuidv1(),
-      message: message,
-    };
+const subscribeRouter = express.Router();
 
-    await SubscriptionModel.create(subscription);
-  } catch (error) {
+subscribeRouter.get('/status', (req: Request, res: Response) => {
+  res.status(200).json({ message: 'Subscriber is running' });
+});
 
-    // Simulate a 404 error
-    if (!message) {
-      throw { status: 404, message: 'Not Found' };
-    }
+app.use('/subscribe', subscribeRouter);
 
-    // Simulate a 403 error
-    if (message === 'Forbidden') {
-      throw { status: 403, message: 'Forbidden' };
-    }
-
-    // Simulate a 401 error
-    if (message === 'Unauthorized') {
-      throw { status: 401, message: 'Unauthorized' };
-    }
-    
-    console.error(error);
-  }
+app.listen(port, () => {
+  console.log(`Subscribe service is running on port ${port}`);
 });

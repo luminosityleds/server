@@ -1,5 +1,5 @@
 # Base image for account microservice.  This image uses amd64 as the architecture 
-FROM amd64/node:18-bullseye
+FROM node:18-bullseye
 
 # Specifies root of file structure as working directory in docker image
 WORKDIR /
