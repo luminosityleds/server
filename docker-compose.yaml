@@ -13,7 +13,16 @@ services:
   models:
     build: "src/models/"
     command: "echo Models Container Working"
-  routes:
+  google:
+    build: "src/routes/"
+    command: "npx ts-node google.ts"
+    ports:
+      - "5000:5000"
+      - "8081:8081"
+    env_file: "src/routes/.env"
+    depends_on:
+      - "models"
+  github:
     build: "src/routes/"
     command: "npx ts-node github.ts"
     ports:
@@ -31,4 +40,5 @@ services:
 # Requires server services to run before running client servers
     depends_on:
       # - "account"
-      - "routes"
+      - "google"
+      - "github"

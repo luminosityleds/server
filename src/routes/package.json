@@ -5,7 +5,7 @@
   "main": "routes.ts",
   "scripts": {
     "test": "npx ts-node routes.ts",
-    "account": "npx ts-node github.ts"
+    "account": "npx ts-node github.ts google.ts"
   },
   "keywords": [],
   "author": "",

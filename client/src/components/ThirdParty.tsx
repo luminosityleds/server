@@ -7,6 +7,7 @@ import { useGoogleLogin } from "@react-oauth/google"
 import { PublicClientApplication } from "@azure/msal-browser"
 import axios from "axios"
 import queryString from "querystring"
+// import { userInfo } from "os";
 
 // Microsoft config
 export const MicrosoftConfig = {
@@ -24,48 +25,18 @@ const msalInstance = new PublicClientApplication(MicrosoftConfig)
 
 // Github Client ID
 const CLIENT_ID = process.env.REACT_APP_GH_ID;
+// Google Login Variables
+const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID;
+const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_OAUTH_REDIRECT_URL;
+const SCOPE = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
+const RESPONSE_TYPE = 'code';
 
 // Login components
 export const GoogleLogin = () => {
-  const login = useGoogleLogin({
-    onSuccess: async response => {
-      try {
-        const google_response = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", 
-        {
-          headers: {
-            "Authorization": `Bearer ${response.access_token}` 
-          }
-        })
-        
-        const google_data = {
-          email: google_response.data.email,
-          name: google_response.data.name
-        }
-        
-        const login_response = axios.post('http://localhost:4000/app/account',
-        google_data
-        ).then(response => {
-          if (response.data.success === true) {
-            // Set that the user is now logged in
-            window.localStorage.setItem("isLoggedIn", "true")
-            window.localStorage.setItem("userName", google_data.name)
-
-            // Go back to the homepage
-            window.location.href = "/"
-          }
-
-          else if (response.data.success === false) {
-            // Go to the registration page
-            window.location.href = "/register"
-          }
-        });
-      }
-      catch (err) {
-        console.log(err);
-      }
-    }
-  });
-
+  function login() {
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=${RESPONSE_TYPE}&client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&scope=${encodeURIComponent(SCOPE)}`;
+    window.location.href = authUrl;
+  } 
   return (
   <div>
     <button className="third-party-btn" onClick={() => login()}>

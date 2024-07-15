@@ -11,7 +11,7 @@ export const Login: FC<Users> = (props: Users) => {
       <h1>Login</h1>
       {/* Start of third party login buttons */}
       <div className="third-party-btns">
-        <GoogleOAuthProvider clientId="281168454695-kvsbsq9sp4gtap61erk0mhe53bgddgfl.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId="337166284035-e9g7u5rcp0fam8o2bbrcj2o8nct3tabb.apps.googleusercontent.com">
           <GoogleLogin />
         </GoogleOAuthProvider>
       </div>
