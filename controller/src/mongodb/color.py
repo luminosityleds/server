@@ -5,6 +5,8 @@ def getColor(uuid: str) -> str:
     response = lumongo.findOne({"uuid": uuid}, {"color": 1})
     color = response.json()["document"]["color"]
     print(f"INFO | GET | COLOR: {color}")
+    if color is None:
+        color = "ERRNONE"
     return color
 
 def setColor(uuid: str, value: str):
