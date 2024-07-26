@@ -3,10 +3,8 @@ from . import lumongo
 def getColor(uuid: str) -> str:
     """ Getter for color state in the DB.  Stdout when method is instantiated and the values."""
     response = lumongo.findOne({"uuid": uuid}, {"color": 1})
-    color = response.json()["document"]["color"]
+    color = response.json()["document"]["color"] if not None else "NONE"
     print(f"INFO | GET | COLOR: {color}")
-    if color is None:
-        color = "ERRNONE"
     return color
 
 def setColor(uuid: str, value: str):
