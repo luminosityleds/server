@@ -3,7 +3,7 @@ from . import lumongo
 def getColor(uuid: str) -> str:
     """ Getter for color state in the DB.  Stdout when method is instantiated and the values."""
     response = lumongo.findOne({"uuid": uuid}, {"color": 1})
-    print("Response", response)
+    print("Response", response.text)
     print()
     color = response.json()["document"]["color"]
     print("Color: ", color)
@@ -15,7 +15,7 @@ def setColor(uuid: str, value: str):
     if len(value) == 7: 
         print(f"INFO | SET | COLOR: {value}")
         response = lumongo.updateOne({"uuid": uuid}, {'$set': {'color': value}})
-        print("Response:", response)
+        print("Response:", response.text)
 
     else:
             print(f"ERROR | SET | COLOR: {value} is not a valid color value!")
