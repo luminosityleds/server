@@ -1,34 +1,86 @@
 
-version: "3.8"
-
+version: "3"
 services:
-  # account:
-  #   build: "src/account/"
-  #   command: "npm run account"
-  #   ports: 
-  #     - "5000:5000" 
-  #   env_file: "src/account/.env"
-  #   dns:
-  #     - "8.8.8.8"
-  models:
-    build: "src/models/"
-    command: "echo Models Container Working"
-  routes:
-    build: "src/routes/"
-    command: "npx ts-node github.ts"
+  activemq: 
+    image: rmohr/activemq
+    container_name: activemq
+    networks:
+      - backend
+    ports: 
+      - "8161:8161"
+      - "1883:1883"
+    env_file: ".env"
+
+  server:
+    build: "."
+    command: "npm run server"
     ports:
       - "4000:4000"
-      - "8080:8080"
-    env_file: "src/routes/.env"
+    networks:
+      - backend
+    env_file: ".env"
     depends_on:
-      - "models"
-  client:
-    build: "client/"
-    command: "npm start"
+      - "activemq"
+  account:
+    container_name: "account"
+    build: "src/account/"
+    command: "npm run account"
+    ports: 
+      - "5000:5000" 
+    env_file: ".env"
+    dns:
+      - "8.8.8.8"
+    networks:
+      - backend
+  publish:
+    container_name: "publish"
+    build:
+      context: 'src/notification/publish'
+    env_file: ".env"
+    volumes:
+      - ./src/notification/publish:/app
     ports:
-      - "3000:3000"
-    env_file: "src/routes/.env"
-# Requires server services to run before running client servers
+      - 6000:6000
+    networks:
+      - backend
     depends_on:
-      # - "account"
-      - "routes"
+      - activemq
+    
+  subscribe:
+    container_name: "subscribe"
+    build:
+      context: 'src/notification/subscribe'
+    env_file: ".env"
+    volumes:
+      - ./src/notification/subscribe:/app
+    ports:
+      - 7000:7000
+    networks:
+      - backend
+    depends_on:
+      - activemq
+#   models:
+#     build: "src/models/"
+#     command: "echo Models Container Working"
+#   routes:
+#     build: "src/routes/"
+#     command: "npx ts-node github.ts"
+#     ports:
+#       - "4000:4000"
+#       - "8080:8080"
+#     env_file: "src/routes/.env"
+#     depends_on:
+#       - "models"
+#   client:
+#     build: "client/"
+#     command: "npm start"
+#     ports:
+#       - "3000:3000"
+#     env_file: "src/routes/.env"
+# # Requires server services to run before running client servers
+#     depends_on:
+#       # - "account"
+#       - "routes"
+
+networks:
+  backend:
