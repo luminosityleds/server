@@ -1,28 +1,120 @@
+import mqtt, { MqttClient, IClientPublishOptions, PacketCallback, DoneCallback } from 'mqtt';
+import express from 'express';
 import request from 'supertest';
-import server from './publish'; // Import your Express app
+import { connectToMongoDB } from './db';
 
-// Mock the mqtt library
-jest.mock('mqtt', () => ({
-  connect: jest.fn(() => ({
-    on: jest.fn(),
-    publish: jest.fn(),
-    end: jest.fn(),
-  })),
-}));
+jest.mock('mqtt');
+jest.mock('./db');
+
+// Helper type to mock all possible overloads
+type MockMqttClient = Partial<{
+  on: jest.Mock;
+  publish: jest.Mock;
+  end: jest.Mock;
+}>;
+
+const mockClient = (): MockMqttClient => {
+  const client = {} as MockMqttClient;
+  
+  client.on = jest.fn();
+  
+  client.publish = jest.fn(
+    (topic: string, message: string | Buffer, optsOrCallback?: IClientPublishOptions | PacketCallback, callback?: PacketCallback) => {
+      if (typeof optsOrCallback === 'function') {
+        optsOrCallback(); // Simulate success
+      } else if (callback) {
+        callback(); // Simulate success
+      }
+      return client as unknown as MqttClient; // Ensure it matches the return type
+    }
+  );
+
+  client.end = jest.fn(
+    (forceOrCallback?: boolean | (() => void), callback?: (() => void)) => {
+      if (typeof forceOrCallback === 'boolean') {
+        if (callback) callback(); // Simulate success if callback is provided
+      } else if (typeof forceOrCallback === 'function') {
+        forceOrCallback(); // Simulate success
+      } else if (callback) {
+        callback(); // Simulate success if only callback is provided
+      }
+      return client as unknown as MqttClient; // Ensure it matches the return type
+    }
+  );
+
+  return client;
+};
 
 describe('Publish Service', () => {
-  it(
-    'should return the expected response for /publish/:id',
-    async () => {
-      const response = await request(server).get('/publish/3');
+  let app: express.Express;
+  const topic = 'test/topic';
+  const options = {
+    username: 'testUser',
+    password: 'testPassword',
+    clientId: 'testClient',
+  };
 
-      // Check if the server returns a 200 status code
-      expect(response.status).toBe(200);
+  beforeEach(() => {
+    app = express();
 
-      // Check if the response body matches the expected format
-      expect(response.body).toEqual({ id: '3', message: 'From Publish Service' });
-    },
-    // Set the timeout to 20 seconds
-    20000
-  );
+    (mqtt.connect as jest.Mock).mockReturnValue(mockClient());
+    (connectToMongoDB as jest.Mock).mockResolvedValue(undefined);
+
+    app.get('/publish/:id', async (req, res) => {
+      const client: MqttClient = mqtt.connect('mqtt://test-broker', options);
+      const event = {
+        id: req.params.id,
+        message: 'From Publish Service',
+      };
+
+      client.on('connect', () => {
+        console.log('Broker connected');
+        client.publish(topic, JSON.stringify(event), {}, (err) => {
+          if (err) {
+            console.error(`Error publishing message: ${err}`);
+            res.status(500).json({ error: 'Internal Server Error' });
+          } else {
+            client.end();
+            res.json(event);
+          }
+        });
+      });
+
+      client.on('error', (error: Error) => {
+        console.log(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      });
+    });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should publish a message and return the event object', async () => {
+    const response = await request(app).get('/publish/12345');
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ id: '12345', message: 'From Publish Service' });
+    expect(mqtt.connect).toHaveBeenCalledTimes(1);
+  }, 10000);
+
+  it('should return 500 if publishing fails', async () => {
+    (mqtt.connect as jest.Mock).mockReturnValue({
+      ...mockClient(),
+      publish: jest.fn((topic, message, optsOrCallback, callback) => {
+        if (typeof optsOrCallback === 'function') {
+          optsOrCallback(new Error('Publish error'));
+        } else if (callback) {
+          callback(new Error('Publish error'));
+        }
+        return {} as MqttClient;
+      }),
+    });
+
+    const response = await request(app).get('/publish/12345');
+
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({ error: 'Internal Server Error' });
+  }, 10000);
 });

@@ -4,7 +4,7 @@
   "description": "",
   "main": "publish.ts",
   "scripts": {
-    "test": "jest publish.test.ts --watchAll --no-cache --runInBand --detectOpenHandles --forceExit",
+    "test": "jest publish.test.ts",
     "publish": "npx ts-node publish.ts",
     "publishRoutes": "npx ts-node publishRoutes.ts"
   },
