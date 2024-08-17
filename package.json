@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "jest test",
+    "coverage": "jest --coverage",
     "ts-coverage": "typescript-coverage-report",
     "server": "npx ts-node src/server/server.ts"
   },

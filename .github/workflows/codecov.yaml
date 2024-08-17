@@ -24,7 +24,7 @@ jobs:
       - name: Install CI dependencies
         run: npm ci
       - name: Run unit tests with code coverage
-        run: npm run ts-coverage
+        run: npm run coverage
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
