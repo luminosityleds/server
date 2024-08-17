@@ -16,9 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        name: Checkout 
       - uses: actions/setup-node@v1
+        name: Set up with Node 16
         with:
           node-version: '16.x'
+      - name: Install CI dependencies
+        run: npm ci
+      - name: Run unit tests with code coverage
+        run: npm run ts-coverage
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
