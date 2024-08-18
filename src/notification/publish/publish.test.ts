@@ -2,6 +2,7 @@ import mqtt, { MqttClient, IClientPublishOptions, PacketCallback, DoneCallback }
 import express from 'express';
 import request from 'supertest';
 import { connectToMongoDB } from './db';
+import { log, error } from "console";
 
 jest.mock('mqtt');
 jest.mock('./db');
@@ -68,10 +69,10 @@ describe('Publish Service', () => {
       };
 
       client.on('connect', () => {
-        console.log('Broker connected');
+        log('Broker connected');
         client.publish(topic, JSON.stringify(event), {}, (err) => {
           if (err) {
-            console.error(`Error publishing message: ${err}`);
+            error(`Error publishing message: ${err}`);
             res.status(500).json({ error: 'Internal Server Error' });
           } else {
             client.end();
@@ -81,7 +82,7 @@ describe('Publish Service', () => {
       });
 
       client.on('error', (error: Error) => {
-        console.log(error);
+        log(error);
         res.status(500).json({ error: 'Internal Server Error' });
       });
     });
@@ -116,5 +117,5 @@ describe('Publish Service', () => {
 
     expect(response.status).toBe(500);
     expect(response.body).toEqual({ error: 'Internal Server Error' });
-  }, 10000);
+  }, 5000);
 });

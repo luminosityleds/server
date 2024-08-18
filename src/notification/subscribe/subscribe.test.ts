@@ -2,10 +2,12 @@ import mqtt, { MqttClient } from 'mqtt';
 import request from 'supertest';
 import express from 'express';
 import { connectToMongoDB } from './db';
+import { log } from "console";
 
 jest.mock('mqtt');
 jest.mock('./db');
 
+// Helper function to create a mock MQTT client
 const mockClient = (): Partial<MqttClient> => {
   const client: Partial<MqttClient> = {
     on: jest.fn(),
@@ -28,7 +30,7 @@ describe('Subscribe Service', () => {
 
   beforeEach(() => {
     app = express();
-    
+
     const subscribeRouter = express.Router();
 
     subscribeRouter.get('/status', (req, res) => {
@@ -41,14 +43,21 @@ describe('Subscribe Service', () => {
     (mqtt.connect as jest.Mock).mockReturnValue(client);
     (connectToMongoDB as jest.Mock).mockResolvedValue(undefined);
 
-    // Set up the event handler mock
+    // Ensure the MQTT client code is initialized
+    // Require or invoke the module that initializes the MQTT client
+    // For example:
+    // require('./path/to/your/mqtt-setup'); // Adjust path as needed
+
+    // Debugging: Check the number of connectMock calls
     const connectMock = mqtt.connect as jest.Mock;
+    log('connectMock call count:', connectMock.mock.calls.length); // Debugging: Check the number of connect calls
+
     const mockClientInstance = connectMock.mock.results[0]?.value as Partial<MqttClient>;
 
     if (mockClientInstance) {
       (mockClientInstance.on as jest.Mock).mockImplementation((event: string, handler: (...args: any[]) => void) => {
         if (event === 'message') {
-          // Directly call the handler with test data
+          log('Mock on handler triggered'); // Debugging: Check if this line is executed
           handler('test-topic', Buffer.from('test-message'));
         }
         return mockClientInstance as MqttClient;
@@ -68,30 +77,29 @@ describe('Subscribe Service', () => {
   });
 
   it('should log messages received from the broker', () => {
-    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {}); // Mock implementation to avoid actual logging
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
-    // Simulate message reception
+    // Ensure the MQTT client is set up and used
     const connectMock = mqtt.connect as jest.Mock;
+    log('connectMock call count:', connectMock.mock.calls.length); // Debugging: Check the number of connect calls
+
     const mockClientInstance = connectMock.mock.results[0]?.value as Partial<MqttClient>;
 
     if (mockClientInstance && mockClientInstance.on) {
+      log('mockClientInstance.on:', mockClientInstance.on); // Debugging: Check the on method
+
       const messageHandler = (mockClientInstance.on as jest.Mock).mock.calls.find(([event]) => event === 'message')?.[1];
       if (messageHandler) {
         messageHandler('test-topic', Buffer.from('test-message'));
       }
     }
 
-    // Debugging: Output the actual calls to `console.log`
-    console.log('logSpy calls:', logSpy.mock.calls); // Log all calls to console.log for inspection
-
-    // Flatten the logged calls for easier inspection
-    const actualCalls = logSpy.mock.calls.map(call => call[0]);
-    console.log('Actual calls to console.log:', actualCalls); // Print actual calls for debugging
-
-    // Check if expected message is among the logged calls
     const expectedMessage = 'Received message from topic test-topic: test-message';
-    expect(actualCalls).toContain(expectedMessage); // Check if expected message is among the logged calls
-    
-    logSpy.mockRestore(); // Restore original implementation after test
+    const actualCalls = logSpy.mock.calls.map((call: any[]) => call.join(' '));
+
+    log('Actual calls to log:', actualCalls); // Debugging output
+    expect(actualCalls).toContain(expectedMessage);
+
+    logSpy.mockRestore();
   });
 });
