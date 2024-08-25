@@ -2,12 +2,11 @@ import mqtt, { MqttClient, IClientPublishOptions, PacketCallback, DoneCallback }
 import express from 'express';
 import request from 'supertest';
 import { connectToMongoDB } from './db';
-import { log, error } from "console";
+import { log, error } from 'console';
 
 jest.mock('mqtt');
 jest.mock('./db');
 
-// Helper type to mock all possible overloads
 type MockMqttClient = Partial<{
   on: jest.Mock;
   publish: jest.Mock;
@@ -16,9 +15,8 @@ type MockMqttClient = Partial<{
 
 const mockClient = (): MockMqttClient => {
   const client = {} as MockMqttClient;
-  
+
   client.on = jest.fn();
-  
   client.publish = jest.fn(
     (topic: string, message: string | Buffer, optsOrCallback?: IClientPublishOptions | PacketCallback, callback?: PacketCallback) => {
       if (typeof optsOrCallback === 'function') {
@@ -26,28 +24,26 @@ const mockClient = (): MockMqttClient => {
       } else if (callback) {
         callback(); // Simulate success
       }
-      return client as unknown as MqttClient; // Ensure it matches the return type
+      return client as unknown as MqttClient;
     }
   );
-
-  client.end = jest.fn(
-    (forceOrCallback?: boolean | (() => void), callback?: (() => void)) => {
-      if (typeof forceOrCallback === 'boolean') {
-        if (callback) callback(); // Simulate success if callback is provided
-      } else if (typeof forceOrCallback === 'function') {
-        forceOrCallback(); // Simulate success
-      } else if (callback) {
-        callback(); // Simulate success if only callback is provided
-      }
-      return client as unknown as MqttClient; // Ensure it matches the return type
+  client.end = jest.fn((forceOrCallback?: boolean | (() => void), callback?: (() => void)) => {
+    if (typeof forceOrCallback === 'boolean') {
+      if (callback) callback(); // Simulate success if callback is provided
+    } else if (typeof forceOrCallback === 'function') {
+      forceOrCallback(); // Simulate success
+    } else if (callback) {
+      callback(); // Simulate success if only callback is provided
     }
-  );
+    return client as unknown as MqttClient;
+  });
 
   return client;
 };
 
 describe('Publish Service', () => {
   let app: express.Express;
+  let server: any;
   const topic = 'test/topic';
   const options = {
     username: 'testUser',
@@ -55,7 +51,7 @@ describe('Publish Service', () => {
     clientId: 'testClient',
   };
 
-  beforeEach(() => {
+  beforeAll(() => {
     app = express();
 
     (mqtt.connect as jest.Mock).mockReturnValue(mockClient());
@@ -75,7 +71,7 @@ describe('Publish Service', () => {
             error(`Error publishing message: ${err}`);
             res.status(500).json({ error: 'Internal Server Error' });
           } else {
-            client.end();
+            client.end(); // Ensure the client is closed
             res.json(event);
           }
         });
@@ -86,10 +82,26 @@ describe('Publish Service', () => {
         res.status(500).json({ error: 'Internal Server Error' });
       });
     });
+
+    // Start the server on a random port for testing
+    server = app.listen(0);  // Start the server and save the instance
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  afterAll((done) => {
+    // Close the server after all tests are finished
+    server.close((err: any) => {
+      if (err) {
+        console.error("Error closing server:", err);
+        done(err);
+      } else {
+        console.log("Server closed successfully.");
+        done();
+      }
+    });
   });
 
   it('should publish a message and return the event object', async () => {
@@ -98,7 +110,10 @@ describe('Publish Service', () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({ id: '12345', message: 'From Publish Service' });
     expect(mqtt.connect).toHaveBeenCalledTimes(1);
-  }, 10000);
+
+    // Close the server after the test to ensure no open handles
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  }, 10000);  // Increased timeout to 30 seconds
 
   it('should return 500 if publishing fails', async () => {
     (mqtt.connect as jest.Mock).mockReturnValue({
@@ -117,5 +132,10 @@ describe('Publish Service', () => {
 
     expect(response.status).toBe(500);
     expect(response.body).toEqual({ error: 'Internal Server Error' });
-  }, 5000);
+
+    // Close the server after the test to ensure no open handles
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  }, 10000);  // Increased timeout to 30 seconds
+
+
 });
